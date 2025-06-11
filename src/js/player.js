@@ -48,14 +48,6 @@ export class Player extends Actor {
             y = pad.getAxes(1) ?? 0;
         }
 
-<<<<<<< HEAD
-        // Fallback: toetsenbordbesturing als er geen gamepad input is
-            if (engine.input.keyboard.isHeld(Keys.W) || engine.input.keyboard.isHeld(Keys.Up)) y = -200;
-            if (engine.input.keyboard.isHeld(Keys.S) || engine.input.keyboard.isHeld(Keys.Down)) y = 200;
-            if (engine.input.keyboard.isHeld(Keys.D) || engine.input.keyboard.isHeld(Keys.Right)) x = 200;
-            if (engine.input.keyboard.isHeld(Keys.A) || engine.input.keyboard.isHeld(Keys.Left)) x = -200;
-
-=======
          
          
         if (engine.input.keyboard.isHeld(Keys.W) || engine.input.keyboard.isHeld(Keys.Up)) y = -200;
@@ -63,7 +55,6 @@ export class Player extends Actor {
         if (engine.input.keyboard.isHeld(Keys.D) || engine.input.keyboard.isHeld(Keys.Right)) x = 200;
         if (engine.input.keyboard.isHeld(Keys.A) || engine.input.keyboard.isHeld(Keys.Left)) x = -200;
         
->>>>>>> b04654ea51da6182c2f64aacd5909762a9730f40
 
         let move = new Vector(x, y);
 
