@@ -22,28 +22,26 @@ export class Player extends Actor {
     // gamepad movement
     onPreUpdate(engine, delta) {
         let xspeed = 0, yspeed = 0;
-        // Log alle gamepads die de browser ziet
-        const browserPads = navigator.getGamepads();
-        console.log('navigator.getGamepads():', browserPads);
-        // Probeer eerst Excalibur gamepad
         let pad = engine.input.gamepads.at(0);
         let x = 0, y = 0;
-        // Controleer of Excalibur gamepad verbonden is
+        // Log alleen als de verbindingsstatus verandert
         if (pad && pad.connected) {
-            // Lees de x- en y-as van de linker stick
             x = pad.getAxes(0) ?? 0;
             y = pad.getAxes(1) ?? 0;
-            console.log('Excalibur gamepad:', pad, 'Axis:', x, y);
-        } else if (browserPads && browserPads[0]) {
-            // Fallback: gebruik browser Gamepad API
-            x = browserPads[0].axes[0] ?? 0;
-            y = browserPads[0].axes[1] ?? 0;
-            console.log('Browser gamepad:', browserPads[0], 'Axis:', x, y);
+            if (!this._wasPadConnected) console.log('Gamepad verbonden');
+            this._wasPadConnected = true;
         } else {
-            // Geen gamepad gevonden
-            console.log('Geen gamepad gevonden of niet verbonden.');
+            const browserPads = navigator.getGamepads();
+            if (browserPads && browserPads[0] && browserPads[0].connected) {
+                x = browserPads[0].axes[0] ?? 0;
+                y = browserPads[0].axes[1] ?? 0;
+                if (!this._wasPadConnected) console.log('Gamepad verbonden');
+                this._wasPadConnected = true;
+            } else {
+                if (this._wasPadConnected || this._wasPadConnected === undefined) console.log('Geen gamepad');
+                this._wasPadConnected = false;
+            }
         }
-        // Zet snelheid op basis van stick input (deadzone uit voor debug)
         xspeed = x * 200;
         yspeed = y * 200;
         // Fallback: toetsenbordbesturing als er geen gamepad input is
