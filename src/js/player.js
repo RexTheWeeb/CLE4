@@ -17,7 +17,7 @@ export class Player extends Actor {
         this.pos = new Vector(100, 100)
         // Verwijderd: minimum gamepad config, dit hoort in Game class
      }
-
+// gamepad movement 
      onPreUpdate(engine, delta) {
         let xspeed = 0, yspeed = 0;
         // Altijd loggen wat de browser ziet
