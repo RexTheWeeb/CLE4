@@ -1,7 +1,10 @@
 import '../css/style.css'
+import * as ex from 'excalibur'
+import * as tiled from '@excaliburjs/plugin-tiled'
 import { Actor, Engine, Vector, DisplayMode } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
 import { Player } from './player.js'
+import testMapUrl from '/maps/testMap.tmx?url'
 
 export class Game extends Engine {
 
@@ -12,6 +15,10 @@ export class Game extends Engine {
             maxFps: 60,
             displayMode: DisplayMode.FitScreen
          })
+         //Render de level en voeg het toe aan de game.
+        this.tiledMap = new tiled.TiledResource(testMapUrl)
+        ResourceLoader.addResource(this.tiledMap)
+
          // Zet minimum gamepad configuratie direct na engine aanmaken
          // Plaats deze regel pas NA this.start(), want gamepads zijn pas beschikbaar na engine start
          this.start(ResourceLoader).then(() => {
@@ -29,6 +36,8 @@ export class Game extends Engine {
     }
 
     startGame() {
+        //Voeg de map toe.
+        this.tiledMap.addToScene(this.currentScene)
         const player = new Player(new Vector(100, 100))
         this.add(player)
     }
