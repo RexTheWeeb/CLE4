@@ -19,7 +19,7 @@ export class Game extends Engine {
             try {
                 this.input.gamepads.setMinimumGamepadConfiguration({
                     axis: 2,
-                    buttons: 4,
+                    buttons: 6,
                 });
             } catch (e) {
                 console.warn('Kon minimum gamepad config niet zetten:', e);
