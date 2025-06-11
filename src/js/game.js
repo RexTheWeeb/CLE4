@@ -1,6 +1,7 @@
 import '../css/style.css'
 import { Actor, Engine, Vector, DisplayMode } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
+import { Player } from './player.js'
 
 export class Game extends Engine {
 
@@ -15,6 +16,8 @@ export class Game extends Engine {
     }
 
     startGame() {
+        const player = new Player(new Vector(100, 100))
+        this.add(player)
     }
 }
 

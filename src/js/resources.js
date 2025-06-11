@@ -2,7 +2,7 @@ import { ImageSource, Sound, Resource, Loader } from 'excalibur'
 
 // voeg hier jouw eigen resources toe
 const Resources = {
-
+   PlayerSprite: new ImageSource('images/CLE4-PlayerModel.png'),
 }
 
 
