@@ -1,6 +1,7 @@
 import { Actor, Color, Keys, Vector } from "excalibur"
 import { Resources } from "./resources.js"
 import { Player } from "./player.js"
+import { Treasure } from "./treasure.js"
 
 export class Player2 extends Player {
     constructor(pos) {
@@ -11,6 +12,8 @@ export class Player2 extends Player {
         // Gebruik een andere sprite voor speler 2
         this.graphics.use(Resources.Player2Sprite.toSprite())
         this.pos = new Vector(200, 200) // andere startpositie
+         this.on("collisionstart", (event) => this.handleCollision(event));
+
     }
 
     onPreUpdate(engine) {
@@ -33,4 +36,14 @@ export class Player2 extends Player {
         }
         this.vel = new Vector(xspeed, yspeed);
     }
+
+     handleCollision(event) {
+    
+            if (event.other.owner instanceof Treasure) {
+                event.other.owner.kill();
+                const newTreasure = new Treasure()
+                // @ts-ignore
+                this.scene.add(newTreasure)
+            }
+        }
 }
