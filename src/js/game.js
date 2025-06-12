@@ -4,8 +4,11 @@ import * as tiled from '@excaliburjs/plugin-tiled'
 import { Actor, Engine, Vector, DisplayMode } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
 import { Player } from './player.js'
+import { Player2 } from './player2.js'
 import { Treasure } from './treasure.js'
-import testMapUrl from '/maps/testMap.tmx?url'
+import { Pickup } from './pickup.js'
+import  testMapUrl from '/maps/testMap.tmx?url'
+import { CollectionArea } from './collectionArea.js'
 
 export class Game extends Engine {
 
@@ -42,8 +45,15 @@ export class Game extends Engine {
         const player = new Player(new Vector(100, 100))
         this.add(player)
 
-        const treasure = new Treasure()
-        this.add(treasure)
+        const player2 = new Player2(new Vector(200, 200))
+        this.add(player2)
+
+        for (let i = 0; i < 10; i++){
+        const pickup = new Pickup
+        this.add(pickup)
+    }
+        const collectionArea = new CollectionArea(new Vector(500, 100))
+        this.add(collectionArea)
     }
 
     getGamepadAxes() {
