@@ -1,8 +1,11 @@
 import { Actor, Color, Keys, Vector } from "excalibur"
 import { Resources } from "./resources.js"
+import { Treasure } from "./treasure.js"
 
 export class Player extends Actor {
-
+    lastButtonPress = 0;
+    buttonCooldown = 500;
+    
     constructor(pos) {
         super({
             pos: pos,
@@ -17,6 +20,9 @@ export class Player extends Actor {
         // Startpositie van de speler
         this.pos = new Vector(100, 100)
         // Minimum gamepad config staat in Game class
+
+        this.on("collisionstart", (event) => this.handleCollision(event));
+
     }
 
     // gamepad movement
@@ -29,13 +35,15 @@ export class Player extends Actor {
         let x = 0, y = 0;
         if (pad && pad.connected) {
         // Check if button 0 (A) is pressed
-        if (pad.isButtonPressed(0)) {
-            // Do something when A is pressed
-            console.log("A button pressed")
+            if (pad.isButtonPressed(0)) {
+                const now = Date.now();
+                if (now - this.lastButtonPress > this.buttonCooldown) {
                     let randX = Math.random() * (engine.drawWidth - this.width)
-                let randY = Math.random() * (engine.drawHeight - this.height)
-                this.pos = new Vector(randX, randY)
-        }
+                    let randY = Math.random() * (engine.drawHeight - this.height)
+                    this.pos = new Vector(randX, randY)
+                    this.lastButtonPress = now
+                }
+            }
         // Check if button 1 (B) is pressed
         if (pad.isButtonPressed(1)) {
             console.log("B button pressed")
@@ -58,11 +66,21 @@ export class Player extends Actor {
 
         let move = new Vector(x, y);
 
-            move = move.normalize().scale(300);
+            move   = move.normalize().scale(300);
             xspeed = move.x
             yspeed = move.y
         // Zet de snelheid van de speler
         this.vel = new Vector(xspeed, yspeed);
+    }
+
+        handleCollision(event) {
+
+        if (event.other.owner instanceof Treasure) {
+            event.other.owner.kill();
+            const newTreasure = new Treasure()
+            // @ts-ignore
+            this.scene.add(newTreasure)
+        }
     }
 
 }
