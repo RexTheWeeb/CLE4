@@ -4,6 +4,7 @@ import * as tiled from '@excaliburjs/plugin-tiled'
 import { Actor, Engine, Vector, DisplayMode } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
 import { Player } from './player.js'
+import { Player2 } from './player2.js'
 import { Treasure } from './treasure.js'
 import testMapUrl from '/maps/testMap.tmx?url'
 
@@ -41,6 +42,9 @@ export class Game extends Engine {
         this.tiledMap.addToScene(this.currentScene)
         const player = new Player(new Vector(100, 100))
         this.add(player)
+
+        const player2 = new Player2(new Vector(200, 200))
+        this.add(player2)
 
         const treasure = new Treasure()
         this.add(treasure)

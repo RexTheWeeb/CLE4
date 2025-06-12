@@ -4,6 +4,7 @@ import { ImageSource, Sound, Resource, Loader } from 'excalibur'
 const Resources = {
    PlayerSprite: new ImageSource('images/CLE4-PlayerModel.png'),
    Treasure: new ImageSource('images/treasure_placeholder.webp'),
+   Player2Sprite: new ImageSource('images/player2.png'),
 }
 
 const ResourceLoader = new Loader()
