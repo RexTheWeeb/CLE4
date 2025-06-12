@@ -21,8 +21,10 @@ export class Pickup extends Actor {
 
     handleCollision(event) {
         if(event.other.owner instanceof Player || Player2) {
-            event.other.owner.pickupTreasure()
-            console.log('hello')
-            this.kill()
+            if (event.other.owner.pickupState === false){
+                event.other.owner.pickupTreasure()
+                console.log('hello')
+                this.kill()
+            }
         }
     }    }

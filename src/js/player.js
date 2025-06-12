@@ -1,6 +1,7 @@
 import { Actor, Color, Keys, Vector } from "excalibur"
 import { Resources } from "./resources.js"
 import { Treasure } from "./treasure.js"
+import { CollectionArea } from "./collectionArea.js";
 
 export class Player extends Actor {
     lastButtonPress = 0;
@@ -77,18 +78,27 @@ export class Player extends Actor {
 
         handleCollision(event) {
 
-        if (event.other.owner instanceof Treasure) {
-            event.other.owner.kill();
-            const newTreasure = new Treasure()
-            // @ts-ignore
-            this.scene.add(newTreasure)
+        if (event.other.owner instanceof CollectionArea) {
+            this.removeTreasure()
         }
     }
 
-    pickupTreasure(){
+    pickupTreasure(event){
+        if(this.pickupState === false){
         this.pickupState = true;
         this.treasure = new Treasure(Player)
         this.addChild(this.treasure)
+        console.log(this.pickupState)
+        } else {return;}
     }
+
+    removeTreasure() {
+    if (this.treasure) {
+        this.removeChild(this.treasure) // remove treasure from player
+        this.treasure = null
+        this.pickupState = false
+        console.log("Treasure removed")
+    }
+}
 
 }
