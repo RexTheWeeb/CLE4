@@ -38,12 +38,14 @@ export class Player2 extends Player {
     }
 
      handleCollision(event) {
-    
-            if (event.other.owner instanceof Treasure) {
-                event.other.owner.kill();
-                const newTreasure = new Treasure()
-                // @ts-ignore
-                this.scene.add(newTreasure)
-            }
+        if (event.other.owner instanceof Treasure) {
+            event.other.owner.kill();
+            // Play pickup sound effect, force reload if needed
+            Resources.PickupSound.stop();
+            Resources.PickupSound.play();
+            const newTreasure = new Treasure();
+            // @ts-ignore
+            this.scene.add(newTreasure);
         }
+    }
 }
