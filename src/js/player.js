@@ -5,6 +5,8 @@ import { Treasure } from "./treasure.js"
 export class Player extends Actor {
     lastButtonPress = 0;
     buttonCooldown = 500;
+    pickupState = false;
+    treasure
     
     constructor(pos) {
         super({
@@ -81,6 +83,12 @@ export class Player extends Actor {
             // @ts-ignore
             this.scene.add(newTreasure)
         }
+    }
+
+    pickupTreasure(){
+        this.pickupState = true;
+        this.treasure = new Treasure(Player)
+        this.addChild(this.treasure)
     }
 
 }
