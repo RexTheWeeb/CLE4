@@ -14,7 +14,7 @@ export class Game extends Engine {
             width: 1280,
             height: 720,
             maxFps: 60,
-            displayMode: DisplayMode.FitScreen
+            displayMode: DisplayMode.Fixed,
          })
          //Render de level en voeg het toe aan de game.
         this.tiledMap = new tiled.TiledResource(testMapUrl)
