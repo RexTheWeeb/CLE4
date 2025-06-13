@@ -9,11 +9,13 @@ import { Treasure } from './treasure.js'
 import { Pickup } from './pickup.js'
 import  testMapUrl from '/maps/testMap.tmx?url'
 import { CollectionArea } from './collectionArea.js'
+import { UI } from './ui.js'
 
 export class Game extends Engine {
     player1
     player2
     cameraTarget
+    ui
 
     constructor() {
         super({ 
@@ -27,6 +29,8 @@ export class Game extends Engine {
                     gravity: new Vector(0, 400),
                 }
          })
+         
+         
          //Render de level en voeg het toe aan de game.
         this.tiledMap = new tiled.TiledResource(testMapUrl)
         ResourceLoader.addResource(this.tiledMap)
@@ -71,13 +75,16 @@ export class Game extends Engine {
         this.player1 = player
         this.player2 = player2
         this.cameraTarget = cameraTarget
+        this.ui = new UI(player, player2)
+        this.add(this.ui)
     }
 
     onPostUpdate() {
         if (this.player1 && this.player2 && this.cameraTarget){
-            const midX = (this.player1.pos.x + this.player2.pos.x) / 2
-            const midY = (this.player1.pos.y + this.player2.pos.y) / 2
-            this.cameraTarget.pos = new Vector(midX, midY)
+            const midX = (this.player1.pos.x + this.player2.pos.x) / 2;
+            const midY = (this.player1.pos.y + this.player2.pos.y) / 2;
+            this.cameraTarget.pos.x = Math.round(midX);
+            this.cameraTarget.pos.y = Math.round(midY);
         }
     }
 

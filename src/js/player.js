@@ -16,6 +16,7 @@ export class Player extends Actor {
             height: Resources.PlayerSprite.height,
             collisionType: CollisionType.Active
         })
+        this.score = 0;
     }
 
     onInitialize(engine) {
@@ -83,6 +84,8 @@ export class Player extends Actor {
 
         if (event.other.owner instanceof CollectionArea) {
             this.removeTreasure()
+            this.score += 1
+            this.scene.engine.ui.updateScore()
         }
     }
 

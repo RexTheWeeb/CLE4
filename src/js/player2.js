@@ -7,7 +7,9 @@ import { CollectionArea } from "./collectionArea.js"
 export class Player2 extends Player {
     constructor(pos) {
         super(pos)
+        this.score = 0;
     }
+
 
     onInitialize(engine) {
         // Gebruik een andere sprite voor speler 2
@@ -43,6 +45,8 @@ export class Player2 extends Player {
     
         if (event.other.owner instanceof CollectionArea) {
             this.removeTreasure()
+            this.score += 1
+            this.scene.engine.ui.updateScore()
         }
         }
 
