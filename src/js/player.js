@@ -90,9 +90,12 @@ export class Player extends Actor {
         handleCollision(event) {
 
         if (event.other.owner instanceof CollectionArea) {
+            if (this.treasure && this.pickupState) {
             this.removeTreasure()
             this.score += 1
             this.scene.engine.ui.updateScore()
+            Resources.PutInTreasure.play()
+            }
         }
     }
 
@@ -111,12 +114,13 @@ export class Player extends Actor {
     }
 
     removeTreasure() {
-    if (this.treasure) {
-        this.removeChild(this.treasure) // remove treasure from player
-        this.treasure = null
-        this.pickupState = false
-        console.log("Treasure removed")
-    }
+        if (this.treasure){
+            this.treasure.kill()
+            this.treasure = null
+            this.pickupState = false
+            console.log("Treasure removed")
+
+        }
 }
 
 }
