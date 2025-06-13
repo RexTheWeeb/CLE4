@@ -66,6 +66,6 @@ pickupTreasure(event){
 }
 
 playPickupSound() {
-    Resources.pickup.play()
+    Resources.Pickup.play()
 }
 }
