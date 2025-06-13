@@ -1,4 +1,4 @@
-import { Actor, Color, Keys, Vector } from "excalibur"
+import { Actor, CollisionType, Color, Keys, Vector } from "excalibur"
 import { Resources } from "./resources.js"
 import { Treasure } from "./treasure.js"
 import { CollectionArea } from "./collectionArea.js";
@@ -14,6 +14,7 @@ export class Player extends Actor {
             pos: pos,
             width: Resources.PlayerSprite.width,
             height: Resources.PlayerSprite.height,
+            collisionType: CollisionType.Active
         })
     }
 
@@ -61,15 +62,17 @@ export class Player extends Actor {
 
          
          
-        if (engine.input.keyboard.isHeld(Keys.W) || engine.input.keyboard.isHeld(Keys.Up)) y = -200;
-        if (engine.input.keyboard.isHeld(Keys.S) || engine.input.keyboard.isHeld(Keys.Down)) y = 200;
-        if (engine.input.keyboard.isHeld(Keys.D) || engine.input.keyboard.isHeld(Keys.Right)) x = 200;
-        if (engine.input.keyboard.isHeld(Keys.A) || engine.input.keyboard.isHeld(Keys.Left)) x = -200;
+        if (engine.input.keyboard.isHeld(Keys.W)) y = -200;
+        if (engine.input.keyboard.isHeld(Keys.S)) y = 200;
+        if (engine.input.keyboard.isHeld(Keys.D)) x = 200;
+        if (engine.input.keyboard.isHeld(Keys.A)) x = -200;
         
 
         let move = new Vector(x, y);
 
-            move   = move.normalize().scale(300);
+            // Use different speed if carrying treasure
+            const speed = this.pickupState ? 150 : 300;
+            move = move.normalize().scale(speed);
             xspeed = move.x
             yspeed = move.y
         // Zet de snelheid van de speler

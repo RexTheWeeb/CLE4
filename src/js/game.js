@@ -1,7 +1,7 @@
 import '../css/style.css'
 import * as ex from 'excalibur'
 import * as tiled from '@excaliburjs/plugin-tiled'
-import { Actor, Engine, Vector, DisplayMode } from "excalibur"
+import { Actor, Engine, Vector, DisplayMode, SolverStrategy } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
 import { Player } from './player.js'
 import { Player2 } from './player2.js'
@@ -11,6 +11,9 @@ import  testMapUrl from '/maps/testMap.tmx?url'
 import { CollectionArea } from './collectionArea.js'
 
 export class Game extends Engine {
+    player1
+    player2
+    cameraTarget
 
     constructor() {
         super({ 
@@ -18,6 +21,11 @@ export class Game extends Engine {
             height: 720,
             maxFps: 60,
             displayMode: DisplayMode.Fixed,
+
+                physics: {
+                    solver: SolverStrategy.Arcade,
+                    gravity: new Vector(0, 400),
+                }
          })
          //Render de level en voeg het toe aan de game.
         this.tiledMap = new tiled.TiledResource(testMapUrl)
@@ -48,12 +56,29 @@ export class Game extends Engine {
         const player2 = new Player2(new Vector(200, 200))
         this.add(player2)
 
+        const cameraTarget = new Actor()
+        cameraTarget.pos = player.pos.clone()
+        this.add(cameraTarget)
+        this.currentScene.camera.strategy.lockToActor(cameraTarget);
+
         for (let i = 0; i < 10; i++){
         const pickup = new Pickup
         this.add(pickup)
     }
         const collectionArea = new CollectionArea(new Vector(500, 100))
         this.add(collectionArea)
+
+        this.player1 = player
+        this.player2 = player2
+        this.cameraTarget = cameraTarget
+    }
+
+    onPostUpdate() {
+        if (this.player1 && this.player2 && this.cameraTarget){
+            const midX = (this.player1.pos.x + this.player2.pos.x) / 2
+            const midY = (this.player1.pos.y + this.player2.pos.y) / 2
+            this.cameraTarget.pos = new Vector(midX, midY)
+        }
     }
 
     getGamepadAxes() {

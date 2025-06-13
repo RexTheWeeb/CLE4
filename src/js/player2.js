@@ -35,6 +35,7 @@ export class Player2 extends Player {
             if (engine.input.keyboard.isHeld(Keys.Right)) xspeed = 200;
             if (engine.input.keyboard.isHeld(Keys.Left)) xspeed = -200;
         }
+        
         this.vel = new Vector(xspeed, yspeed);
     }
 
