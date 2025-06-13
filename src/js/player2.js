@@ -58,4 +58,18 @@ export class Player2 extends Player {
         console.log("Treasure removed")
     }
 }
+
+pickupTreasure(event){
+    if(this.pickupState === false){
+        this.pickupState = true;
+        this.treasure = new Treasure(Player2)
+        this.addChild(this.treasure)
+        this.playPickupSound()
+        console.log(this.pickupState)
+    } else {return;}
+}
+
+playPickupSound() {
+    Resources.Pickup.play()
+}
 }

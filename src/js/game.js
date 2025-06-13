@@ -9,6 +9,7 @@ import { Treasure } from './treasure.js'
 import { Pickup } from './pickup.js'
 import  testMapUrl from '/maps/testMap.tmx?url'
 import { CollectionArea } from './collectionArea.js'
+import { Background } from './background.js'
 import { UI } from './ui.js'
 
 export class Game extends Engine {
@@ -52,6 +53,10 @@ export class Game extends Engine {
     }
 
     startGame() {
+        //Voeg achtergrond toe
+        const background = new Background()
+        this.add(background)
+
         //Voeg de map toe.
         this.tiledMap.addToScene(this.currentScene)
         const player = new Player(new Vector(100, 100))
@@ -60,6 +65,8 @@ export class Game extends Engine {
         const player2 = new Player2(new Vector(200, 200))
         this.add(player2)
 
+        //created an empty cameratarget actor, empty since it only has to be between 
+        // player one and two to lock the camera onto
         const cameraTarget = new Actor()
         cameraTarget.pos = player.pos.clone()
         this.add(cameraTarget)
@@ -75,9 +82,13 @@ export class Game extends Engine {
         this.player1 = player
         this.player2 = player2
         this.cameraTarget = cameraTarget
+
+         // this.currentScene.camera.strategy.lockToActor(player)
         this.ui = new UI(player, player2)
         this.add(this.ui)
     }
+
+
 
     onPostUpdate() {
         if (this.player1 && this.player2 && this.cameraTarget){
@@ -104,6 +115,17 @@ export class Game extends Engine {
         }
         return [x, y];
     }
+
+    getCameraBounds() {
+    const cam = this.currentScene.camera
+    const width = this.drawWidth
+    const height = this.drawHeight
+    const left = cam.x - width / 2
+    const right = cam.x + width / 2
+    const top = cam.y - height / 2
+    const bottom = cam.y + height / 2
+    return { left, right, top, bottom }
+}
 }
 
 new Game()

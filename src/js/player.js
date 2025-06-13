@@ -78,6 +78,13 @@ export class Player extends Actor {
             yspeed = move.y
         // Zet de snelheid van de speler
         this.vel = new Vector(xspeed, yspeed);
+
+        //camera settings
+        //when player gets to border of camera give here via game
+        //it will use the edge value to make it so the player can't move past the border
+        const bounds = engine.getCameraBounds()
+        this.pos.x = Math.max(bounds.left, Math.min(bounds.right, this.pos.x))
+        this.pos.y = Math.max(bounds.top, Math.min(bounds.bottom, this.pos.y))    
     }
 
         handleCollision(event) {
@@ -91,11 +98,16 @@ export class Player extends Actor {
 
     pickupTreasure(event){
         if(this.pickupState === false){
-        this.pickupState = true;
-        this.treasure = new Treasure(Player)
-        this.addChild(this.treasure)
-        console.log(this.pickupState)
+            this.pickupState = true;
+            this.treasure = new Treasure(Player)
+            this.addChild(this.treasure)
+            this.playPickupSound()
+            console.log(this.pickupState)
         } else {return;}
+    }
+
+    playPickupSound() {
+        Resources.pickup2.play()
     }
 
     removeTreasure() {
