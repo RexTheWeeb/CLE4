@@ -56,6 +56,8 @@ export class Game extends Engine {
         const player2 = new Player2(new Vector(200, 200))
         this.add(player2)
 
+        //created an empty cameratarget actor, empty since it only has to be between 
+        // player one and two to lock the camera onto
         const cameraTarget = new Actor()
         cameraTarget.pos = player.pos.clone()
         this.add(cameraTarget)
@@ -97,6 +99,17 @@ export class Game extends Engine {
         }
         return [x, y];
     }
+
+    getCameraBounds() {
+    const cam = this.currentScene.camera
+    const width = this.drawWidth
+    const height = this.drawHeight
+    const left = cam.x - width / 2
+    const right = cam.x + width / 2
+    const top = cam.y - height / 2
+    const bottom = cam.y + height / 2
+    return { left, right, top, bottom }
+}
 }
 
 new Game()
