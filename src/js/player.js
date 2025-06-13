@@ -95,11 +95,16 @@ export class Player extends Actor {
 
     pickupTreasure(event){
         if(this.pickupState === false){
-        this.pickupState = true;
-        this.treasure = new Treasure(Player)
-        this.addChild(this.treasure)
-        console.log(this.pickupState)
+            this.pickupState = true;
+            this.treasure = new Treasure(Player)
+            this.addChild(this.treasure)
+            this.playPickupSound()
+            console.log(this.pickupState)
         } else {return;}
+    }
+
+    playPickupSound() {
+        Resources.pickup2.play()
     }
 
     removeTreasure() {

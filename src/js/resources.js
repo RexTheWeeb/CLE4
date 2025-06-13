@@ -9,6 +9,7 @@ const Resources = {
    // sounnd effecten 
    Pickup: new Sound('sounds/pickup.mp3'),
    pickup2: new Sound('sounds/pickup2.mp3'),
+    PutInTreasure: new Sound('sounds/put-in-treasure.mp3'),
 }
 
 const ResourceLoader = new Loader()
