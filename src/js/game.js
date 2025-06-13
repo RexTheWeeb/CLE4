@@ -9,6 +9,7 @@ import { Treasure } from './treasure.js'
 import { Pickup } from './pickup.js'
 import  testMapUrl from '/maps/testMap.tmx?url'
 import { CollectionArea } from './collectionArea.js'
+import { Background } from './background.js'
 
 export class Game extends Engine {
     player1
@@ -48,6 +49,10 @@ export class Game extends Engine {
     }
 
     startGame() {
+        //Voeg achtergrond toe
+        const background = new Background()
+        this.add(background)
+
         //Voeg de map toe.
         this.tiledMap.addToScene(this.currentScene)
         const player = new Player(new Vector(100, 100))
@@ -73,7 +78,11 @@ export class Game extends Engine {
         this.player1 = player
         this.player2 = player2
         this.cameraTarget = cameraTarget
+
+         // this.currentScene.camera.strategy.lockToActor(player)
     }
+
+
 
     onPostUpdate() {
         if (this.player1 && this.player2 && this.cameraTarget){
