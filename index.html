@@ -5,8 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <title>Excalibur</title>
+    <style>
+      #start-btn {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 2rem;
+        padding: 1rem 2rem;
+        z-index: 1000;
+      }
+    </style>
   </head>
   <body>
-    <script type="module" src="/src/js/game.js"></script>
+    <button id="start-btn">Start Game</button>
+    <script type="module">
+      const btn = document.getElementById('start-btn');
+      btn.addEventListener('click', () => {
+        btn.style.display = 'none';
+        import('/src/js/game.js');
+      });
+    </script>
   </body>
 </html>
