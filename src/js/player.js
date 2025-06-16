@@ -46,7 +46,7 @@ export class Player extends Actor {
                 if (now - this.lastButtonPress > this.buttonCooldown) {
                     let randX = Math.random() * (engine.drawWidth - this.width)
                     let randY = Math.random() * (engine.drawHeight - this.height)
-                    this.pos = new Vector(randX, randY)
+                    this.vel = new Vector(randX, randY)
                     this.lastButtonPress = now
                 }
             }
@@ -83,9 +83,9 @@ export class Player extends Actor {
         //camera settings
         //when player gets to border of camera give here via game
         //it will use the edge value to make it so the player can't move past the border
-        const bounds = engine.getCameraBounds()
-        this.pos.x = Math.max(bounds.left, Math.min(bounds.right, this.pos.x))
-        this.pos.y = Math.max(bounds.top, Math.min(bounds.bottom, this.pos.y))    
+      const bounds = engine.getCameraBounds()
+      this.pos.x = Math.max(bounds.left, Math.min(bounds.right, this.pos.x))
+      this.pos.y = Math.max(bounds.top, Math.min(bounds.bottom, this.pos.y))    
     }
 
         handleCollision(event) {
@@ -98,6 +98,11 @@ export class Player extends Actor {
             Resources.PutInTreasure.play()
             }
         }
+
+        if (event.other.owner && event.other.owner.solid) {
+                console.log("Collision with solid object")
+                
+            }
 
         if (event.other.owner instanceof Bubble) {
             if (this.scene.engine.ui && typeof this.scene.engine.ui.timerValue === "number") {
