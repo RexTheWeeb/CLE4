@@ -39,6 +39,9 @@ export class Game extends Engine {
          // Zet minimum gamepad configuratie direct na engine aanmaken
          // Plaats deze regel pas NA this.start(), want gamepads zijn pas beschikbaar na engine start
          this.start(ResourceLoader).then(() => {
+            // Prepare background music (do not play yet)
+            Resources.BackgroundMusic.loop = true
+            Resources.BackgroundMusic.volume = 0.5 // adjust volume if needed
             // Probeer eerst minimum gamepad config te zetten
             try {
                 this.input.gamepads.setMinimumGamepadConfiguration({
@@ -89,8 +92,10 @@ export class Game extends Engine {
         this.ui = new UI(player, player2)
         this.add(this.ui)
 
-        
-
+        // Play background music after everything is set up
+        Resources.BackgroundMusic.loop = true
+        Resources.BackgroundMusic.volume = 0.5
+        Resources.BackgroundMusic.play()
     }
 
 

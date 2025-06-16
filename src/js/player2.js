@@ -48,9 +48,14 @@ export class Player2 extends Player {
                 this.removeTreasure()
                 this.score += 1
                 this.scene.engine.ui.updateScore()
+                Resources.PutInTreasure.play()
             }
         }
     }
+    
+    playPickupSound() {
+    Resources.pickup2.play()
+}
 
     removeTreasure() {
         if (this.treasure) {
@@ -72,7 +77,5 @@ pickupTreasure(event){
     } else {return;}
 }
 
-playPickupSound() {
-    Resources.Pickup.play()
-}
+
 }
