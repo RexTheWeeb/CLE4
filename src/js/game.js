@@ -13,6 +13,7 @@ import { Background } from './background.js'
 import { UI } from './ui.js'
 import { Supplyship } from './supplyship.js'
 import { Shipteleport } from './ship_teleport.js'
+import { Bubble } from './oxygen_bubble.js'
 
 export class Game extends Engine {
     player1
@@ -98,6 +99,10 @@ export class Game extends Engine {
          // this.currentScene.camera.strategy.lockToActor(player)
         this.ui = new UI(player, player2)
         this.add(this.ui)
+
+        this.bubbles = new Bubble()
+        this.add(this.bubbles)
+        console.log("Bubble spawned at", this.bubbles.pos.x.toFixed(0), this.bubbles.pos.y.toFixed(0))
 
         // Play background music after everything is set up
         Resources.BackgroundMusic.loop = true

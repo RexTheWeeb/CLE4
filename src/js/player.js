@@ -1,7 +1,8 @@
 import { Actor, CollisionType, Color, Keys, Vector } from "excalibur"
 import { Resources } from "./resources.js"
 import { Treasure } from "./treasure.js"
-import { CollectionArea } from "./collectionArea.js";
+import { CollectionArea } from "./collectionArea.js"
+import { Bubble } from "./oxygen_bubble.js"
 
 export class Player extends Actor {
     lastButtonPress = 0;
@@ -97,6 +98,14 @@ export class Player extends Actor {
             Resources.PutInTreasure.play()
             }
         }
+
+        if (event.other.owner instanceof Bubble) {
+            if (this.scene.engine.ui && typeof this.scene.engine.ui.timerValue === "number") {
+                this.scene.engine.ui.timerValue += 10
+                this.scene.engine.ui.labelTimer.text = `Oxygen: ${this.scene.engine.ui.timerValue}`
+            }
+            event.other.owner.bubbleLeft()
+        }
     }
 
     pickupTreasure(event){
@@ -121,6 +130,6 @@ export class Player extends Actor {
             console.log("Treasure removed")
 
         }
-}
+    }
 
 }

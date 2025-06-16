@@ -7,8 +7,9 @@ const Resources = {
    Player2Sprite: new ImageSource('images/player2.png'),
    Background: new ImageSource('images/ocean_background_temp.jpg'),
    SupplyBackground: new ImageSource('images/supplyship_background.jpg'),
-   // sounnd effecten 
-   Pickup: new Sound('sounds/pickup.mp3'),
+   Bubbles: new ImageSource('images/bubble.webp'),
+   // sound effecten 
+   
    pickup2: new Sound('sounds/pickup2.mp3'),
    PutInTreasure: new Sound('sounds/put-in-treasure.mp3'),
    BackgroundMusic: new Sound('sounds/BackgroundMusic.WAV'),
