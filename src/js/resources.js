@@ -1,4 +1,6 @@
 import { ImageSource, Sound, Resource, Loader } from 'excalibur'
+import { TiledResource } from "@excaliburjs/plugin-tiled"
+import testMapUrl from '/maps/testMap.tmx?url'
 
 // voeg hier jouw eigen resources toe
 const Resources = {
@@ -11,6 +13,7 @@ const Resources = {
    pickup2: new Sound('sounds/pickup2.mp3'),
     PutInTreasure: new Sound('sounds/put-in-treasure.mp3'),
    BackgroundMusic: new Sound('sounds/dreamyUnderwaterSound.mp3'),
+    TestMap: new TiledResource(testMapUrl)
 }
 
 const ResourceLoader = new Loader()

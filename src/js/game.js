@@ -27,14 +27,10 @@ export class Game extends Engine {
 
                 physics: {
                     solver: SolverStrategy.Arcade,
-                    gravity: new Vector(0, 400),
+                    gravity: new Vector(0, 100),
                 }
          })
          
-         
-         //Render de level en voeg het toe aan de game.
-        this.tiledMap = new tiled.TiledResource(testMapUrl)
-        ResourceLoader.addResource(this.tiledMap)
 
          // Zet minimum gamepad configuratie direct na engine aanmaken
          // Plaats deze regel pas NA this.start(), want gamepads zijn pas beschikbaar na engine start
@@ -51,20 +47,19 @@ export class Game extends Engine {
             } catch (e) {
                 console.warn('Kon minimum gamepad config niet zetten:', e);
             }
-            this.startGame();
+             this.start(ResourceLoader).then(() => this.startGame())
          });
     }
 
     startGame() {
+        Resources.TestMap.addToScene(this.currentScene)
         //Voeg achtergrond toe
         const background = new Background()
         this.add(background)
 
         //Voeg de map toe.
-        this.tiledMap.addToScene(this.currentScene)
         this.currentScene.world.drawDebug = true
         const player = new Player(new Vector(100, 100))
-        player.scale = new Vector(0.5, 0.5) // Schaal de speler naar 50% van de originele grootte
         this.add(player)
 
         const player2 = new Player2(new Vector(200, 200))
