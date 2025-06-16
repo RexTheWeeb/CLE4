@@ -52,6 +52,10 @@ export class Player2 extends Player {
             }
         }
     }
+    
+    playPickupSound() {
+    Resources.pickup2.play()
+}
 
     removeTreasure() {
         if (this.treasure) {
@@ -73,7 +77,5 @@ pickupTreasure(event){
     } else {return;}
 }
 
-playPickupSound() {
-    Resources.Pickup.play()
-}
+
 }
