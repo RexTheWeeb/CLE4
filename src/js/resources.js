@@ -1,6 +1,4 @@
 import { ImageSource, Sound, Resource, Loader } from 'excalibur'
-import { TiledResource } from "@excaliburjs/plugin-tiled"
-import testMapUrl from '/maps/testMap.tmx?url'
 
 // voeg hier jouw eigen resources toe
 const Resources = {
