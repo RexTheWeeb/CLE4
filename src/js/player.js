@@ -13,8 +13,8 @@ export class Player extends Actor {
     constructor(pos) {
         super({
             pos: pos,
-            width: Resources.PlayerSprite.width,
-            height: Resources.PlayerSprite.height,
+            width: Resources.Diver1.width,
+            height: Resources.Diver1.height,
             collisionType: CollisionType.Active
         })
         this.score = 0;
@@ -22,7 +22,7 @@ export class Player extends Actor {
 
     onInitialize(engine) {
         // Gebruik de sprite voor de speler
-        this.graphics.use(Resources.PlayerSprite.toSprite())
+        this.graphics.use(Resources.Diver1.toSprite())
         // Startpositie van de speler
         this.pos = new Vector(100, 100)
         // Minimum gamepad config staat in Game class
