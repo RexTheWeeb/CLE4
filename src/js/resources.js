@@ -6,6 +6,7 @@ const Resources = {
    Treasure: new ImageSource('images/treasure_placeholder.webp'),
    Player2Sprite: new ImageSource('images/player2.png'),
    Background: new ImageSource('images/ocean_background_temp.jpg'),
+   SupplyBackground: new ImageSource('images/supplyship_background.jpg'),
    // sounnd effecten 
    Pickup: new Sound('sounds/pickup.mp3'),
    pickup2: new Sound('sounds/pickup2.mp3'),
