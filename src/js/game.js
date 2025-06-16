@@ -62,6 +62,7 @@ export class Game extends Engine {
 
         //Voeg de map toe.
         this.tiledMap.addToScene(this.currentScene)
+        this.currentScene.world.drawDebug = true
         const player = new Player(new Vector(100, 100))
         player.scale = new Vector(0.5, 0.5) // Schaal de speler naar 50% van de originele grootte
         this.add(player)
