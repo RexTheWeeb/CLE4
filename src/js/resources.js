@@ -1,5 +1,4 @@
 import { ImageSource, Sound, Resource, Loader } from 'excalibur'
-import { TiledResource } from "@excaliburjs/plugin-tiled"
 
 // voeg hier jouw eigen resources toe
 const Resources = {

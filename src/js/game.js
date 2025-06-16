@@ -58,6 +58,7 @@ export class Game extends Engine {
     }
 
     startGame() {
+        this.tiledMap.addToScene(this.currentScene)
         //Voeg achtergrond toe
         const background = new Background()
         this.add(background)
