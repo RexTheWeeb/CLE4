@@ -11,6 +11,8 @@ import  testMapUrl from '/maps/testMap.tmx?url'
 import { CollectionArea } from './collectionArea.js'
 import { Background } from './background.js'
 import { UI } from './ui.js'
+import { Supplyship } from './supplyship.js'
+import { Shipteleport } from './ship_teleport.js'
 
 export class Game extends Engine {
     player1
@@ -30,7 +32,12 @@ export class Game extends Engine {
                     gravity: new Vector(0, 100),
                 }
          })
+
+         this.add('supplyship', new Supplyship())
          
+         //Render de level en voeg het toe aan de game.
+        this.tiledMap = new tiled.TiledResource(testMapUrl)
+        ResourceLoader.addResource(this.tiledMap)
 
          // Zet minimum gamepad configuratie direct na engine aanmaken
          // Plaats deze regel pas NA this.start(), want gamepads zijn pas beschikbaar na engine start
@@ -75,7 +82,11 @@ export class Game extends Engine {
         for (let i = 0; i < 10; i++){
         const pickup = new Pickup
         this.add(pickup)
-    }
+        }
+
+        const shipTeleport = new Shipteleport(new Vector (1000, 100))
+        this.add(shipTeleport)
+
         const collectionArea = new CollectionArea(new Vector(500, 100))
         this.add(collectionArea)
 
