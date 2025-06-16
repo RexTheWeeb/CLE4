@@ -21,9 +21,9 @@
     <button id="start-btn">Start Game</button>
     <script type="module">
       const btn = document.getElementById('start-btn');
-      btn.addEventListener('click', () => {
+      btn.addEventListener('click', async () => {
         btn.style.display = 'none';
-        import('/src/js/game.js');
+        await import('/src/js/game.js');
       });
     </script>
   </body>

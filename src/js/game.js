@@ -39,6 +39,9 @@ export class Game extends Engine {
          // Zet minimum gamepad configuratie direct na engine aanmaken
          // Plaats deze regel pas NA this.start(), want gamepads zijn pas beschikbaar na engine start
          this.start(ResourceLoader).then(() => {
+            // Prepare background music (do not play yet)
+            Resources.BackgroundMusic.loop = true
+            Resources.BackgroundMusic.volume = 0.5 // adjust volume if needed
             // Probeer eerst minimum gamepad config te zetten
             try {
                 this.input.gamepads.setMinimumGamepadConfiguration({
@@ -59,7 +62,9 @@ export class Game extends Engine {
 
         //Voeg de map toe.
         this.tiledMap.addToScene(this.currentScene)
+        this.currentScene.world.drawDebug = true
         const player = new Player(new Vector(100, 100))
+        player.scale = new Vector(0.5, 0.5) // Schaal de speler naar 50% van de originele grootte
         this.add(player)
 
         const player2 = new Player2(new Vector(200, 200))
@@ -86,6 +91,11 @@ export class Game extends Engine {
          // this.currentScene.camera.strategy.lockToActor(player)
         this.ui = new UI(player, player2)
         this.add(this.ui)
+
+        // Play background music after everything is set up
+        Resources.BackgroundMusic.loop = true
+        Resources.BackgroundMusic.volume = 0.5
+        Resources.BackgroundMusic.play()
     }
 
 
