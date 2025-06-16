@@ -37,7 +37,6 @@ export class Game extends Engine {
          
          //Render de level en voeg het toe aan de game.
         this.tiledMap = new tiled.TiledResource(testMapUrl)
-        ResourceLoader.addResource(this.tiledMap)
 
          // Zet minimum gamepad configuratie direct na engine aanmaken
          // Plaats deze regel pas NA this.start(), want gamepads zijn pas beschikbaar na engine start
@@ -59,13 +58,11 @@ export class Game extends Engine {
     }
 
     startGame() {
-        Resources.TestMap.addToScene(this.currentScene)
         //Voeg achtergrond toe
         const background = new Background()
         this.add(background)
 
         //Voeg de map toe.
-        this.currentScene.world.drawDebug = true
         const player = new Player(new Vector(100, 100))
         this.add(player)
 
