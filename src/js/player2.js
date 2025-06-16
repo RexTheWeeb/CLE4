@@ -48,6 +48,7 @@ export class Player2 extends Player {
                 this.removeTreasure()
                 this.score += 1
                 this.scene.engine.ui.updateScore()
+                Resources.PutInTreasure.play()
             }
         }
     }
