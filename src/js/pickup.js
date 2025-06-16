@@ -7,8 +7,8 @@ export class Pickup extends Actor {
 
         constructor() {
         super({
-            width: Resources.PlayerSprite.width,
-            height: Resources.PlayerSprite.height,
+            width: Resources.Diver1.width,
+            height: Resources.Diver1.height,
         })
         this.graphics.use(Resources.Treasure.toSprite())
         this.pos = new Vector(Math.random() * 1280, Math.random() * 720)

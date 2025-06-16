@@ -1,6 +1,7 @@
 import { Actor, Color } from "excalibur"
 import { Resources } from "./resources.js"
 import { Player } from "./player.js"
+import { Treasure } from "./treasure.js"
 
 export class CollectionArea extends Actor {
     constructor(pos){
@@ -17,13 +18,15 @@ export class CollectionArea extends Actor {
     }
 
     handleCollision(event) {
-        // Play sound when a player puts treasure in the collection area
         if (
             (event.other.owner instanceof Player) &&
             event.other.owner.pickupState &&
             event.other.owner.treasure
         ) {
             Resources.PutInTreasure.play()
+            // Call the treasure's respawn method
+            // this.treasure.treasureGrabbed(this.pickup)
+            // console.log("Treasure Respawned")
         }
     }
 }
