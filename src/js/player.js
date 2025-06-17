@@ -1,7 +1,8 @@
 import { Actor, CollisionType, Color, Keys, Vector } from "excalibur"
 import { Resources } from "./resources.js"
 import { Treasure } from "./treasure.js"
-import { CollectionArea } from "./collectionArea.js";
+import { CollectionArea } from "./collectionArea.js"
+import { Bubble } from "./oxygen_bubble.js"
 
 export class Player extends Actor {
     lastButtonPress = 0;
@@ -12,8 +13,8 @@ export class Player extends Actor {
     constructor(pos) {
         super({
             pos: pos,
-            width: Resources.PlayerSprite.width,
-            height: Resources.PlayerSprite.height,
+            width: Resources.Diver1.width,
+            height: Resources.Diver1.height,
             collisionType: CollisionType.Active
         })
         this.score = 0;
@@ -21,7 +22,7 @@ export class Player extends Actor {
 
     onInitialize(engine) {
         // Gebruik de sprite voor de speler
-        this.graphics.use(Resources.PlayerSprite.toSprite())
+        this.graphics.use(Resources.Diver1.toSprite())
         // Startpositie van de speler
         this.pos = new Vector(100, 100)
         // Minimum gamepad config staat in Game class
@@ -98,10 +99,18 @@ export class Player extends Actor {
             }
         }
 
-            if (event.other.owner && event.other.owner.solid) {
+        if (event.other.owner && event.other.owner.solid) {
                 console.log("Collision with solid object")
                 
             }
+
+        if (event.other.owner instanceof Bubble) {
+            if (this.scene.engine.ui && typeof this.scene.engine.ui.timerValue === "number") {
+                this.scene.engine.ui.timerValue += 10
+                this.scene.engine.ui.labelTimer.text = `Oxygen: ${this.scene.engine.ui.timerValue}`
+            }
+            event.other.owner.bubbleLeft()
+        }
     }
 
     pickupTreasure(event){
@@ -126,6 +135,6 @@ export class Player extends Actor {
             console.log("Treasure removed")
 
         }
-}
+    }
 
 }

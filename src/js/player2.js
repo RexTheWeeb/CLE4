@@ -13,7 +13,7 @@ export class Player2 extends Player {
 
     onInitialize(engine) {
         // Gebruik een andere sprite voor speler 2
-        this.graphics.use(Resources.Player2Sprite.toSprite())
+        this.graphics.use(Resources.Diver2.toSprite())
         this.pos = new Vector(200, 200) // andere startpositie
          this.on("collisionstart", (event) => this.handleCollision(event));
 
