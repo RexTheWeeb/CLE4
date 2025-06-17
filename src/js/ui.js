@@ -1,15 +1,18 @@
-import { Engine, Color, Font, Label, ScreenElement, Vector } from "excalibur";
+import { Engine, Color, Font, Label, ScreenElement, Vector, Rectangle } from "excalibur";
+import { OxygenBar } from "./oxygenBar.js";
 
 export class UI extends ScreenElement {
     labelP1
     labelP2
     labelTimer
+    oxygenBar
     timerValue = 60; //Waarde voor de timer in seconden.
+    maxTime = 60; //Maximale tijd in seconden.
 
     player1
     player2
 
-    constructor(diver, diver2){
+    constructor(diver, diver2) {
         super()
         this.player1 = diver;
         this.player2 = diver2;
@@ -47,6 +50,14 @@ export class UI extends ScreenElement {
         this.addChild(this.labelP2);
         this.addChild(this.labelTimer);
 
+        this.oxygenBar = new OxygenBar(700, 100, 300, 30, this.maxTime);
+        this.addChild(this.oxygenBar);
+
+        if (this.oxygenBar) {
+            console.log("OxygenBar is initialized successfully.");
+        }
+
+
         this._lastTimerUpdate = engine.clock.now()
     }
 
@@ -55,10 +66,11 @@ export class UI extends ScreenElement {
         this.labelP2.text = `Score P2: ${this.player2.score}`;
     }
 
-    onPostUpdate(engine){
+    onPostUpdate(engine) {
         if (engine.clock.now() - this._lastTimerUpdate > 1000 && this.timerValue > 0) {
             this.timerValue -= 1;
             this.labelTimer.text = `Oxygen: ${this.timerValue}`;
+            this.oxygenBar.setValue(this.timerValue);
             this._lastTimerUpdate = engine.clock.now();
         }
     }
