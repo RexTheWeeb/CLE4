@@ -55,9 +55,9 @@ export class Player extends Actor {
             console.log("B button pressed")
         }
     }
-        // Controleer of Excalibur gamepad verbonden is
+        // Check if excalibur is connected with gamepad
         if (pad && pad.connected) {
-            // Lees de x- en y-as van de linker stick
+            // read the x- and y-axis input from the joystick
             x = pad.getAxes(0) ?? 0;
             y = pad.getAxes(1) ?? 0;
         }
@@ -78,7 +78,12 @@ export class Player extends Actor {
             xspeed = move.x
             yspeed = move.y
         // Zet de snelheid van de speler
-        this.vel = new Vector(xspeed, yspeed);
+        const friction = 0.05 
+        // lower = more sliding, higher = less sliding
+        this.vel = new Vector(
+        this.vel.x + (xspeed - this.vel.x) * friction,
+        this.vel.y + (yspeed - this.vel.y) * friction
+    );
 
         //camera settings
         //when player gets to border of camera give here via game
