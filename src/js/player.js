@@ -18,10 +18,6 @@ export class Player extends Actor {
             width: Resources.Diver1.width,
             height: Resources.Diver1.height,
             collisionType: CollisionType.Active
-            
-            
-
-
         })
         this.score = 0;
         this.upKey = upKey;

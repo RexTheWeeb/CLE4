@@ -16,7 +16,7 @@ const Resources = {
    
    pickup2: new Sound('sounds/pickup2.mp3'),
    PutInTreasure: new Sound('sounds/put-in-treasure.mp3'),
-   BackgroundMusic: new Sound('sounds/backgroundmusic.wav'),
+   BackgroundMusic: new Sound('sounds/BackgroundMusic.WAV'),
 }
 
 const ResourceLoader = new Loader()
