@@ -21,11 +21,11 @@ export class Player extends Actor {
     }
 
     onInitialize(engine) {
-        // Gebruik de sprite voor de speler
+        // Use player sprite
         this.graphics.use(Resources.Diver1.toSprite())
-        // Startpositie van de speler
+        // Startposition of player
         this.pos = new Vector(100, 100)
-        // Minimum gamepad config staat in Game class
+        // Minimum gamepad configuration is in game.js
 
         this.on("collisionstart", (event) => this.handleCollision(event));
 
@@ -34,9 +34,9 @@ export class Player extends Actor {
     // gamepad movement
     onPreUpdate(engine) {
         let xspeed = 0, yspeed = 0;
-        // Log alle gamepads die de browser ziet
+        // Log all gamepad movements the browser sees
         const browserPads = navigator.getGamepads();
-        // Probeer eerst Excalibur gamepad
+        // First try the Excalibur gamepad
         let pad = engine.input.gamepads.at(0);
         let x = 0, y = 0;
         if (pad && pad.connected) {
@@ -77,7 +77,6 @@ export class Player extends Actor {
             move = move.normalize().scale(speed);
             xspeed = move.x
             yspeed = move.y
-        // Zet de snelheid van de speler
         const friction = 0.05 
         // lower = more sliding, higher = less sliding
         this.vel = new Vector(

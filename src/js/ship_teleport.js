@@ -3,22 +3,26 @@ import { Resources } from './resources'
 import { Player } from './player.js'
 
 export class Shipteleport extends Actor {
-    constructor(pos) {
+    constructor(pos, color, location) {
         super({
             pos: pos,
             width: 50,
             height: 50,
-            color: Color.Red
+            color: color
         })
+        this.location = location
     }
 
     onInitialize(engine) {
-        this.on("collisionstart", (event) => this.goToShip(event))
+        this.on("collisionstart", (event) => this.goToTeleport(event))
     }
 
-    goToShip(event) {
+    goToTeleport(event) {
         if (event.other.owner instanceof Player) {
-            this.scene.engine.goToScene('supplyship')
+            console.log('hello')
+            console.log(this.location)
+            // @ts-ignore
+            this.scene.engine.goToScene(this.location)
         }
     }
 }
