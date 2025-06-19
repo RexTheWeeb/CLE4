@@ -1,6 +1,5 @@
 import { Actor, Vector } from "excalibur"
 import { Player } from "./player"
-import { Player2 } from "./player2"
 import { Resources } from "./resources"
 
 export class Pickup extends Actor {
@@ -20,7 +19,7 @@ export class Pickup extends Actor {
     }
 
     handleCollision(event) {
-        if(event.other.owner instanceof Player || Player2) {
+        if(event.other.owner instanceof Player) {
             if (event.other.owner.pickupState === false){
                 event.other.owner.pickupTreasure()
                 console.log('hello')

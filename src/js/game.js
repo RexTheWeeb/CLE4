@@ -4,8 +4,6 @@ import * as tiled from '@excaliburjs/plugin-tiled'
 import { Actor, Engine, Vector, DisplayMode, SolverStrategy } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
 import { Player } from './player.js'
-import { Player2 } from './player2.js'
-import { Treasure } from './treasure.js'
 import { Pickup } from './pickup.js'
 import  testMapUrl from '/maps/testMap.tmx?url'
 import { CollectionArea } from './collectionArea.js'
