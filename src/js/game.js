@@ -66,10 +66,10 @@ export class Game extends Engine {
         this.add(background)
 
         //Voeg de map toe.
-        const player = new Player(new Vector(100, 100))
+        const player = new Player(new Vector(100, 100), ex.Keys.W, ex.Keys.S, ex.Keys.A, ex.Keys.D, 0, Resources.Diver1.toSprite(), 300, 150 )
         this.add(player)
 
-        const player2 = new Player2(new Vector(200, 200))
+        const player2 = new Player(new Vector(200, 200), ex.Keys.Up, ex.Keys.Down, ex.Keys.Left, ex.Keys.Right, 1, Resources.Diver2.toSprite(), 250, 200)
         this.add(player2)
 
         //created an empty cameratarget actor, empty since it only has to be between 
