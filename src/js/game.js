@@ -30,7 +30,7 @@ export class Game extends Engine {
 
                 physics: {
                     solver: SolverStrategy.Arcade,
-                    gravity: new Vector(0, 400),
+                    gravity: new Vector(0, 100),
                 }
          })
 
