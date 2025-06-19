@@ -4,8 +4,6 @@ import * as tiled from '@excaliburjs/plugin-tiled'
 import { Actor, Engine, Vector, DisplayMode, SolverStrategy } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
 import { Player } from './player.js'
-import { Player2 } from './player2.js'
-import { Treasure } from './treasure.js'
 import { Pickup } from './pickup.js'
 import  testMapUrl from '/maps/testMap.tmx?url'
 import { CollectionArea } from './collectionArea.js'
@@ -72,7 +70,7 @@ export class Game extends Engine {
         const player = new Player(new Vector(100, 100))
         this.add(player)
 
-        const player2 = new Player2(new Vector(200, 200))
+        const player2 = new Player(new Vector(200, 200), ex.Keys.Up, ex.Keys.Down, ex.Keys.Left, ex.Keys.Right, 1, Resources.Diver2.toSprite(), 250, 200)
         this.add(player2)
 
         //created an empty cameratarget actor, empty since it only has to be between 
