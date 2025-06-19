@@ -9,8 +9,10 @@ export class Player extends Actor {
     buttonCooldown = 500;
     pickupState = false;
     treasure
+
     
-    constructor(pos) {
+    constructor(pos, upKey,downKey, leftKey, rightKey,
+         gamepadIndex ,sprite, speed, objectSpeed) {
         super({
             pos: pos,
             width: Resources.Diver1.width,
@@ -18,14 +20,22 @@ export class Player extends Actor {
             collisionType: CollisionType.Active
         })
         this.score = 0;
+        this.upKey = upKey;
+        this.downKey =  downKey;
+        this.leftKey = leftKey;
+        this.rightKey = rightKey;
+        this.gamepadIndex = gamepadIndex;
+        this.sprite = sprite
+        this.speed = speed
+        this.objectSpeed = objectSpeed
     }
 
     onInitialize(engine) {
         // Gebruik de sprite voor de speler
-        this.graphics.use(Resources.Diver1.toSprite())
+        this.graphics.use(this.sprite)
         // Startpositie van de speler
         this.pos = new Vector(100, 100)
-        // Minimum gamepad config staat in Game class
+        // Minimum gamepad configuration is in game.js
 
         this.on("collisionstart", (event) => this.handleCollision(event));
 
@@ -35,9 +45,12 @@ export class Player extends Actor {
     onPreUpdate(engine) {
         let xspeed = 0, yspeed = 0;
         // Log alle gamepads die de browser ziet
+        
         const browserPads = navigator.getGamepads();
         // Probeer eerst Excalibur gamepad
-        let pad = engine.input.gamepads.at(0);
+        let pad = engine.input.gamepads.at(this.gamepadIndex);
+        
+        
         let x = 0, y = 0;
         if (pad && pad.connected) {
         // Check if button 0 (A) is pressed
@@ -64,20 +77,19 @@ export class Player extends Actor {
 
          
          
-        if (engine.input.keyboard.isHeld(Keys.W)) y = -200;
-        if (engine.input.keyboard.isHeld(Keys.S)) y = 200;
-        if (engine.input.keyboard.isHeld(Keys.D)) x = 200;
-        if (engine.input.keyboard.isHeld(Keys.A)) x = -200;
+        if (engine.input.keyboard.isHeld(this.upKey)) y = -200;
+        if (engine.input.keyboard.isHeld(this.downKey)) y = 200;
+        if (engine.input.keyboard.isHeld(this.rightKey)) x = 200;
+        if (engine.input.keyboard.isHeld(this.leftKey)) x = -200;
         
 
         let move = new Vector(x, y);
 
             // Use different speed if carrying treasure
-            const speed = this.pickupState ? 150 : 300;
+            const speed = this.pickupState ? this.objectSpeed :  this.speed;
             move = move.normalize().scale(speed);
             xspeed = move.x
             yspeed = move.y
-        // Zet de snelheid van de speler
         const friction = 0.05 
         // lower = more sliding, higher = less sliding
         this.vel = new Vector(
