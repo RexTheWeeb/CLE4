@@ -13,7 +13,7 @@ export class Background extends Actor {
 
     onPreUpdate(engine) {
         const target = engine.currentScene.camera.pos
-        // Handmatige lerp (lineare interpolatie, ik ben ook geen wiskundegenie)
+        // Manually lerp (lineare interpolatie)
         const lerp = (start, end, t) => start + (end - start) * t
         this.pos = new Vector(
             lerp(this.pos.x, target.x, 0.1),
@@ -22,7 +22,7 @@ export class Background extends Actor {
     }
 }
 
-    // Deze in game.js om background werkend te krijgen
+    // Use this code to make the background work in the game.js
     // this.currentScene.camera.strategy.lockToActor(player)
 
     //Backup code:
@@ -30,20 +30,20 @@ export class Background extends Actor {
 // import { Actor, Vector } from "excalibur"
 // import { Resources } from './resources'
 
-// De Background class zorgt voor een achtergrond die altijd het hele scherm vult
+//The background class makes sure the background is always fully filled
 // export class Background extends Actor {
 //     onInitialize(engine) {
-//         // Maak de sprite iets groter dan het scherm zodat je geen randen ziet
+//         // Make the sprite a little bit bigger than the screen so no edges can be seen
 //         const sprite = Resources.Background.toSprite()
 //         sprite.width = engine.drawWidth + 100
 //         sprite.height = engine.drawHeight + 100
 //         this.graphics.use(sprite)
 //         this.z = -100 // altijd achter alles
-//         // Zet de achtergrond in het midden van het scherm
+//         // Place the background behind the scene
 //         this.pos = new Vector(engine.drawWidth / 2, engine.drawHeight / 2)
 //     }
 //     onPreUpdate(engine) {
-//         // Houd de achtergrond in het midden van de camera voor een vloeiend effect
+//         // Keep the background in the middle in the of the scene
 //         this.pos = engine.currentScene.camera.pos.clone()
 //     }
 // }
