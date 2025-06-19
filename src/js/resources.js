@@ -8,6 +8,10 @@ const Resources = {
    Bubbles: new ImageSource('images/bubble.webp'),
    Diver1: new ImageSource('images/diver1.png'),
    Diver2: new ImageSource('images/diver2.png'),
+
+   //trash sprites
+   Packet: new ImageSource('images/trash-sprites/drinkpacket-48x48.PNG'),
+
    // sound effecten 
    
    pickup2: new Sound('sounds/pickup2.mp3'),
