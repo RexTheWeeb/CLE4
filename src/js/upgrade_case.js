@@ -19,17 +19,19 @@ export class UpgradeCase extends Actor {
     }
 
     onClick(evt, engine) {
-        // Give all PlayerGrounded actors a longer oxygen bar
+        // Only allow upgrade if player score is 5, 10, or 15
         engine.currentScene.actors.forEach(actor => {
             if (actor.constructor.name === "PlayerGrounded") {
-                if (typeof actor.increaseOxygenBar === "function") {
-                    actor.increaseOxygenBar(50) // example: increase by 50 units
-                } else {
-                    actor.oxygenBarLength = (actor.oxygenBarLength || 100) + 50
+                // Check if actor.score exists and is 5, 10, or 15
+                if (actor.score === 2 || actor.score === 3 || actor.score === 4) {
+                    if (typeof actor.increaseOxygenBar === "function") {
+                        actor.increaseOxygenBar(50)
+                    } else {
+                        actor.oxygenBarLength = (actor.oxygenBarLength || 100) + 50
+                    }
+                    this.kill()
                 }
             }
         })
-        // Optional: remove or disable the upgrade case after use
-        this.kill()
     }
 }

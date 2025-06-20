@@ -6,6 +6,8 @@ import { Player } from "./player.js"
 import { PlayerGrounded } from "./player_grounded.js"
 import { Floor } from "./floor.js"
 import { DisplayCase } from "./display_case.js"
+import { UpgradeCase } from "./upgrade_case.js"
+import { CatVendor } from "./cat_vendor.js"
 
 export class Museum extends Scene {
     player
@@ -24,9 +26,7 @@ export class Museum extends Scene {
         const player2 = new PlayerGrounded(new Vector(250, 620), Keys.Left, Keys.Right, Resources.Diver2.toSprite())
         this.add(player2)
 
-        // Add the return teleport area
-        const returnTeleport = new Shipteleport(new Vector(100, 600), Color.Green, 'root')
-        this.add(returnTeleport)
+        
 
         const floor = new Floor(new Vector(640, 700), 1280, 100)
         this.add(floor)
@@ -37,8 +37,9 @@ export class Museum extends Scene {
         const wallLeft = new Floor (new Vector(1280, 200), 100, 1280)
         this.add(wallLeft)
 
-        const screen = new Item (new Vector(650, 400), Resources.Screen.toSprite())
-        this.add(screen)
+        // const screen = new Item (new Vector(650, 400), Resources.Screen.toSprite())
+        // this.add(screen)
+        // left out new item cuz it let the game crasg // Chaim
 
         //Display cases
         const display_case_amulet = new DisplayCase(new Vector(300, 625), this.amulet, Resources.DisplayAmulet.toSprite())
@@ -47,6 +48,13 @@ export class Museum extends Scene {
         const display_case_mask = new DisplayCase(new Vector(640, 625), this.amulet, Resources.DisplayMask.toSprite())
         this.add(display_case_mask)
 
+        const upgrade_case = new UpgradeCase(new Vector(840, 590))
+        this.add(upgrade_case)
+
+        const catsuit = new CatVendor(new Vector(775, 620))
+        this.add(catsuit)
+
+        
         this.camera.strategy.lockToActor(player)
     }
 }

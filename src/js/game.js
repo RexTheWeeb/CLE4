@@ -31,7 +31,8 @@ export class Game extends Engine {
 
                 physics: {
                     solver: SolverStrategy.Arcade,
-                    gravity: new Vector(0, 100),
+                    gravity: new Vector(0, 10),
+                    //change gravity to 10 otherwise the characters couldnt move // Chaim
                 }
          })
 
