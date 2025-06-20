@@ -1,4 +1,5 @@
 import { ImageSource, Sound, Resource, Loader } from 'excalibur'
+import { Relic } from './relic'
 
 // voeg hier jouw eigen resources toe
 const Resources = {
@@ -13,6 +14,12 @@ const Resources = {
    Bubbles: new ImageSource('images/bubble.webp'),
    Diver1: new ImageSource('images/diver1.png'),
    Diver2: new ImageSource('images/diver2.png'),
+
+   // Relic sprites.
+
+   RelicAmulet: new ImageSource('images/amulet.png'),
+   RelicMask: new ImageSource('images/Mask.png'),
+   RelicStatue: new ImageSource('images/statue.png'),
 
    //trash sprites
    Packet: new ImageSource('images/trash-sprites/drinkpacket-48x48.PNG'),

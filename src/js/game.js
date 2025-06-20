@@ -14,6 +14,7 @@ import { Shipteleport } from './ship_teleport.js'
 import { Bubble } from './oxygen_bubble.js'
 import { Museum } from './museum.js'
 import {Trash} from './trash.js'
+import { Relic } from './relic.js'
 
 export class Game extends Engine {
     player1
@@ -86,15 +87,23 @@ export class Game extends Engine {
         this.add(pickup)
         }
 
+        //Spawn Relics.
+        const relic1 = new Relic(new Vector(192, 2064), Resources.RelicAmulet.toSprite(), 'amulet')
+        const relic2 = new Relic(new Vector(192, 3776), Resources.RelicMask.toSprite(), 'mask')
+        const relic3 = new Relic(new Vector(1168, 5344), Resources.RelicStatue.toSprite(), 'statue')
+        this.add(relic1)
+        this.add(relic2)    
+        this.add(relic3)
+
         //Star: trash testing, will get a different spot
         const trash = new Trash
         this.add(trash);
 
-        const shipTeleport = new Shipteleport(new Vector (1000, 100), ex.Color.Red, 'supplyship')
-        this.add(shipTeleport)
+        //const shipTeleport = new Shipteleport(new Vector (1000, 100), ex.Color.Red, 'supplyship')
+        //this.add(shipTeleport)
 
-        const museum_teleport = new Shipteleport(new Vector(1000, 300), ex.Color.Purple, 'museum')
-        this.add(museum_teleport)
+        //const museum_teleport = new Shipteleport(new Vector(1000, 300), ex.Color.Purple, 'museum')
+        //this.add(museum_teleport)
 
         const collectionArea = new CollectionArea(new Vector(500, 100))
         this.add(collectionArea)
