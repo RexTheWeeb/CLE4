@@ -15,6 +15,7 @@ const Resources = {
 
    //trash sprites
    Packet: new ImageSource('images/trash-sprites/drinkpacket-48x48.PNG'),
+   Net: new ImageSource('images/trash-sprites/fishnet-64x64.PNG'),
 
    // sound effecten 
    
