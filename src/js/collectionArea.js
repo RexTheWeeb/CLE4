@@ -27,6 +27,6 @@ export class CollectionArea extends Actor {
             // Call the treasure's respawn method
             // this.treasure.treasureGrabbed(this.pickup)
             // console.log("Treasure Respawned")
-        }
+        } 
     }
 }

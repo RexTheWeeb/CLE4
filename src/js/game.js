@@ -14,6 +14,7 @@ import { Shipteleport } from './ship_teleport.js'
 import { Bubble } from './oxygen_bubble.js'
 import { Museum } from './museum.js'
 import {Trash} from './trash.js'
+import { TrashNet } from './trashnet.js'
 import { Relic } from './relic.js'
 
 export class Game extends Engine {
@@ -31,7 +32,8 @@ export class Game extends Engine {
 
                 physics: {
                     solver: SolverStrategy.Arcade,
-                    gravity: new Vector(0, 100),
+                    gravity: new Vector(0, 10),
+                    //change gravity to 10 otherwise the characters couldnt move // Chaim
                 }
          })
 
@@ -59,6 +61,7 @@ export class Game extends Engine {
             }
              this.start(ResourceLoader).then(() => this.startGame())
          });
+         this.showDebug(true);
     }
 
     startGame() {
@@ -83,7 +86,7 @@ export class Game extends Engine {
         this.currentScene.camera.strategy.lockToActor(cameraTarget);
 
         for (let i = 0; i < 10; i++){
-        const pickup = new Pickup
+        const pickup = new Pickup(Resources.Treasure.toSprite(), 0)
         this.add(pickup)
         }
 
@@ -107,6 +110,9 @@ export class Game extends Engine {
 
         const collectionArea = new CollectionArea(new Vector(500, 100))
         this.add(collectionArea)
+
+        const net = new TrashNet(new Vector(300, 100))
+        this.add(net)
 
         this.player1 = player
         this.player2 = player2

@@ -18,28 +18,37 @@ const spawnArea = [
 
 export class Pickup extends Actor {
 
-        constructor() {
+        pickUpType
+
+        constructor(sprite, type) {
         super({
             width: Resources.Diver1.width,
             height: Resources.Diver1.height,
         })
-        this.graphics.use(Resources.Treasure.toSprite())
+        this.graphics.use(sprite)
         const index = Math.floor(Math.random() * spawnArea.length)
         this.pos = spawnArea[index].clone()
         this.scale = new Vector(0.3, 0.3)
+        this.pickUpType = type;
+    
     }
 
     onInitialize(engine) {
         this.on("collisionstart", (event) => this.handleCollision(event));
-
     }
 
     handleCollision(event) {
         if(event.other.owner instanceof Player) {
             if (event.other.owner.pickupState === false){
-                event.other.owner.pickupTreasure()
-                console.log('hello')
-                this.kill()
+                //add if statement here for trash or treasure
+                if(this.pickUpType === 0){
+                    event.other.owner.pickupItem(this.pickUpType)
+                    this.kill()
+                } else if(this.pickUpType === 1){
+                    event.other.owner.pickupItem(this.pickUpType)
+                    this.kill();
+                }
+                
             }
         }
     }    }
