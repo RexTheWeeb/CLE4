@@ -8,7 +8,7 @@ export class OxygenBar extends ScreenElement {
         this.maxValue = maxValue
         this.value = maxValue
 
-        //Maak de graphics aan.
+        //Make the graphics
         this.background = new Rectangle({
             width: this.barWidth,
             height: this.barHeight,
@@ -25,7 +25,7 @@ export class OxygenBar extends ScreenElement {
     }
 
     setValue(newValue) {
-        //Bewerk de waarde van de oxygenbar.
+        //Adjust the oxygen value
         this.value = Math.max(0, Math.min(this.maxValue, newValue))
         this.redBar.width = this.barWidth * (this.value / this.maxValue)
     }
