@@ -37,8 +37,6 @@ export class Player extends Actor {
     onInitialize(engine) {
         // Gebruik de sprite voor de speler
         this.graphics.use(this.sprite)
-        // Startpositie van de speler
-        this.pos = new Vector(100, 100)
         // Minimum gamepad config staat in Game class
 
         this.on("collisionstart", (event) => this.handleCollision(event));
