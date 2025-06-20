@@ -3,12 +3,14 @@ import { Resources } from "./resources.js"
 import { Treasure } from "./treasure.js"
 import { CollectionArea } from "./collectionArea.js"
 import { Bubble } from "./oxygen_bubble.js"
+import { Trash } from "./trash.js"
 
 export class Player extends Actor {
     lastButtonPress = 0;
     buttonCooldown = 500;
     pickupState = false;
     treasure
+    trash
 
     
     constructor(pos, upKey,downKey, leftKey, rightKey,
@@ -152,6 +154,16 @@ export class Player extends Actor {
             console.log("Treasure removed")
 
         }
+    }
+
+    #pickupTrash(){
+        if(this.pickupState === false){
+            this.pickupState = true;
+            this.trash = new Trash();
+            this.addChild(this.trash);
+            //Star: add pickup sound fitting the object
+            //this.scene.engine.trash.spawnFish(); //Star: hasn't been tested yet so might not work
+        } else { return; }
     }
 
 }
