@@ -13,6 +13,7 @@ import { Supplyship } from './supplyship.js'
 import { Shipteleport } from './ship_teleport.js'
 import { Bubble } from './oxygen_bubble.js'
 import { Museum } from './museum.js'
+import {Trash} from './trash.js'
 
 export class Game extends Engine {
     player1
@@ -66,8 +67,8 @@ export class Game extends Engine {
         const background = new Background()
         this.add(background)
 
-        //Add a map
-        const player = new Player(new Vector(100, 100), ex.Keys.W, ex.Keys.S, ex.Keys.A, ex.Keys.D, 0, Resources.Diver1.toSprite(), 250, 200)
+        //Voeg de map toe.
+        const player = new Player(new Vector(100, 200), ex.Keys.W, ex.Keys.S, ex.Keys.A, ex.Keys.D, 0, Resources.Diver1.toSprite(), 300, 150 )
         this.add(player)
 
         const player2 = new Player(new Vector(200, 200), ex.Keys.Up, ex.Keys.Down, ex.Keys.Left, ex.Keys.Right, 1, Resources.Diver2.toSprite(), 250, 200)
@@ -84,6 +85,10 @@ export class Game extends Engine {
         const pickup = new Pickup
         this.add(pickup)
         }
+
+        //Star: trash testing, will get a different spot
+        const trash = new Trash
+        this.add(trash);
 
         const shipTeleport = new Shipteleport(new Vector (1000, 100), ex.Color.Red, 'supplyship')
         this.add(shipTeleport)
