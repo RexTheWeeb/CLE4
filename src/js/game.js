@@ -5,7 +5,7 @@ import { Actor, Engine, Vector, DisplayMode, SolverStrategy } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
 import { Player } from './player.js'
 import { Pickup } from './pickup.js'
-import  testMapUrl from '/maps/testMap.tmx?url'
+import  testMapUrl from '/maps/level1.tmx?url'
 import { CollectionArea } from './collectionArea.js'
 import { Background } from './background.js'
 import { UI } from './ui.js'
