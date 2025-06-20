@@ -7,6 +7,7 @@ const Resources = {
    DisplayAmulet: new ImageSource('images/DisplayCaseAmulet.png'),
    DisplayMask: new ImageSource('images/DisplayCaseMask.png'),
    DisplayStatue: new ImageSource('images/DisplayCaseStatue.png'),
+   Screen: new ImageSource('images/Window.png'),
    Background: new ImageSource('images/ocean_background_temp.jpg'),
    SupplyBackground: new ImageSource('images/supplyship_background.jpg'),
    Bubbles: new ImageSource('images/bubble.webp'),
@@ -21,7 +22,7 @@ const Resources = {
    
    pickup2: new Sound('sounds/pickup2.mp3'),
    PutInTreasure: new Sound('sounds/put-in-treasure.mp3'),
-   BackgroundMusic: new Sound('sounds/BackgroundMusic.WAV'),
+   BackgroundMusic: new Sound('sounds/backgroundmusic.wav'),
 }
 
 const ResourceLoader = new Loader()

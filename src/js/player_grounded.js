@@ -10,8 +10,8 @@ export class PlayerGrounded extends Actor {
         super({
             pos: pos,
             width: Resources.Diver1.width,
-            height: 55,
-            collisionType: CollisionType.Active
+            height: Resources.Diver1.height,
+            collisionType: CollisionType.Passive
         })
         this.sprite = sprite
         this.keyleft = keyleft

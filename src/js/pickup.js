@@ -2,6 +2,12 @@ import { Actor, Vector } from "excalibur"
 import { Player } from "./player"
 import { Resources } from "./resources"
 
+const spawnArea = [
+    new Vector(1376, 1136),
+    new Vector(512, 1200),
+    new Vector(768, 1808),
+]
+
 export class Pickup extends Actor {
 
         pickUpType
@@ -12,9 +18,11 @@ export class Pickup extends Actor {
             height: Resources.Diver1.height,
         })
         this.graphics.use(sprite)
-        this.pos = new Vector(Math.random() * 1280, Math.random() * 720)
+        const index = Math.floor(Math.random() * spawnArea.length)
+        this.pos = spawnArea[index].clone()
         this.scale = new Vector(0.3, 0.3)
         this.pickUpType = type;
+    
     }
 
     onInitialize(engine) {
