@@ -6,6 +6,10 @@ import { Player } from "./player.js"
 import { PlayerGrounded } from "./player_grounded.js"
 import { Floor } from "./floor.js"
 import { DisplayCase } from "./display_case.js"
+import { UpgradeCase } from "./upgrade_case.js"
+import { CatVendor } from "./cat_vendor.js"
+
+
 
 export class Museum extends Scene {
 
@@ -33,6 +37,17 @@ export class Museum extends Scene {
 
         const display_case = new DisplayCase(new Vector(640, 625))
         this.add(display_case)
+
+
+        const upgrade_case = new UpgradeCase(new Vector(850, 570))
+        this.add(upgrade_case)
+
+        const cat_vendor = new CatVendor(new Vector(800, 620))
+        this.add(cat_vendor)
+
+        
+        
+        
 
         this.camera.strategy.lockToActor(player)
     }

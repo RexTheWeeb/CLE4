@@ -8,10 +8,14 @@ const Resources = {
    DisplayMask: new ImageSource('images/DisplayCaseMask.png'),
    DisplayStatue: new ImageSource('images/DisplayCaseStatue.png'),
    Background: new ImageSource('images/ocean_background_temp.jpg'),
+   oxygenTank: new ImageSource('images/oxygenTank.png'),
+    up1: new ImageSource('images/up1.png'),            
+   
    SupplyBackground: new ImageSource('images/supplyship_background.jpg'),
    Bubbles: new ImageSource('images/bubble.webp'),
    Diver1: new ImageSource('images/diver1.png'),
    Diver2: new ImageSource('images/diver2.png'),
+   Catsuit: new ImageSource('images/catsuit.png'),
 
    //trash sprites
    Packet: new ImageSource('images/trash-sprites/drinkpacket-48x48.PNG'),
