@@ -7,6 +7,7 @@ const Resources = {
    DisplayAmulet: new ImageSource('images/DisplayCaseAmulet.png'),
    DisplayMask: new ImageSource('images/DisplayCaseMask.png'),
    DisplayStatue: new ImageSource('images/DisplayCaseStatue.png'),
+   Screen: new ImageSource('images/Window.png'),
    Background: new ImageSource('images/ocean_background_temp.jpg'),
    SupplyBackground: new ImageSource('images/supplyship_background.jpg'),
    Bubbles: new ImageSource('images/bubble.webp'),
