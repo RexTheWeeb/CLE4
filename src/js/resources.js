@@ -7,6 +7,7 @@ const Resources = {
    DisplayAmulet: new ImageSource('images/DisplayCaseAmulet.png'),
    DisplayMask: new ImageSource('images/DisplayCaseMask.png'),
    DisplayStatue: new ImageSource('images/DisplayCaseStatue.png'),
+   Screen: new ImageSource('images/Window.png'),
    Background: new ImageSource('images/ocean_background_temp.jpg'),
    oxygenTank: new ImageSource('images/oxygenTank.png'),
     up1: new ImageSource('images/up1.png'),            
@@ -19,6 +20,7 @@ const Resources = {
 
    //trash sprites
    Packet: new ImageSource('images/trash-sprites/drinkpacket-48x48.PNG'),
+   Net: new ImageSource('images/trash-sprites/fishnet-64x64.PNG'),
 
    // sound effecten 
    

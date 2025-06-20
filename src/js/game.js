@@ -5,7 +5,7 @@ import { Actor, Engine, Vector, DisplayMode, SolverStrategy } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
 import { Player } from './player.js'
 import { Pickup } from './pickup.js'
-import  testMapUrl from '/maps/testMap.tmx?url'
+import  testMapUrl from '/maps/level1.tmx?url'
 import { CollectionArea } from './collectionArea.js'
 import { Background } from './background.js'
 import { UI } from './ui.js'
@@ -14,6 +14,7 @@ import { Shipteleport } from './ship_teleport.js'
 import { Bubble } from './oxygen_bubble.js'
 import { Museum } from './museum.js'
 import {Trash} from './trash.js'
+import { TrashNet } from './trashnet.js'
 
 export class Game extends Engine {
     player1
@@ -58,6 +59,7 @@ export class Game extends Engine {
             }
              this.start(ResourceLoader).then(() => this.startGame())
          });
+         this.showDebug(true);
     }
 
     startGame() {
@@ -82,13 +84,14 @@ export class Game extends Engine {
         this.currentScene.camera.strategy.lockToActor(cameraTarget);
 
         for (let i = 0; i < 10; i++){
-        const pickup = new Pickup
+        const pickup = new Pickup(Resources.Treasure.toSprite(), 0)
         this.add(pickup)
         }
 
-        //Star: trash testing, will get a different spot
-        const trash = new Trash
-        this.add(trash);
+        for (let i = 0; i < 10; i++){
+        const pickup = new Pickup(Resources.Packet.toSprite(), 1)
+        this.add(pickup)
+        }
 
         const shipTeleport = new Shipteleport(new Vector (1000, 100), ex.Color.Red, 'supplyship')
         this.add(shipTeleport)
@@ -98,6 +101,9 @@ export class Game extends Engine {
 
         const collectionArea = new CollectionArea(new Vector(500, 100))
         this.add(collectionArea)
+
+        const net = new TrashNet(new Vector(300, 100))
+        this.add(net)
 
         this.player1 = player
         this.player2 = player2
