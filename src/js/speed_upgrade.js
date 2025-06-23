@@ -1,7 +1,7 @@
 import { Actor, Vector } from "excalibur"
 import { Resources } from './resources.js'
 
-export class UpgradeCase extends Actor {
+export class SpeedUpgrade extends Actor {
     constructor(pos) {
         super({
             pos: pos,
@@ -11,7 +11,7 @@ export class UpgradeCase extends Actor {
     }
 
     onInitialize(engine) {
-        const sprite = Resources.up1.toSprite()
+        const sprite = Resources.SpeedUpgrade.toSprite()
         sprite.width = 64
         sprite.height = 64
         this.graphics.use(sprite)
@@ -24,11 +24,11 @@ export class UpgradeCase extends Actor {
             if (actor.constructor.name === "PlayerGrounded") {
                 // Check if actor.score exists and is 5, 10, or 15
                 if (actor.score === 2 || actor.score === 3 || actor.score === 4) {
-                    if (typeof actor.increaseOxygenBar === "function") {
-                        actor.increaseOxygenBar(50)
-                        console.log("Oxygen upgraded")
+                    if (typeof actor.increaseSpeed === "function") {
+                        actor.increaseSpeed(40)
+                        console.log("Speed increased")
                     } else {
-                        actor.oxygenBarLength = (actor.oxygenBarLength || 100) + 50
+                        actor.playerSpeed = (actor.playerSpeed || 200) + 40
                     }
                     this.kill()
                 }
