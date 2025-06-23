@@ -124,7 +124,6 @@ export class Game extends Engine {
 
         this.bubbles = new Bubble()
         this.add(this.bubbles)
-        console.log("Bubble spawned at", this.bubbles.pos.x.toFixed(0), this.bubbles.pos.y.toFixed(0))
 
         // Play background music after everything is set up
         Resources.BackgroundMusic.loop = true
