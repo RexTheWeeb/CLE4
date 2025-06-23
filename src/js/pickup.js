@@ -2,7 +2,7 @@ import { Actor, Vector } from "excalibur"
 import { Player } from "./player"
 import { Resources } from "./resources"
 
-export const spawnArea = [
+export const treasureSpawnArray = [
     new Vector(1376, 1136),
     new Vector(512, 1200),
     new Vector(768, 1808),
@@ -16,6 +16,20 @@ export const spawnArea = [
     new Vector(1312, 4576),
 ]
 
+export const trashSpawnArray = [
+    new Vector(1370, 1136),
+    new Vector(508, 1200),
+    new Vector(760, 1808),
+    new Vector(825, 4016),
+    new Vector(1544, 2400),
+    new Vector(1560, 1424),
+    new Vector(220, 2784),
+    new Vector(106, 2256),
+    new Vector(361, 3568),
+    new Vector(1240, 3936),
+    new Vector(1305, 4576),
+]
+
 export class Pickup extends Actor {
 
         pickUpType
@@ -26,9 +40,21 @@ export class Pickup extends Actor {
             height: Resources.Diver1.height,
         })
         this.graphics.use(sprite)
-        const index = Math.floor(Math.random() * spawnArea.length)
-        this.pos = spawnArea[index].clone()
-        spawnArea.splice(index, 1) 
+        let spawnList
+            if (type === 0) {
+                spawnList = treasureSpawnArray
+            } else if (type === 1) {
+                spawnList = trashSpawnArray
+            } else {
+                throw new Error("Unknown pickup type")
+            }
+            if (spawnList.length === 0) {
+                throw new Error("No spawn positions left for this pickup type")
+            }
+        const index = Math.floor(Math.random() * spawnList.length)
+        this.pos = spawnList[index].clone()
+        console.log(this.pos)
+        spawnList.splice(index, 1) 
         this.scale = new Vector(0.3, 0.3)
         this.pickUpType = type;
     
@@ -41,12 +67,12 @@ export class Pickup extends Actor {
     handleCollision(event) {
         if(event.other.owner instanceof Player) {
             if (event.other.owner.pickupState === false){
-                if(this.pickUpType === 0){ //treasure
+                //add if statement here for trash or treasure
+                if(this.pickUpType === 0){
                     event.other.owner.pickupItem(this.pickUpType)
                     this.kill()
-                } else if(this.pickUpType === 1){ //trash
+                } else if(this.pickUpType === 1){
                     event.other.owner.pickupItem(this.pickUpType)
-                    this.scene.engine.spawnFish(this.pos);
                     this.kill();
                 }
                 

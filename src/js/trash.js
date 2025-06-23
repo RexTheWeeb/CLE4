@@ -9,9 +9,7 @@ export class Trash extends Pickup {
     worth
 
     constructor(player) {
-        super()
-        this.graphics.use(Resources.Packet.toSprite())
-        this.pos = new Vector(0, 0)
+        super(Resources.Packet.toSprite(), 1)
         this.scale = new Vector(1, 1)
     }
 

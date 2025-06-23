@@ -4,7 +4,7 @@ import * as tiled from '@excaliburjs/plugin-tiled'
 import { Actor, Engine, Vector, DisplayMode, SolverStrategy } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
 import { Player } from './player.js'
-import { Pickup } from './pickup.js'
+import { Pickup, treasureSpawnArray, trashSpawnArray } from './pickup.js'
 import  testMapUrl from '/maps/level1.tmx?url'
 import { CollectionArea } from './collectionArea.js'
 import { Background } from './background.js'
@@ -85,12 +85,12 @@ export class Game extends Engine {
         this.add(cameraTarget)
         this.currentScene.camera.strategy.lockToActor(cameraTarget);
 
-        for (let i = 0; i < 10; i++){
+        for (let i = 0; i < treasureSpawnArray.length; i++){
         const pickup = new Pickup(Resources.Treasure.toSprite(), 0)
         this.add(pickup)
         }
 
-        for (let i = 0; i < 10; i++){
+        for (let i = 0; i < trashSpawnArray.length; i++){
         const pickup = new Pickup(Resources.Packet.toSprite(), 1)
         this.add(pickup)
         }
