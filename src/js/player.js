@@ -100,6 +100,25 @@ export class Player extends Actor {
         this.vel.y + (yspeed - this.vel.y) * friction
     );
 
+if (Math.abs(this.vel.x) > Math.abs(this.vel.y)) {
+    // Moving horizontally
+    if (this.vel.x > 0) {
+        this.rotation = Math.PI / 2; 
+        // Right
+    } else if (this.vel.x < 0) {
+        this.rotation = -Math.PI / 2; 
+        // Left
+    }
+} else if (Math.abs(this.vel.y) > 0) {
+    // Moving vertically
+    if (this.vel.y > 0) {
+        this.rotation = Math.PI; 
+        // Down
+    } else if (this.vel.y < 0) {
+        this.rotation = 0; 
+        // Up
+    }
+}
         //camera settings
         //when player gets to border of camera give here via game
         //it will use the edge value to make it so the player can't move past the border
@@ -135,8 +154,11 @@ export class Player extends Actor {
             }
 
         if (event.other.owner instanceof Bubble) {
+            // @ts-ignore
             if (this.scene.engine.ui && typeof this.scene.engine.ui.timerValue === "number") {
+                // @ts-ignore
                 this.scene.engine.ui.timerValue += 10
+                // @ts-ignore
                 this.scene.engine.ui.labelTimer.text = `Oxygen: ${this.scene.engine.ui.timerValue}`
             }
             event.other.owner.bubbleLeft()

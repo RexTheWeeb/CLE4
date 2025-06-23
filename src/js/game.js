@@ -37,7 +37,6 @@ export class Game extends Engine {
                 }
          })
 
-         this.add('supplyship', new Supplyship())
          this.add('museum', new Museum())
          //Render the level and add it to the scene
         this.tiledMap = new tiled.TiledResource(testMapUrl)
@@ -61,12 +60,12 @@ export class Game extends Engine {
             }
              this.start(ResourceLoader).then(() => this.startGame())
          });
-         this.showDebug(true);
+        this.showDebug(true);
     }
 
     startGame() {
 
-        this.tiledMap.addToScene(this.currentScene)
+        this.tiledMap.addToScene(this.currentScene) // collision alleen bij bovenste laag tiles om lag te voorkomen
         // Add a background
         const background = new Background()
         this.add(background)
@@ -105,8 +104,8 @@ export class Game extends Engine {
         //const shipTeleport = new Shipteleport(new Vector (1000, 100), ex.Color.Red, 'supplyship')
         //this.add(shipTeleport)
 
-        //const museum_teleport = new Shipteleport(new Vector(1000, 300), ex.Color.Purple, 'museum')
-        //this.add(museum_teleport)
+        const museum_teleport = new Shipteleport(new Vector(1000, 300), ex.Color.Purple, 'museum')
+        this.add(museum_teleport)
 
         const collectionArea = new CollectionArea(new Vector(500, 100))
         this.add(collectionArea)
@@ -124,7 +123,6 @@ export class Game extends Engine {
 
         this.bubbles = new Bubble()
         this.add(this.bubbles)
-        console.log("Bubble spawned at", this.bubbles.pos.x.toFixed(0), this.bubbles.pos.y.toFixed(0))
 
         // Play background music after everything is set up
         Resources.BackgroundMusic.loop = true

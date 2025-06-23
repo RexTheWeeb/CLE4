@@ -30,7 +30,6 @@ const Resources = {
    Net: new ImageSource('images/trash-sprites/fishnet-64x64.PNG'),
 
    // sound effecten 
-   
    pickup2: new Sound('sounds/pickup2.mp3'),
    PutInTreasure: new Sound('sounds/put-in-treasure.mp3'),
    BackgroundMusic: new Sound('sounds/backgroundmusic.wav'),
