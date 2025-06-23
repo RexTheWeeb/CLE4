@@ -31,7 +31,7 @@ export class Museum extends Scene {
         player.score = 2;
         this.add(player2)
 
-        const returnTeleport = new  Shipteleport(new Vector(100, 600), Color.Green, 'root')
+        const returnTeleport = new Shipteleport(new Vector(100, 600), Color.Green, 'root')
         this.add(returnTeleport)
 
         const floor = new Floor(new Vector(640, 700), 1280, 100)
@@ -46,12 +46,22 @@ export class Museum extends Scene {
         const screen = new Item (new Vector(650, 400), Resources.Screen.toSprite())
         screen.scale = new Vector(1.5, 1.5)
         this.add(screen)
+
+        const painting1 = new Item (new Vector(200, 400), Resources.PaintingShark.toSprite())
+        this.add(painting1)
+
+        const painting2 = new Item (new Vector(1100, 400), Resources.PaintingFish.toSprite())
+        this.add(painting2)
         // left out new item cuz it let the game crasg // Chaim
 
         //Display cases
         const displayCaseAmulet = new DisplayCase(new Vector(300, 625), this.amulet, Resources.DisplayAmulet.toSprite())
         this.add(displayCaseAmulet)
+        const displayCaseAmulet = new DisplayCase(new Vector(300, 625), this.amulet, Resources.DisplayAmulet.toSprite())
+        this.add(displayCaseAmulet)
 
+        const displayCaseMask = new DisplayCase(new Vector(640, 625), this.amulet, Resources.DisplayMask.toSprite())
+        this.add(displayCaseMask)
         const displayCaseMask = new DisplayCase(new Vector(640, 625), this.amulet, Resources.DisplayMask.toSprite())
         this.add(displayCaseMask)
 
@@ -65,6 +75,31 @@ export class Museum extends Scene {
         this.add(catsuit)
 
         
-        this.camera.strategy.lockToActor(player)
+        //camera settings
+        const cameraTarget = new Actor()
+        cameraTarget.pos = new Vector(player.pos.x, 350)
+        this.add(cameraTarget)
+        this.camera.strategy.lockToActor(cameraTarget)
+
+        this.player = player
+        this.cameraTarget = cameraTarget
+        this.player2 = player2
     }
+
+onPostUpdate() {
+    // Calculate midpoint between players
+    let posX = (this.player.pos.x + this.player2.pos.x) / 2
+
+    // Define camera limits (adjust these to match your level size and wall positions)
+    const minX = 640 
+    // left edge (half viewport width)
+    const maxX = 1280 - 640 
+    // right edge (map width - half viewport width)
+
+    // Clamp the camera X position so it doesn't go past the walls
+    posX = Math.max(minX, Math.min(maxX, posX))
+
+    // Set camera target position
+    this.cameraTarget.pos = new Vector(posX, 350)
+}
 }

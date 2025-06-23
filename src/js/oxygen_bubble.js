@@ -24,6 +24,5 @@ export class Bubble extends Actor {
         this.pos = new Vector(x, y)
         this.vel = new Vector(0, -50)
         this.scale = new Vector(0.2, 0.2)
-        console.log("Bubble respawned at", x.toFixed(0), y)
     }
 }
