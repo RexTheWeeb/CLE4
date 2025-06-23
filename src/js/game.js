@@ -105,8 +105,8 @@ export class Game extends Engine {
         //const shipTeleport = new Shipteleport(new Vector (1000, 100), ex.Color.Red, 'supplyship')
         //this.add(shipTeleport)
 
-        //const museum_teleport = new Shipteleport(new Vector(1000, 300), ex.Color.Purple, 'museum')
-        //this.add(museum_teleport)
+        const museum_teleport = new Shipteleport(new Vector(1000, 300), ex.Color.Purple, 'museum')
+        this.add(museum_teleport)
 
         const collectionArea = new CollectionArea(new Vector(500, 100))
         this.add(collectionArea)

@@ -29,6 +29,11 @@ const Resources = {
    Packet: new ImageSource('images/trash-sprites/drinkpacket-48x48.PNG'),
    Net: new ImageSource('images/trash-sprites/fishnet-64x64.PNG'),
 
+   //paintings
+   PaintingShark: new ImageSource('images/Painting_shark.png'),
+    PaintingFish: new ImageSource('images/Painting_Fish.png'),
+
+
    // sound effecten 
    pickup2: new Sound('sounds/pickup2.mp3'),
    PutInTreasure: new Sound('sounds/put-in-treasure.mp3'),
