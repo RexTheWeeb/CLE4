@@ -30,11 +30,11 @@ export class Game extends Engine {
 
                 physics: {
                     solver: SolverStrategy.Arcade,
-                    gravity: new Vector(0, 100),
+                    gravity: new Vector(0, 400),
                 }
          })
 
-         this.add('supplyship', new Supplyship())
+         this.add('supplyship', new Supplyship()) // Moet mss verplaatst worden naar startgame(), met const methode
          
          //Render de level en voeg het toe aan de game.
         this.tiledMap = new tiled.TiledResource(testMapUrl)
