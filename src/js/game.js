@@ -16,6 +16,7 @@ import { Museum } from './museum.js'
 import {Trash} from './trash.js'
 import { TrashNet } from './trashnet.js'
 import { Relic } from './relic.js'
+import { Fish1 } from './fishes/rainbow_fish.js'
 
 export class Game extends Engine {
     player1
@@ -89,6 +90,11 @@ export class Game extends Engine {
         this.add(pickup)
         }
 
+        for (let i = 0; i < 10; i++){
+        const pickup = new Pickup(Resources.Packet.toSprite(), 1)
+        this.add(pickup)
+        }
+
         //Spawn Relics.
         const relic1 = new Relic(new Vector(192, 2064), Resources.RelicAmulet.toSprite(), 'amulet')
         const relic2 = new Relic(new Vector(192, 3776), Resources.RelicMask.toSprite(), 'mask')
@@ -96,10 +102,6 @@ export class Game extends Engine {
         this.add(relic1)
         this.add(relic2)    
         this.add(relic3)
-
-        //Star: trash testing, will get a different spot
-        const trash = new Trash
-        this.add(trash);
 
         //const shipTeleport = new Shipteleport(new Vector (1000, 100), ex.Color.Red, 'supplyship')
         //this.add(shipTeleport)
@@ -168,6 +170,11 @@ export class Game extends Engine {
     const bottom = cam.y + height / 2
     return { left, right, top, bottom }
 }
+
+    spawnFish(pos){
+        const fish = new Fish1(pos);
+        this.add(fish);
+    }
 }
 
 new Game()
