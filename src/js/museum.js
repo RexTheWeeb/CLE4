@@ -57,11 +57,7 @@ export class Museum extends Scene {
         //Display cases
         const displayCaseAmulet = new DisplayCase(new Vector(300, 625), this.amulet, Resources.DisplayAmulet.toSprite())
         this.add(displayCaseAmulet)
-        const displayCaseAmulet = new DisplayCase(new Vector(300, 625), this.amulet, Resources.DisplayAmulet.toSprite())
-        this.add(displayCaseAmulet)
 
-        const displayCaseMask = new DisplayCase(new Vector(640, 625), this.amulet, Resources.DisplayMask.toSprite())
-        this.add(displayCaseMask)
         const displayCaseMask = new DisplayCase(new Vector(640, 625), this.amulet, Resources.DisplayMask.toSprite())
         this.add(displayCaseMask)
 
