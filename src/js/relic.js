@@ -20,7 +20,7 @@ export class Relic extends Actor {
     handleCollision(event) {
         if (event.other.owner instanceof Player) {
             if (event.other.owner.pickupState === false) {
-                event.other.owner.pickupTreasure();
+                event.other.owner.pickupItem();
                 this.kill();
             }
         }
