@@ -1,34 +1,29 @@
 import { Actor, Vector, Color } from "excalibur"
 import { Resources } from './resources'
 import { Player } from './player.js'
-import { Player2 } from './player2.js'
+import { PlayerGrounded } from "./player_grounded.js"
 
 export class Shipteleport extends Actor {
-    constructor(pos) {
+    constructor(pos, color, location) {
         super({
             pos: pos,
             width: 50,
             height: 50,
-            color: Color.Red
+            color: color
         })
-        this.player1In = false
-        this.player2In = false
+        this.location = location
     }
 
     onInitialize(engine) {
-        this.on("collisionstart", (event) => this.enterTeleport(event))
-        this.on("collisionend", (event) => this.leaveTeleport(event))
+        this.on("collisionstart", (event) => this.goToTeleport(event))
     }
 
-    enterTeleport(event) {
-        if (event.other.owner instanceof Player) {
-            this.player1In = true
-        }
-        if (event.other.owner instanceof Player2) {
-            this.player2In = true
-        }
-        if (this.player1In || this.player2In) {
-            this.scene.engine.goToScene('supplyship')
+    goToTeleport(event) {
+        if (event.other.owner instanceof Player || PlayerGrounded) {
+            console.log('hello')
+            console.log(this.location)
+            // @ts-ignore
+            this.scene.engine.goToScene(this.location)
         }
     }
 

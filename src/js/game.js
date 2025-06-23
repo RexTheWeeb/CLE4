@@ -4,16 +4,18 @@ import * as tiled from '@excaliburjs/plugin-tiled'
 import { Actor, Engine, Vector, DisplayMode, SolverStrategy } from "excalibur"
 import { Resources, ResourceLoader } from './resources.js'
 import { Player } from './player.js'
-import { Player2 } from './player2.js'
-import { Treasure } from './treasure.js'
 import { Pickup } from './pickup.js'
-import  testMapUrl from '/maps/testMap.tmx?url'
+import  testMapUrl from '/maps/level1.tmx?url'
 import { CollectionArea } from './collectionArea.js'
 import { Background } from './background.js'
 import { UI } from './ui.js'
 import { Supplyship } from './supplyship.js'
 import { Shipteleport } from './ship_teleport.js'
 import { Bubble } from './oxygen_bubble.js'
+import { Museum } from './museum.js'
+import {Trash} from './trash.js'
+import { TrashNet } from './trashnet.js'
+import { Relic } from './relic.js'
 
 export class Game extends Engine {
     player1
@@ -30,22 +32,24 @@ export class Game extends Engine {
 
                 physics: {
                     solver: SolverStrategy.Arcade,
-                    gravity: new Vector(0, 400),
+                    gravity: new Vector(0, 10),
+                    //change gravity to 10 otherwise the characters couldnt move // Chaim
                 }
          })
 
-         this.add('supplyship', new Supplyship()) // Moet mss verplaatst worden naar startgame(), met const methode
-         
-         //Render de level en voeg het toe aan de game.
+         this.add('supplyship', new Supplyship())
+         this.add('museum', new Museum())
+         //Render the level and add it to the scene
         this.tiledMap = new tiled.TiledResource(testMapUrl)
         ResourceLoader.addResource(this.tiledMap)
 
-         // Zet minimum gamepad configuratie direct na engine aanmaken
-         // Plaats deze regel pas NA this.start(), want gamepads zijn pas beschikbaar na engine start
+         // Set the minimum gamepad configuration directly after making the engine
+         // Place this rule after this.start(), the gamepad is only availible after engine start
          this.start(ResourceLoader).then(() => {
             // Prepare background music (do not play yet)
             Resources.BackgroundMusic.loop = true
-            Resources.BackgroundMusic.volume = 0.5 // adjust volume if needed
+            // adjust volume if needed
+            Resources.BackgroundMusic.volume = 0.5
             // Probeer eerst minimum gamepad config te zetten
             try {
                 this.input.gamepads.setMinimumGamepadConfiguration({
@@ -57,19 +61,21 @@ export class Game extends Engine {
             }
              this.start(ResourceLoader).then(() => this.startGame())
          });
+         this.showDebug(true);
     }
 
     startGame() {
+
         this.tiledMap.addToScene(this.currentScene)
-        //Voeg achtergrond toe
+        // Add a background
         const background = new Background()
         this.add(background)
 
         //Voeg de map toe.
-        const player = new Player(new Vector(100, 100))
+        const player = new Player(new Vector(100, 200), ex.Keys.W, ex.Keys.S, ex.Keys.A, ex.Keys.D, 0, Resources.Diver1.toSprite(), 300, 150 )
         this.add(player)
 
-        const player2 = new Player2(new Vector(200, 200))
+        const player2 = new Player(new Vector(200, 200), ex.Keys.Up, ex.Keys.Down, ex.Keys.Left, ex.Keys.Right, 1, Resources.Diver2.toSprite(), 250, 200)
         this.add(player2)
 
         //created an empty cameratarget actor, empty since it only has to be between 
@@ -80,15 +86,33 @@ export class Game extends Engine {
         this.currentScene.camera.strategy.lockToActor(cameraTarget);
 
         for (let i = 0; i < 10; i++){
-        const pickup = new Pickup
+        const pickup = new Pickup(Resources.Treasure.toSprite(), 0)
         this.add(pickup)
         }
 
-        const shipTeleport = new Shipteleport(new Vector (1000, 100))
-        this.add(shipTeleport)
+        //Spawn Relics.
+        const relic1 = new Relic(new Vector(192, 2064), Resources.RelicAmulet.toSprite(), 'amulet')
+        const relic2 = new Relic(new Vector(192, 3776), Resources.RelicMask.toSprite(), 'mask')
+        const relic3 = new Relic(new Vector(1168, 5344), Resources.RelicStatue.toSprite(), 'statue')
+        this.add(relic1)
+        this.add(relic2)    
+        this.add(relic3)
+
+        //Star: trash testing, will get a different spot
+        const trash = new Trash
+        this.add(trash);
+
+        //const shipTeleport = new Shipteleport(new Vector (1000, 100), ex.Color.Red, 'supplyship')
+        //this.add(shipTeleport)
+
+        //const museum_teleport = new Shipteleport(new Vector(1000, 300), ex.Color.Purple, 'museum')
+        //this.add(museum_teleport)
 
         const collectionArea = new CollectionArea(new Vector(500, 100))
         this.add(collectionArea)
+
+        const net = new TrashNet(new Vector(300, 100))
+        this.add(net)
 
         this.player1 = player
         this.player2 = player2
@@ -120,7 +144,7 @@ export class Game extends Engine {
     }
 
     getGamepadAxes() {
-        // Geeft [x, y] terug van de eerste beschikbare gamepad (Excalibur of browser API)
+        // Give X and Y back from the first availible gamepad (Excalibur or browser API)
         let x = 0, y = 0;
         let pad = this.input.gamepads.at(0);
         if (pad && pad.connected) {
