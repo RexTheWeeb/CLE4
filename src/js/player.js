@@ -4,6 +4,7 @@ import { Treasure } from "./treasure.js"
 import { CollectionArea } from "./collectionArea.js"
 import { Bubble } from "./oxygen_bubble.js"
 import { Trash } from "./trash.js"
+import { TrashNet } from "./trashnet.js"
 
 export class Player extends Actor {
     lastButtonPress = 0;
@@ -11,6 +12,7 @@ export class Player extends Actor {
     pickupState = false;
     treasure
     trash
+    pickupItemType
 
     
     constructor(pos, upKey,downKey, leftKey, rightKey,
@@ -127,13 +129,22 @@ if (Math.abs(this.vel.x) > Math.abs(this.vel.y)) {
 
         handleCollision(event) {
 
-        if (event.other.owner instanceof CollectionArea) {
-            if (this.treasure && this.pickupState) {
-            this.removeTreasure()
-            this.score += 1
-            // @ts-ignore
-            this.scene.engine.ui.updateScore()
-            Resources.PutInTreasure.play()
+        if (event.other.owner instanceof CollectionArea && this.pickupItemType === 0 || event.other.owner instanceof TrashNet && this.pickupItemType === 1) {
+
+            if (this.treasure && this.pickupState || this.pickupItemType === 1 && this.pickupState) {
+                if(this.pickupItemType === 0 ){ //0 = treasure
+                    this.removePickedUpItem(0)
+                    this.score += 2 //Star: temporary change
+                    Resources.PutInTreasure.play()
+                } else if (this.pickupItemType === 1){
+                    this.removePickedUpItem(1)
+                    this.score += 1
+                    //Star: spawn fish (function still needs to be called)
+                    //Star: add audio here
+                }
+                
+                this.scene.engine.ui.updateScore()
+            
             }
         }
 
@@ -154,12 +165,21 @@ if (Math.abs(this.vel.x) > Math.abs(this.vel.y)) {
         }
     }
 
-    pickupTreasure(event){
+    pickupItem(itemType){ //rename to pickupItem
+        this.pickupItemType = itemType;
         if(this.pickupState === false){
             this.pickupState = true;
-            this.treasure = new Treasure(Player)
-            this.addChild(this.treasure)
-            this.playPickupSound()
+            if(this.pickupItemType === 0){
+                this.treasure = new Treasure(Player)
+                this.addChild(this.treasure)
+                this.playPickupSound()
+            } else if (this.pickupItemType === 1){ 
+                this.pickupState = true;
+                this.trash = new Trash(Player);
+                this.addChild(this.trash); 
+            } else{
+                console.log("not treasure or trash")
+            }
             console.log(this.pickupState)
         } else {return;}
     }
@@ -168,24 +188,20 @@ if (Math.abs(this.vel.x) > Math.abs(this.vel.y)) {
         Resources.pickup2.play()
     }
 
-    removeTreasure() {
-        if (this.treasure){
+    removePickedUpItem(type) {
+        if (type === 0){
             this.treasure.kill()
             this.treasure = null
             this.pickupState = false
             console.log("Treasure removed")
-
+        } else if (type === 1){
+            this.trash.kill()
+            this.trash = null
+            this.pickupState = false
+            console.log("Trash dropped off")
         }
-    }
+        console.log(this.pickupState)
 
-    #pickupTrash(){
-        if(this.pickupState === false){
-            this.pickupState = true;
-            this.trash = new Trash();
-            this.addChild(this.trash);
-            //Star: add pickup sound fitting the object
-            //this.scene.engine.trash.spawnFish(); //Star: hasn't been tested yet so might not work
-        } else { return; }
     }
 
 }

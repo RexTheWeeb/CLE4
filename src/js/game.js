@@ -14,6 +14,8 @@ import { Shipteleport } from './ship_teleport.js'
 import { Bubble } from './oxygen_bubble.js'
 import { Museum } from './museum.js'
 import {Trash} from './trash.js'
+import { TrashNet } from './trashnet.js'
+import { Relic } from './relic.js'
 
 export class Game extends Engine {
     player1
@@ -29,8 +31,9 @@ export class Game extends Engine {
             displayMode: DisplayMode.Fixed,
 
                 physics: {
-                    solver: SolverStrategy.Realistic,
+                    solver: SolverStrategy.Arcade,
                     gravity: new Vector(0, 10),
+                    //change gravity to 10 otherwise the characters couldnt move // Chaim
                 }
          })
 
@@ -58,6 +61,7 @@ export class Game extends Engine {
             }
              this.start(ResourceLoader).then(() => this.startGame())
          });
+         this.showDebug(true);
     }
 
     startGame() {
@@ -81,18 +85,34 @@ export class Game extends Engine {
         this.add(cameraTarget)
         this.currentScene.camera.strategy.lockToActor(cameraTarget);
 
-        const pickup = new Pickup
+        for (let i = 0; i < 10; i++){
+        const pickup = new Pickup(Resources.Treasure.toSprite(), 0)
         this.add(pickup)
+        }
+
+        //Spawn Relics.
+        const relic1 = new Relic(new Vector(192, 2064), Resources.RelicAmulet.toSprite(), 'amulet')
+        const relic2 = new Relic(new Vector(192, 3776), Resources.RelicMask.toSprite(), 'mask')
+        const relic3 = new Relic(new Vector(1168, 5344), Resources.RelicStatue.toSprite(), 'statue')
+        this.add(relic1)
+        this.add(relic2)    
+        this.add(relic3)
 
         //Star: trash testing, will get a different spot
         const trash = new Trash
         this.add(trash);
 
-        const museum_teleport = new Shipteleport(new Vector(1000, 300), ex.Color.Purple, 'museum')
-        this.add(museum_teleport)
+        //const shipTeleport = new Shipteleport(new Vector (1000, 100), ex.Color.Red, 'supplyship')
+        //this.add(shipTeleport)
+
+        //const museum_teleport = new Shipteleport(new Vector(1000, 300), ex.Color.Purple, 'museum')
+        //this.add(museum_teleport)
 
         const collectionArea = new CollectionArea(new Vector(500, 100))
         this.add(collectionArea)
+
+        const net = new TrashNet(new Vector(300, 100))
+        this.add(net)
 
         this.player1 = player
         this.player2 = player2

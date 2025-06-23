@@ -6,7 +6,8 @@ import { Player } from "./player.js"
 import { PlayerGrounded } from "./player_grounded.js"
 import { Floor } from "./floor.js"
 import { DisplayCase } from "./display_case.js"
-import { Shipteleport } from "./ship_teleport.js"
+import { UpgradeCase } from "./upgrade_case.js"
+import { CatVendor } from "./cat_vendor.js"
 import { Item } from "./item.js"
 
 export class Museum extends Scene {
@@ -26,9 +27,7 @@ export class Museum extends Scene {
         const player2 = new PlayerGrounded(new Vector(250, 620), Keys.Left, Keys.Right, Resources.Diver2.toSprite())
         this.add(player2)
 
-        // Add the return teleport area
-        const returnTeleport = new Shipteleport(new Vector(100, 600), Color.Green, 'root')
-        this.add(returnTeleport)
+        
 
         const floor = new Floor(new Vector(640, 700), 1280, 100)
         this.add(floor)
@@ -42,6 +41,7 @@ export class Museum extends Scene {
         const screen = new Item (new Vector(650, 400), Resources.Screen.toSprite())
         screen.scale = new Vector(1.5, 1.5)
         this.add(screen)
+        // left out new item cuz it let the game crasg // Chaim
 
         //Display cases
         const display_case_amulet = new DisplayCase(new Vector(300, 625), this.amulet, Resources.DisplayAmulet.toSprite())
@@ -50,34 +50,13 @@ export class Museum extends Scene {
         const display_case_mask = new DisplayCase(new Vector(640, 625), this.amulet, Resources.DisplayMask.toSprite())
         this.add(display_case_mask)
 
-        const display_case_statue = new DisplayCase(new Vector(980, 625), this.amulet, Resources.DisplayStatue.toSprite())
-        this.add(display_case_statue)
+        const upgrade_case = new UpgradeCase(new Vector(840, 590))
+        this.add(upgrade_case)
 
-        //camera settings
-        const cameraTarget = new Actor()
-        cameraTarget.pos = new Vector(player.pos.x, 350)
-        this.add(cameraTarget)
-        this.camera.strategy.lockToActor(cameraTarget)
+        const catsuit = new CatVendor(new Vector(775, 620))
+        this.add(catsuit)
 
-        this.player = player
-        this.cameraTarget = cameraTarget
-        this.player2 = player2
+        
+        this.camera.strategy.lockToActor(player)
     }
-
-onPostUpdate() {
-    // Calculate midpoint between players
-    let posX = (this.player.pos.x + this.player2.pos.x) / 2
-
-    // Define camera limits (adjust these to match your level size and wall positions)
-    const minX = 640 
-    // left edge (half viewport width)
-    const maxX = 1280 - 640 
-    // right edge (map width - half viewport width)
-
-    // Clamp the camera X position so it doesn't go past the walls
-    posX = Math.max(minX, Math.min(maxX, posX))
-
-    // Set camera target position
-    this.cameraTarget.pos = new Vector(posX, 350)
-}
 }

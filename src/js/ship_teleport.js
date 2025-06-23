@@ -39,4 +39,13 @@ export class Shipteleport extends Actor {
             this.scene.engine.goToScene(this.location)
         }
     }
+
+    leaveTeleport(event) {
+        if (event.other.owner instanceof Player) {
+            this.player1In = false
+        }
+        if (event.other.owner instanceof Player2) {
+            this.player2In = false
+        }
+    }
 }
