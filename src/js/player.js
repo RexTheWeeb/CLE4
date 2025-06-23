@@ -139,7 +139,6 @@ if (Math.abs(this.vel.x) > Math.abs(this.vel.y)) {
                 } else if (this.pickupItemType === 1){
                     this.removePickedUpItem(1)
                     this.score += 1
-                    //Star: spawn fish (function still needs to be called)
                     //Star: add audio here
                 }
                 
@@ -165,7 +164,7 @@ if (Math.abs(this.vel.x) > Math.abs(this.vel.y)) {
         }
     }
 
-    pickupItem(itemType){ //rename to pickupItem
+    pickupItem(itemType){ 
         this.pickupItemType = itemType;
         if(this.pickupState === false){
             this.pickupState = true;

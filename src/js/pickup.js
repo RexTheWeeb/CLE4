@@ -41,12 +41,12 @@ export class Pickup extends Actor {
     handleCollision(event) {
         if(event.other.owner instanceof Player) {
             if (event.other.owner.pickupState === false){
-                //add if statement here for trash or treasure
-                if(this.pickUpType === 0){
+                if(this.pickUpType === 0){ //treasure
                     event.other.owner.pickupItem(this.pickUpType)
                     this.kill()
-                } else if(this.pickUpType === 1){
+                } else if(this.pickUpType === 1){ //trash
                     event.other.owner.pickupItem(this.pickUpType)
+                    this.scene.engine.spawnFish(this.pos);
                     this.kill();
                 }
                 

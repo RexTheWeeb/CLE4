@@ -18,9 +18,4 @@ export class Trash extends Pickup {
     onInitialize(){
         this.worth = 1;
     }
-    
-    
-    spawnFish(){ //Star: this function either needs to be public or be moved to the trashnet.js
-        console.log("Spawn fish")
-    }
 }
