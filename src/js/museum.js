@@ -9,6 +9,8 @@ import { DisplayCase } from "./display_case.js"
 import { UpgradeCase } from "./upgrade_case.js"
 import { CatVendor } from "./cat_vendor.js"
 import { Item } from "./item.js"
+import { Shipteleport } from "./ship_teleport.js"
+import { SpeedUpgrade } from "./speed_upgrade.js"
 
 export class Museum extends Scene {
     player
@@ -22,12 +24,15 @@ export class Museum extends Scene {
         engine.backgroundColor = Color.LightGray
 
         const player = new PlayerGrounded(new Vector(200, 620), Keys.A, Keys.D, Resources.Diver1.toSprite())
+        player.score = 2;
         this.add(player)
 
         const player2 = new PlayerGrounded(new Vector(250, 620), Keys.Left, Keys.Right, Resources.Diver2.toSprite())
+        player.score = 2;
         this.add(player2)
 
-        
+        const returnTeleport = new  Shipteleport(new Vector(100, 600), Color.Green, 'root')
+        this.add(returnTeleport)
 
         const floor = new Floor(new Vector(640, 700), 1280, 100)
         this.add(floor)
@@ -44,14 +49,17 @@ export class Museum extends Scene {
         // left out new item cuz it let the game crasg // Chaim
 
         //Display cases
-        const display_case_amulet = new DisplayCase(new Vector(300, 625), this.amulet, Resources.DisplayAmulet.toSprite())
-        this.add(display_case_amulet)
+        const displayCaseAmulet = new DisplayCase(new Vector(300, 625), this.amulet, Resources.DisplayAmulet.toSprite())
+        this.add(displayCaseAmulet)
 
-        const display_case_mask = new DisplayCase(new Vector(640, 625), this.amulet, Resources.DisplayMask.toSprite())
-        this.add(display_case_mask)
+        const displayCaseMask = new DisplayCase(new Vector(640, 625), this.amulet, Resources.DisplayMask.toSprite())
+        this.add(displayCaseMask)
 
-        const upgrade_case = new UpgradeCase(new Vector(840, 590))
-        this.add(upgrade_case)
+        const upgradeCase = new UpgradeCase(new Vector(840, 590))
+        this.add(upgradeCase)
+
+        const speedUpgrade = new SpeedUpgrade(new Vector(940, 590))
+        this.add(speedUpgrade)
 
         const catsuit = new CatVendor(new Vector(775, 620))
         this.add(catsuit)
