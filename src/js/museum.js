@@ -8,6 +8,7 @@ import { Floor } from "./floor.js"
 import { DisplayCase } from "./display_case.js"
 import { UpgradeCase } from "./upgrade_case.js"
 import { CatVendor } from "./cat_vendor.js"
+import { Item } from "./item.js"
 
 export class Museum extends Scene {
     player
@@ -37,8 +38,9 @@ export class Museum extends Scene {
         const wallLeft = new Floor (new Vector(1280, 200), 100, 1280)
         this.add(wallLeft)
 
-        // const screen = new Item (new Vector(650, 400), Resources.Screen.toSprite())
-        // this.add(screen)
+        const screen = new Item (new Vector(650, 400), Resources.Screen.toSprite())
+        screen.scale = new Vector(1.5, 1.5)
+        this.add(screen)
         // left out new item cuz it let the game crasg // Chaim
 
         //Display cases

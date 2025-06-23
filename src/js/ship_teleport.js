@@ -1,4 +1,4 @@
-import { Actor, Vector, Color } from "excalibur"
+import { Actor, Vector, Color, Keys } from "excalibur"
 import { Resources } from './resources'
 import { Player } from './player.js'
 import { PlayerGrounded } from "./player_grounded.js"
@@ -12,16 +12,29 @@ export class Shipteleport extends Actor {
             color: color
         })
         this.location = location
+        this.playerOverlapping = false
     }
 
     onInitialize(engine) {
-        this.on("collisionstart", (event) => this.goToTeleport(event))
+        this.engine = engine
+        this.on("collisionstart", (event) => this.handleCollisionStart(event))
+        this.on("collisionend", (event) => this.handleCollisionEnd(event))
     }
 
-    goToTeleport(event) {
-        if (event.other.owner instanceof Player || PlayerGrounded) {
-            console.log('hello')
-            console.log(this.location)
+    handleCollisionStart(event) {
+        if (event.other.owner instanceof Player || event.other.owner instanceof PlayerGrounded) {
+            this.playerOverlapping = true
+        }
+    }
+
+    handleCollisionEnd(event) {
+        if (event.other.owner instanceof Player || event.other.owner instanceof PlayerGrounded) {
+            this.playerOverlapping = false
+        }
+    }
+
+    onPreUpdate() {
+        if (this.playerOverlapping && this.engine.input.keyboard.wasPressed(Keys.E)) {
             // @ts-ignore
             this.scene.engine.goToScene(this.location)
         }

@@ -18,7 +18,7 @@ export class UpgradeCase extends Actor {
         this.on("pointerdown", (evt) => this.onClick(evt, engine))
     }
 
-    onClick(evt, engine) {
+    onClick(evt, engine) { // moet andere methode krijgen dan onclick
         // Only allow upgrade if player score is 5, 10, or 15
         engine.currentScene.actors.forEach(actor => {
             if (actor.constructor.name === "PlayerGrounded") {
@@ -28,6 +28,14 @@ export class UpgradeCase extends Actor {
                         actor.increaseOxygenBar(50)
                     } else {
                         actor.oxygenBarLength = (actor.oxygenBarLength || 100) + 50
+                    }
+                    this.kill()
+                }
+                if (actor.score === 1 || actor.score === 2 || actor.score === 3) {
+                    if (typeof actor.increaseSpeed === "function") {
+                        actor.increaseSpeed(40)
+                    } else {
+                        actor.playerSpeed = (actor.playerSpeed || 200) + 40
                     }
                     this.kill()
                 }
