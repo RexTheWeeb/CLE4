@@ -40,6 +40,7 @@ export class Museum extends Scene {
         this.add(wallLeft)
 
         const screen = new Item (new Vector(650, 400), Resources.Screen.toSprite())
+        screen.scale = new Vector(1.5, 1.5)
         this.add(screen)
 
         //Display cases

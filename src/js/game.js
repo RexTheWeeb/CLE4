@@ -29,8 +29,8 @@ export class Game extends Engine {
             displayMode: DisplayMode.Fixed,
 
                 physics: {
-                    solver: SolverStrategy.Arcade,
-                    gravity: new Vector(0, 100),
+                    solver: SolverStrategy.Realistic,
+                    gravity: new Vector(0, 10),
                 }
          })
 
@@ -81,17 +81,12 @@ export class Game extends Engine {
         this.add(cameraTarget)
         this.currentScene.camera.strategy.lockToActor(cameraTarget);
 
-        for (let i = 0; i < 10; i++){
         const pickup = new Pickup
         this.add(pickup)
-        }
 
         //Star: trash testing, will get a different spot
         const trash = new Trash
         this.add(trash);
-
-        const shipTeleport = new Shipteleport(new Vector (1000, 100), ex.Color.Red, 'supplyship')
-        this.add(shipTeleport)
 
         const museum_teleport = new Shipteleport(new Vector(1000, 300), ex.Color.Purple, 'museum')
         this.add(museum_teleport)
