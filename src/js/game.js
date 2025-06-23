@@ -37,7 +37,6 @@ export class Game extends Engine {
                 }
          })
 
-         this.add('supplyship', new Supplyship())
          this.add('museum', new Museum())
          //Render the level and add it to the scene
         this.tiledMap = new tiled.TiledResource(testMapUrl)
@@ -61,12 +60,12 @@ export class Game extends Engine {
             }
              this.start(ResourceLoader).then(() => this.startGame())
          });
-         this.showDebug(true);
+        this.showDebug(true);
     }
 
     startGame() {
 
-        this.tiledMap.addToScene(this.currentScene)
+        this.tiledMap.addToScene(this.currentScene) // collision alleen bij bovenste laag tiles om lag te voorkomen
         // Add a background
         const background = new Background()
         this.add(background)
@@ -92,7 +91,7 @@ export class Game extends Engine {
 
         //Spawn Relics.
         const relic1 = new Relic(new Vector(192, 2064), Resources.RelicAmulet.toSprite(), 'amulet')
-        const relic2 = new Relic(new Vector(192, 3776), Resources.RelicMask.toSprite(), 'mask')
+        const relic2 = new Relic(new Vector(192, 4224), Resources.RelicMask.toSprite(), 'mask')
         const relic3 = new Relic(new Vector(1168, 5344), Resources.RelicStatue.toSprite(), 'statue')
         this.add(relic1)
         this.add(relic2)    
@@ -124,7 +123,6 @@ export class Game extends Engine {
 
         this.bubbles = new Bubble()
         this.add(this.bubbles)
-        console.log("Bubble spawned at", this.bubbles.pos.x.toFixed(0), this.bubbles.pos.y.toFixed(0))
 
         // Play background music after everything is set up
         Resources.BackgroundMusic.loop = true
