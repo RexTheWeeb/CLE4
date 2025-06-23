@@ -119,6 +119,8 @@ export class Game extends Engine {
         this.player2 = player2
         this.cameraTarget = cameraTarget
 
+        this.spawnFish(new Vector(400, 300))
+
          // this.currentScene.camera.strategy.lockToActor(player)
         this.ui = new UI(player, player2)
         this.add(this.ui)
