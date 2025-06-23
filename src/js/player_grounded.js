@@ -3,6 +3,7 @@ import { Resources } from "./resources";
 
 export class PlayerGrounded extends Actor {
     #speed = 200;
+    score = 0;
     sprite
     keyleft
     keyright
@@ -41,4 +42,12 @@ export class PlayerGrounded extends Actor {
             this.vel = new Vector(xspeed, yspeed);
         }
     
+
+    increaseOxygenBar(amount) {
+        this.oxygenBarLength += 50;
+    }
+
+    increaseSpeed(amount) {
+        this.#speed += 50;
+    }     
 }

@@ -11,7 +11,9 @@ const Resources = {
    Screen: new ImageSource('images/Window.png'),
    Background: new ImageSource('images/ocean_background_temp.jpg'),
    oxygenTank: new ImageSource('images/oxygenTank.png'),
-    up1: new ImageSource('images/up1.png'),            
+   up1: new ImageSource('images/up1.png'),     
+   SpeedUpgrade: new ImageSource('images/speed_upgrade.png'),
+
    
    SupplyBackground: new ImageSource('images/supplyship_background.jpg'),
    Bubbles: new ImageSource('images/bubble.webp'),
@@ -28,6 +30,11 @@ const Resources = {
    //trash sprites
    Packet: new ImageSource('images/trash-sprites/drinkpacket-48x48.PNG'),
    Net: new ImageSource('images/trash-sprites/fishnet-64x64.PNG'),
+
+   //paintings
+   PaintingShark: new ImageSource('images/Painting_shark.png'),
+    PaintingFish: new ImageSource('images/Painting_Fish.png'),
+
 
    // sound effecten 
    pickup2: new Sound('sounds/pickup2.mp3'),
