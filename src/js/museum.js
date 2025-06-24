@@ -16,9 +16,19 @@ export class Museum extends Scene {
     player
     player2
     cameraTarget 
-    amulet = true
-    mask
-    statue
+    amulet = false
+    mask = false
+    statue = false
+
+    setAmulet(){
+        this.amulet = true
+    }
+    setMask(){
+        this.mask = true
+    }
+    setStatue(){
+        this.statue = true
+    }
 
     onInitialize(engine) {
         engine.backgroundColor = Color.LightGray
@@ -58,16 +68,16 @@ export class Museum extends Scene {
         const displayCaseAmulet = new DisplayCase(new Vector(300, 625), this.amulet, Resources.DisplayAmulet.toSprite())
         this.add(displayCaseAmulet)
 
-        const displayCaseMask = new DisplayCase(new Vector(640, 625), this.amulet, Resources.DisplayMask.toSprite())
+        const displayCaseMask = new DisplayCase(new Vector(640, 625), this.mask, Resources.DisplayMask.toSprite())
         this.add(displayCaseMask)
 
-        const upgradeCase = new OxygenUpgrade(new Vector(840, 590))
+        const upgradeCase = new OxygenUpgrade(new Vector(1180, 590))
         this.add(upgradeCase)
 
-        const speedUpgrade = new SpeedUpgrade(new Vector(940, 590))
+        const speedUpgrade = new SpeedUpgrade(new Vector(1100, 590))
         this.add(speedUpgrade)
 
-        const catsuit = new CatVendor(new Vector(775, 620))
+        const catsuit = new CatVendor(new Vector(1030, 619))
         this.add(catsuit)
 
         

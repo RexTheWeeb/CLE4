@@ -1,5 +1,7 @@
 import { Actor, Vector } from "excalibur"
 import { Resources } from './resources.js'
+import { Player } from './player.js'
+import { PlayerGrounded } from './player_grounded.js'
 
 export class OxygenUpgrade extends Actor {
     constructor(pos) {
@@ -18,20 +20,30 @@ export class OxygenUpgrade extends Actor {
         this.on("pointerdown", (evt) => this.onClick(evt, engine))
     }
 
-    onClick(evt, engine) { // moet andere methode krijgen dan onclick
-        // Only allow upgrade if player score is 5, 10, or 15
+    onClick(evt, engine) {
         engine.currentScene.actors.forEach(actor => {
-            if (actor.constructor.name === "PlayerGrounded") {
-                // Check if actor.score exists and is 5, 10, or 15
-                if (actor.score === 2 || actor.score === 3 || actor.score === 4) {
-                    if (typeof actor.increaseOxygenBar === "function") {
-                        actor.increaseOxygenBar(50)
-                        console.log("Oxygen upgraded")
-                    } else {
-                        actor.oxygenBarLength = (actor.oxygenBarLength || 100) + 50
-                    }
-                    this.kill()
+            if ((actor instanceof Player || actor instanceof PlayerGrounded) &&
+                (actor.score === 2 || actor.score === 3 || actor.score === 4)) {
+
+                if (engine.ui && typeof engine.ui.timerValue === "number") {
+                    // Clamp to 60 before upgrade
+                    engine.ui.timerValue = Math.min(engine.ui.timerValue, 60)
+                    engine.ui.oxygenBar.setValue(engine.ui.timerValue)
+                    // Upgrade: set max to 70 and refill to 70
+                    engine.ui.maxTime = 70
+                    engine.ui.oxygenBar.maxValue = 70
+                    engine.ui.timerValue = 70
+                    engine.ui.oxygenBar.setValue(engine.ui.timerValue)
+                    engine.ui.labelTimer.text = `Oxygen: ${engine.ui.timerValue}`
                 }
+
+                // Museum: update player attribute if needed
+                if (typeof actor.increaseOxygenBar === "function") {
+                    actor.increaseOxygenBar(50)
+                } else {
+                    actor.oxygenBarLength = (actor.oxygenBarLength || 100) + 50
+                }
+                this.kill()
             }
         })
     }
