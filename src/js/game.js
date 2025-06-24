@@ -16,7 +16,7 @@ import { Museum } from './museum.js'
 import {Trash} from './trash.js'
 import { TrashNet } from './trashnet.js'
 import { Relic } from './relic.js'
-import { Fish1 } from './fishes/rainbow_fish.js'
+import { Fish } from './fish.js'
 import { Dialog } from './dialog.js'
 
 export class Game extends Engine {
@@ -124,7 +124,7 @@ export class Game extends Engine {
         this.player2 = player2
         this.cameraTarget = cameraTarget
 
-        this.spawnFish(new Vector(400, 300))
+        this.spawnFish(new Vector(400, 300)) //testing fish
 
          // this.currentScene.camera.strategy.lockToActor(player)
         this.ui = new UI(player, player2)
@@ -179,7 +179,7 @@ export class Game extends Engine {
 }
 
     spawnFish(pos){
-        const fish = new Fish1(pos);
+        const fish = new Fish(pos);
         this.add(fish);
     }
 }
