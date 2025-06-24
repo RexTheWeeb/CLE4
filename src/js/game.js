@@ -17,6 +17,8 @@ import {Trash} from './trash.js'
 import { TrashNet } from './trashnet.js'
 import { Relic } from './relic.js'
 import { Fish } from './fish.js'
+import { Dialog } from './dialog.js'
+import { GameOver } from './game_over.js'
 
 export class Game extends Engine {
     player1
@@ -30,6 +32,7 @@ export class Game extends Engine {
             height: 720,
             maxFps: 60,
             displayMode: DisplayMode.Fixed,
+            suppressPlayButton: true,
 
                 physics: {
                     solver: SolverStrategy.Arcade,
@@ -39,6 +42,7 @@ export class Game extends Engine {
          })
 
          this.add('museum', new Museum())
+         this.add('gameover', new GameOver())
          //Render the level and add it to the scene
         this.tiledMap = new tiled.TiledResource(testMapUrl)
         ResourceLoader.addResource(this.tiledMap)
@@ -70,6 +74,9 @@ export class Game extends Engine {
         // Add a background
         const background = new Background()
         this.add(background)
+
+        this.dialog = new Dialog()
+        this.add(this.dialog)
 
         //Voeg de map toe.
         const player = new Player(new Vector(100, 200), ex.Keys.W, ex.Keys.S, ex.Keys.A, ex.Keys.D, 0, Resources.Diver1.toSprite(), 300, 150 )
@@ -106,7 +113,7 @@ export class Game extends Engine {
         //const shipTeleport = new Shipteleport(new Vector (1000, 100), ex.Color.Red, 'supplyship')
         //this.add(shipTeleport)
 
-        const museum_teleport = new Shipteleport(new Vector(1000, 300), ex.Color.Purple, 'museum')
+        const museum_teleport = new Shipteleport(new Vector(1000, 550), Resources.Anchor.toSprite(), new Vector(2, 2), 'museum')
         this.add(museum_teleport)
 
         const collectionArea = new CollectionArea(new Vector(500, 100))
@@ -177,6 +184,11 @@ export class Game extends Engine {
         const fish = new Fish(pos);
         this.add(fish);
     }
+
+    goToGameOver() {
+        this.goToScene('gameover')
+    }
+    
 }
 
 new Game()

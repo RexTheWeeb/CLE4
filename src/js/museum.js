@@ -41,7 +41,7 @@ export class Museum extends Scene {
         player.score = 2;
         this.add(player2)
 
-        const returnTeleport = new Shipteleport(new Vector(100, 600), Color.Green, 'root')
+        const returnTeleport = new Shipteleport(new Vector(100, 600), Resources.Gate.toSprite(), new Vector(1.5, 1.5),'root')
         this.add(returnTeleport)
 
         const floor = new Floor(new Vector(640, 700), 1280, 100)
@@ -65,11 +65,14 @@ export class Museum extends Scene {
         // left out new item cuz it let the game crasg // Chaim
 
         //Display cases
-        const displayCaseAmulet = new DisplayCase(new Vector(300, 625), this.amulet, Resources.DisplayAmulet.toSprite())
+        const displayCaseAmulet = new DisplayCase(new Vector(400, 625), this.amulet, Resources.DisplayAmulet.toSprite())
         this.add(displayCaseAmulet)
 
         const displayCaseMask = new DisplayCase(new Vector(640, 625), this.mask, Resources.DisplayMask.toSprite())
         this.add(displayCaseMask)
+
+        const displayCaseStatue = new DisplayCase(new Vector(880, 625), this.mask, Resources.DisplayStatue.toSprite())
+        this.add(displayCaseStatue)
 
         const upgradeCase = new OxygenUpgrade(new Vector(1180, 590))
         this.add(upgradeCase)

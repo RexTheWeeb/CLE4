@@ -6,31 +6,18 @@
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     <title>Excalibur</title>
     <style>
-      #start-btn {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 2rem;
-        padding: 1rem 2rem;
-        z-index: 1000;
-      }
+      /* Start button removed, no extra styles needed */
     </style>
   </head>
   <body>
-    <button id="start-btn">Start Game</button>
     <script type="module">
-      const btn = document.getElementById('start-btn');
-      btn.addEventListener('click', async () => {
-        btn.style.display = 'none';
-        const resourcesModule = await import('/src/js/resources.js');
-        await import('/src/js/game.js');
-        resourcesModule.Resources.BackgroundMusic.loop = true;
-        resourcesModule.Resources.BackgroundMusic.volume = 0.5;
-        resourcesModule.Resources.BackgroundMusic.play()
-          .then(() => console.log('Background music started!'))
-          .catch(e => console.error('Background music error:', e));
-      });
+      const resourcesModule = await import('/src/js/resources.js');
+      await import('/src/js/game.js');
+      resourcesModule.Resources.BackgroundMusic.loop = true;
+      resourcesModule.Resources.BackgroundMusic.volume = 0.5;
+      resourcesModule.Resources.BackgroundMusic.play()
+        .then(() => console.log('Background music started!'))
+        .catch(e => console.error('Background music error:', e));
     </script>
   </body>
 </html>

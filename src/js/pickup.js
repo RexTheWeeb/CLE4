@@ -45,11 +45,6 @@ export class Pickup extends Actor {
                 spawnList = treasureSpawnArray
             } else if (type === 1) {
                 spawnList = trashSpawnArray
-            } else {
-                throw new Error("Unknown pickup type")
-            }
-            if (spawnList.length === 0) {
-                throw new Error("No spawn positions left for this pickup type")
             }
         const index = Math.floor(Math.random() * spawnList.length)
         this.pos = spawnList[index].clone()

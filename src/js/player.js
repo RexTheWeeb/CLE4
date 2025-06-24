@@ -91,6 +91,7 @@ export class Player extends Actor {
 
             // Use different speed if carrying treasure
             const speed = this.pickupState ? this.objectSpeed :  this.speed;
+            // console.log("Current player speed:", this.speed)
             move = move.normalize().scale(speed);
             xspeed = move.x
             yspeed = move.y
@@ -173,20 +174,25 @@ if (Math.abs(this.vel.x) > Math.abs(this.vel.y)) {
 
         if (event.other.owner && event.other.owner.solid) {
                 console.log("Collision with solid object")
-                
-            }
+        }
 
         if (event.other.owner instanceof Bubble) {
-            if (this.scene.engine.ui && typeof this.scene.engine.ui.timerValue === "number") {
-                // Clamp oxygen to the current max (60 or 70)
-                const maxOxygen = this.scene.engine.ui.maxTime || 60;
-                this.scene.engine.ui.timerValue = Math.min(this.scene.engine.ui.timerValue + 10, maxOxygen);
-                this.scene.engine.ui.labelTimer.text = `Oxygen: ${this.scene.engine.ui.timerValue}`;
-                this.scene.engine.ui.oxygenBar.setValue(this.scene.engine.ui.timerValue);
-            }
-                event.other.owner.bubbleLeft();
-            }
-    }
+            if (
+        this.scene.engine.ui &&
+        typeof this.scene.engine.ui.timerValue === "number"
+        ) {
+        const maxOxygen = this.scene.engine.ui.maxTime || 60;
+        this.scene.engine.ui.timerValue = Math.min(this.scene.engine.ui.timerValue + 10, maxOxygen);
+        if (this.scene.engine.ui.labelTimer) {
+            this.scene.engine.ui.labelTimer.text = `Oxygen: ${this.scene.engine.ui.timerValue}`;
+        }
+        if (this.scene.engine.ui.oxygenBar) {
+            this.scene.engine.ui.oxygenBar.setValue(this.scene.engine.ui.timerValue);
+        }
+        }
+        event.other.owner.bubbleLeft();
+        }
+        }
 
     pickupItem(itemType){ 
         this.pickupItemType = itemType;
@@ -201,6 +207,8 @@ if (Math.abs(this.vel.x) > Math.abs(this.vel.y)) {
             } else if (this.pickupItemType === 1){ 
                 this.pickupState = true;
                 this.trash = new Trash(Player);
+                this.trash.pos = new Vector(0, 0) 
+                this.trash.scale = new Vector(1, 1)
                 this.addChild(this.trash); 
 
             } else if(this.pickupItemType === 2 || 3 || 4){
@@ -235,21 +243,18 @@ removePickedUpItem(type) {
             this.treasure.kill()
             this.treasure = null
             this.pickupState = false
-            console.log("Treasure removed")
         }
     } else if (type === 1) {
         if (this.trash) {
             this.trash.kill()
             this.trash = null
             this.pickupState = false
-            console.log("Trash dropped off")
         }
     } else if (type === 2) {
         if (this.relic) {
             this.relic.kill()
             this.relic = null
             this.pickupState = false
-            console.log("Relic removed")
         }
     }
     console.log(this.pickupState)
