@@ -6,7 +6,7 @@ import { Player } from "./player.js"
 import { PlayerGrounded } from "./player_grounded.js"
 import { Floor } from "./floor.js"
 import { DisplayCase } from "./display_case.js"
-import { UpgradeCase } from "./oxygen_upgrade.js"
+import { OxygenUpgrade } from "./oxygen_upgrade.js"
 import { CatVendor } from "./cat_vendor.js"
 import { Item } from "./item.js"
 import { Shipteleport } from "./ship_teleport.js"
@@ -61,7 +61,7 @@ export class Museum extends Scene {
         const displayCaseMask = new DisplayCase(new Vector(640, 625), this.amulet, Resources.DisplayMask.toSprite())
         this.add(displayCaseMask)
 
-        const upgradeCase = new UpgradeCase(new Vector(840, 590))
+        const upgradeCase = new OxygenUpgrade(new Vector(840, 590))
         this.add(upgradeCase)
 
         const speedUpgrade = new SpeedUpgrade(new Vector(940, 590))
