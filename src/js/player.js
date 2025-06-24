@@ -91,7 +91,6 @@ export class Player extends Actor {
 
             // Use different speed if carrying treasure
             const speed = this.pickupState ? this.objectSpeed :  this.speed;
-            console.log("Current player speed:", this.speed)
             move = move.normalize().scale(speed);
             xspeed = move.x
             yspeed = move.y
