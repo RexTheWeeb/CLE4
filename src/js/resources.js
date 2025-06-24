@@ -20,6 +20,9 @@ const Resources = {
    Diver1: new ImageSource('images/diver1.png'),
    Diver2: new ImageSource('images/diver2.png'),
    Catsuit: new ImageSource('images/catsuit.png'),
+   Anchor: new ImageSource('images/Anchor.png'),
+   Cage: new ImageSource('images/Cage.png'),
+   Gate: new ImageSource('images/Gate.png'),
 
    // Relic sprites.
 

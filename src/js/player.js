@@ -236,21 +236,18 @@ removePickedUpItem(type) {
             this.treasure.kill()
             this.treasure = null
             this.pickupState = false
-            console.log("Treasure removed")
         }
     } else if (type === 1) {
         if (this.trash) {
             this.trash.kill()
             this.trash = null
             this.pickupState = false
-            console.log("Trash dropped off")
         }
     } else if (type === 2) {
         if (this.relic) {
             this.relic.kill()
             this.relic = null
             this.pickupState = false
-            console.log("Relic removed")
         }
     }
     console.log(this.pickupState)
