@@ -1,7 +1,7 @@
 import { Actor, Vector } from "excalibur"
 import { Resources } from './resources.js'
 
-export class UpgradeCase extends Actor {
+export class OxygenUpgrade extends Actor {
     constructor(pos) {
         super({
             pos: pos,
