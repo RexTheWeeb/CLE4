@@ -11,7 +11,7 @@ import { Background } from './background.js'
 import { UI } from './ui.js'
 import { Supplyship } from './supplyship.js'
 import { Shipteleport } from './ship_teleport.js'
-import { Bubble } from './oxygen_bubble.js'
+import { Bubble, bubbleSpawnArray} from './oxygen_bubble.js'
 import { Museum } from './museum.js'
 import {Trash} from './trash.js'
 import { TrashNet } from './trashnet.js'
@@ -131,6 +131,10 @@ export class Game extends Engine {
 
         this.bubbles = new Bubble()
         this.add(this.bubbles)
+
+        this.fixedBubbles = new Bubble(true)
+        this.add(this.fixedBubbles)
+        console.log('Bubbles spawned at fixed positions:', bubbleSpawnArray.length);
 
         // Play background music after everything is set up
         Resources.BackgroundMusic.loop = true
