@@ -1,4 +1,4 @@
-import { Vector, CollisionType, Actor, } from "excalibur"
+import { Vector, CollisionType, Actor, RotationType, vec} from "excalibur"
 import { Resources } from "./resources"
 
 //list of fish imports
@@ -34,14 +34,15 @@ import { Fish28 } from "./fishes/28_fish_name"
 
 export class Fish extends Actor {
 
-    #fishId //generate
-    #rarity //get from fish
-    #color //get from fish
-    #description //get from fish
-    sprite //along with generation
-    chosenFish //along generation
+    #fishId 
+    #rarity
+    #color
+    #description 
+    sprite 
+    chosenFish
     loopFish
     name
+    #gamePlaying
 
     randomx
     randomy
@@ -53,13 +54,17 @@ export class Fish extends Actor {
         })
         //position is set depending on where the trash was
         this.pos = position
-        console.log(position);
+        this.actions.rotateTo(Math.PI / 4, Math.PI, RotationType.Clockwise)
         //to prevent it form 'sinking' for the time being
         this.body.useGravity = false;
+
+        this.randomx = Math.floor(Math.random() * 100)
+        this.randomy = Math.floor(Math.random() * 100)
+
+        this.#gamePlaying = true;
     }
 
     onInitialize(){
-        //for testing will be Fish1 for a bit
         const calc = Math.floor(Math.random() * 27 + 1)
         this.chosenFish = `Fish${calc}`    
         this.#fishId = calc;
@@ -69,17 +74,37 @@ export class Fish extends Actor {
    
     #roam(){
         //start point + or - random vector
-        console.log("start roaming")
+        setTimeout(()=>{
+            this.actions
+            .moveTo(new Vector(500, 600), 2000)
+            .delay(2000)
+            .moveTo(new Vector(200, 100), 2000)
+            .delay(2000)
+            .moveTo(new Vector(700, 340), 2000)
+            console.log("moved")
+        }, 1000)
 
-        if(this.randomx > 0){
-            this.graphics.flipHorizontal = false;
-        } else if (this.randomy < 0) {
-            this.graphics.flipHorizontal = true;
-        }
-        /*  
-        this.actions.moveBy(new Vector(-100, -100), 1000)
-        this.actions.blink(200, 100, 5);
-        */
+        // if(this.randomx > 0){
+        //     this.graphics.flipHorizontal = false;
+        // } else if (this.randomy < 0) {
+        //     this.graphics.flipHorizontal = true;
+        // }
+
+            // setTimeout(()=>{
+            //     for(let i = 0; i < 40; i++){
+            //         if(this.#gamePlaying === true)
+            //         {
+            //             console.log("start roaming.")
+            //             this.actions
+            //             .delay(10000)
+            //             // this.actions
+            //             // .moveTo(vec(this.pos.x + this.randomx, this.pos.y + this.randomy), 500)
+            //             // .delay(1000)
+            //             // .moveTo(vec(this.pos.x - this.randomx, this.pos.y - this.randomy), 500)
+            //             // .delay(1000)
+            //         }
+            //     }
+            // }, 5000)
     }
 
     #getInfo(){

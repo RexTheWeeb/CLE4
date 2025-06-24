@@ -48,7 +48,6 @@ export class Pickup extends Actor {
             }
         const index = Math.floor(Math.random() * spawnList.length)
         this.pos = spawnList[index].clone()
-        console.log(this.pos)
         spawnList.splice(index, 1) 
         this.scale = new Vector(0.3, 0.3)
         this.pickUpType = type;
