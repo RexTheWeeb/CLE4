@@ -17,6 +17,7 @@ export class PlayerGrounded extends Actor {
         this.sprite = sprite
         this.keyleft = keyleft
         this.keyright = keyright
+        this.gamepadIndex = gamepadIndex
     }
         onInitialize(engine) {
             this.graphics.use(this.sprite)    
@@ -39,7 +40,7 @@ export class PlayerGrounded extends Actor {
                 xspeed = this.#speed;
             } 
 
-        const pad = engine.input.gamepads.at(gamepadIndex);
+        const pad = engine.input.gamepads.at(this.gamepadIndex);
         if (pad && pad.connected) {
             const axisX = pad.getAxes(0) ?? 0;
             // Optionally, you can use up/down with axisY if needed
