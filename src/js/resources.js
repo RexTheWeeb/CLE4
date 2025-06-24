@@ -42,7 +42,7 @@ const Resources = {
    BackgroundMusic: new Sound('sounds/backgroundmusic.wav'),
 
    //fish sprites
-   Fish1: new ImageSource('./images/Beowulf_Fishes_Assets_Pack_size_64x64/spr_fish_01_xx.png'),
+   Fish1: new ImageSource('images/Beowulf_Fishes_Assets_Pack_size_64x64/spr_fish_01_xx.png'),
    Fish2: new ImageSource('images/Beowulf_Fishes_Assets_Pack_size_64x64/spr_fish_04_xx.png'),
    Fish3: new ImageSource('images/Beowulf_Fishes_Assets_Pack_size_64x64/spr_fish_08_xx.png'),
    Fish4: new ImageSource('images/Beowulf_Fishes_Assets_Pack_size_64x64/spr_fish_13_xx.png'),
