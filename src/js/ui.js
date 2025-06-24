@@ -6,9 +6,9 @@ export class UI extends ScreenElement {
     labelP2
     labelTimer
     oxygenBar
-    timerValue = 60; 
+    timerValue = 5; 
     //Timer in seconds
-    maxTime = 60; 
+    maxTime = 5; 
     //Maximum seconds
 
     player1
@@ -69,11 +69,18 @@ export class UI extends ScreenElement {
     }
 
     onPostUpdate(engine) {
-        if (engine.clock.now() - this._lastTimerUpdate > 1000 && this.timerValue > 0) {
-            this.timerValue -= 1;
+    if (engine.clock.now() - this._lastTimerUpdate > 1000 && this.timerValue > 0) {
+        this.timerValue -= 1;
+        if (this.labelTimer) {
             this.labelTimer.text = `Oxygen: ${this.timerValue}`;
-            this.oxygenBar.setValue(this.timerValue);
-            this._lastTimerUpdate = engine.clock.now();
+        }
+        this.oxygenBar.setValue(this.timerValue);
+        this._lastTimerUpdate = engine.clock.now();
+        if (this.timerValue === 0) {
+            if (engine.goToGameOver) {
+                engine.goToGameOver();
+            }
         }
     }
+}
 }

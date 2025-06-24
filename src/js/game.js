@@ -17,6 +17,7 @@ import {Trash} from './trash.js'
 import { TrashNet } from './trashnet.js'
 import { Relic } from './relic.js'
 import { Fish1 } from './fishes/rainbow_fish.js'
+import { GameOver } from './game_over.js'
 
 export class Game extends Engine {
     player1
@@ -39,6 +40,7 @@ export class Game extends Engine {
          })
 
          this.add('museum', new Museum())
+         this.add('gameover', new GameOver())
          //Render the level and add it to the scene
         this.tiledMap = new tiled.TiledResource(testMapUrl)
         ResourceLoader.addResource(this.tiledMap)
@@ -177,6 +179,11 @@ export class Game extends Engine {
         const fish = new Fish1(pos);
         this.add(fish);
     }
+
+    goToGameOver() {
+        this.goToScene('gameover')
+    }
+    
 }
 
 new Game()

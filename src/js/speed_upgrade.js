@@ -26,10 +26,10 @@ export class SpeedUpgrade extends Actor {
                 if (actor.score === 2 || actor.score === 3 || actor.score === 4) {
                     if (typeof actor.increaseSpeed === "function") {
                         actor.increaseSpeed(300)
-                        console.log("Speed after upgrade (increaseSpeed):", actor.speed)
+                        // console.log("Speed after upgrade (increaseSpeed):", actor.speed)
                     } else {
                         actor.speed = (actor.speed || 200) + 300
-                        console.log("Speed after upgrade (direct):", actor.speed)
+                        // console.log("Speed after upgrade (direct):", actor.speed)
                     }
                     this.kill()
                 }
