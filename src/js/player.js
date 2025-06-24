@@ -91,6 +91,7 @@ export class Player extends Actor {
 
             // Use different speed if carrying treasure
             const speed = this.pickupState ? this.objectSpeed :  this.speed;
+            console.log("Current player speed:", this.speed)
             move = move.normalize().scale(speed);
             xspeed = move.x
             yspeed = move.y
@@ -177,15 +178,15 @@ if (Math.abs(this.vel.x) > Math.abs(this.vel.y)) {
             }
 
         if (event.other.owner instanceof Bubble) {
-            // @ts-ignore
             if (this.scene.engine.ui && typeof this.scene.engine.ui.timerValue === "number") {
-                // @ts-ignore
-                this.scene.engine.ui.timerValue += 10
-                // @ts-ignore
-                this.scene.engine.ui.labelTimer.text = `Oxygen: ${this.scene.engine.ui.timerValue}`
+                // Clamp oxygen to the current max (60 or 70)
+                const maxOxygen = this.scene.engine.ui.maxTime || 60;
+                this.scene.engine.ui.timerValue = Math.min(this.scene.engine.ui.timerValue + 10, maxOxygen);
+                this.scene.engine.ui.labelTimer.text = `Oxygen: ${this.scene.engine.ui.timerValue}`;
+                this.scene.engine.ui.oxygenBar.setValue(this.scene.engine.ui.timerValue);
             }
-            event.other.owner.bubbleLeft()
-        }
+                event.other.owner.bubbleLeft();
+            }
     }
 
     pickupItem(itemType){ 
