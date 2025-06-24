@@ -3,7 +3,7 @@ import { Actor, Vector } from "excalibur";
 import { Player } from "./player.js";
 
 export class Relic extends Actor {
-    constructor(pos, sprite) {
+    constructor(pos, sprite, type) {
         super({
             width: sprite.width,
             height: sprite.height,
@@ -11,6 +11,7 @@ export class Relic extends Actor {
         this.graphics.use(sprite);
         this.pos = pos;
         this.scale = new Vector(1, 1);
+        this.type = type
     }
 
     onInitialize(engine) {
@@ -20,7 +21,7 @@ export class Relic extends Actor {
     handleCollision(event) {
         if (event.other.owner instanceof Player) {
             if (event.other.owner.pickupState === false) {
-                event.other.owner.pickupItem();
+                event.other.owner.pickupItem(this.type);
                 this.kill();
             }
         }

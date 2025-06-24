@@ -16,7 +16,8 @@ import { Museum } from './museum.js'
 import {Trash} from './trash.js'
 import { TrashNet } from './trashnet.js'
 import { Relic } from './relic.js'
-import { Fish1 } from './fishes/rainbow_fish.js'
+import { Fish } from './fish.js'
+import { Dialog } from './dialog.js'
 import { GameOver } from './game_over.js'
 
 export class Game extends Engine {
@@ -31,6 +32,7 @@ export class Game extends Engine {
             height: 720,
             maxFps: 60,
             displayMode: DisplayMode.Fixed,
+            suppressPlayButton: true,
 
                 physics: {
                     solver: SolverStrategy.Arcade,
@@ -73,6 +75,9 @@ export class Game extends Engine {
         const background = new Background()
         this.add(background)
 
+        this.dialog = new Dialog()
+        this.add(this.dialog)
+
         //Voeg de map toe.
         const player = new Player(new Vector(100, 200), ex.Keys.W, ex.Keys.S, ex.Keys.A, ex.Keys.D, 0, Resources.Diver1.toSprite(), 300, 150 )
         this.add(player)
@@ -98,9 +103,9 @@ export class Game extends Engine {
         }
 
         //Spawn Relics.
-        const relic1 = new Relic(new Vector(192, 2064), Resources.RelicAmulet.toSprite(), 'amulet')
-        const relic2 = new Relic(new Vector(192, 4224), Resources.RelicMask.toSprite(), 'mask')
-        const relic3 = new Relic(new Vector(1168, 5344), Resources.RelicStatue.toSprite(), 'statue')
+        const relic1 = new Relic(new Vector(192, 2064), Resources.RelicAmulet.toSprite(), 2)
+        const relic2 = new Relic(new Vector(192, 4224), Resources.RelicMask.toSprite(), 3)
+        const relic3 = new Relic(new Vector(1168, 5344), Resources.RelicStatue.toSprite(), 4)
         this.add(relic1)
         this.add(relic2)    
         this.add(relic3)
@@ -108,7 +113,7 @@ export class Game extends Engine {
         //const shipTeleport = new Shipteleport(new Vector (1000, 100), ex.Color.Red, 'supplyship')
         //this.add(shipTeleport)
 
-        const museum_teleport = new Shipteleport(new Vector(1000, 300), ex.Color.Purple, 'museum')
+        const museum_teleport = new Shipteleport(new Vector(1000, 550), Resources.Anchor.toSprite(), new Vector(2, 2), 'museum')
         this.add(museum_teleport)
 
         const collectionArea = new CollectionArea(new Vector(500, 100))
@@ -121,7 +126,7 @@ export class Game extends Engine {
         this.player2 = player2
         this.cameraTarget = cameraTarget
 
-        this.spawnFish(new Vector(400, 300))
+        this.spawnFish(new Vector(400, 300)) //testing fish
 
          // this.currentScene.camera.strategy.lockToActor(player)
         this.ui = new UI(player, player2)
@@ -176,7 +181,7 @@ export class Game extends Engine {
 }
 
     spawnFish(pos){
-        const fish = new Fish1(pos);
+        const fish = new Fish(pos);
         this.add(fish);
     }
 

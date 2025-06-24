@@ -20,6 +20,9 @@ const Resources = {
    Diver1: new ImageSource('images/diver1.png'),
    Diver2: new ImageSource('images/diver2.png'),
    Catsuit: new ImageSource('images/catsuit.png'),
+   Anchor: new ImageSource('images/Anchor.png'),
+   Cage: new ImageSource('images/Cage.png'),
+   Gate: new ImageSource('images/Gate.png'),
 
    // Relic sprites.
 
@@ -42,7 +45,7 @@ const Resources = {
    BackgroundMusic: new Sound('sounds/backgroundmusic.wav'),
 
    //fish sprites
-   Fish1: new ImageSource('images/Beowulf_Fishes_Assets_Pack_size_64x64/spr_fish_01_xx.png'),
+   Fish1: new ImageSource('images/Beowulf_Fishes_Assets_Pack_size_64x64/spr_fish_73_xx.png'),
    Fish2: new ImageSource('images/Beowulf_Fishes_Assets_Pack_size_64x64/spr_fish_04_xx.png'),
    Fish3: new ImageSource('images/Beowulf_Fishes_Assets_Pack_size_64x64/spr_fish_08_xx.png'),
    Fish4: new ImageSource('images/Beowulf_Fishes_Assets_Pack_size_64x64/spr_fish_13_xx.png'),
@@ -69,6 +72,7 @@ const Resources = {
    Fish25: new ImageSource('images/Beowulf_Fishes_Assets_Pack_size_64x64/spr_fish_164_xx.png'),
    Fish26: new ImageSource('images/Beowulf_Fishes_Assets_Pack_size_64x64/spr_fish_170_xx.png'),
    Fish27: new ImageSource('images/Beowulf_Fishes_Assets_Pack_size_64x64/spr_fish_171_xx.png'),
+   Fish28: new ImageSource('images/Beowulf_Fishes_Assets_Pack_size_64x64/spr_fish_01_xx.png'),
 }
 
 const ResourceLoader = new Loader()
