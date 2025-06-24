@@ -1,5 +1,7 @@
 import { Actor, Vector } from "excalibur"
 import { Resources } from './resources.js'
+import { Player } from './player.js'
+import { PlayerGrounded } from './player_grounded.js'
 
 export class SpeedUpgrade extends Actor {
     constructor(pos) {
@@ -18,17 +20,16 @@ export class SpeedUpgrade extends Actor {
         this.on("pointerdown", (evt) => this.onClick(evt, engine))
     }
 
-    onClick(evt, engine) { // moet andere methode krijgen dan onclick
-        // Only allow upgrade if player score is 5, 10, or 15
+    onClick(evt, engine) {
         engine.currentScene.actors.forEach(actor => {
-            if (actor.constructor.name === "PlayerGrounded") {
-                // Check if actor.score exists and is 5, 10, or 15
+            if (actor instanceof Player || actor instanceof PlayerGrounded) {
                 if (actor.score === 2 || actor.score === 3 || actor.score === 4) {
                     if (typeof actor.increaseSpeed === "function") {
-                        actor.increaseSpeed(40)
-                        console.log("Speed increased")
+                        actor.increaseSpeed(300)
+                        // console.log("Speed after upgrade (increaseSpeed):", actor.speed)
                     } else {
-                        actor.playerSpeed = (actor.playerSpeed || 200) + 40
+                        actor.speed = (actor.speed || 200) + 300
+                        // console.log("Speed after upgrade (direct):", actor.speed)
                     }
                     this.kill()
                 }

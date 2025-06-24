@@ -5,9 +5,9 @@ import { Resources } from "./resources.js"
 export class Treasure extends Actor {
 
     // Makes treasure and places it randomly on the map
-    constructor(player) {
+    constructor(player, sprite) {
         super()
-        this.graphics.use(Resources.Treasure.toSprite())
+        this.graphics.use(sprite)
         this.pos = new Vector(0, 0)
         this.scale = new Vector(0.3, 0.3)
     }

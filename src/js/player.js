@@ -12,7 +12,9 @@ export class Player extends Actor {
     pickupState = false;
     treasure
     trash
+    relic
     pickupItemType
+    engine
 
     
     constructor(pos, upKey,downKey, leftKey, rightKey,
@@ -37,8 +39,7 @@ export class Player extends Actor {
     onInitialize(engine) {
         // Gebruik de sprite voor de speler
         this.graphics.use(this.sprite)
-        // Startpositie van de speler
-        
+        this.engine = engine        
 
         this.on("collisionstart", (event) => this.handleCollision(event));
 
@@ -90,6 +91,7 @@ export class Player extends Actor {
 
             // Use different speed if carrying treasure
             const speed = this.pickupState ? this.objectSpeed :  this.speed;
+            // console.log("Current player speed:", this.speed)
             move = move.normalize().scale(speed);
             xspeed = move.x
             yspeed = move.y
@@ -142,44 +144,89 @@ if (Math.abs(this.vel.x) > Math.abs(this.vel.y)) {
                     //Star: add audio here
                 }
                 
+                // @ts-ignore
                 this.scene.engine.ui.updateScore()
-            
             }
         }
+        
+        if (event.other.owner instanceof CollectionArea && this.pickupState) {
+                if(this.pickupItemType === 2 ){ 
+                    this.removePickedUpItem(2)
+                    this.score += 10
+                    this.placeInMuseum(2)
+                    Resources.PutInTreasure.play()
+                }else if(this.pickupItemType === 3 ){ 
+                    this.removePickedUpItem(2)
+                    this.score += 10
+                    this.placeInMuseum(3)
+                    Resources.PutInTreasure.play()
+                }else if(this.pickupItemType === 3 ){ 
+                    this.removePickedUpItem(2)
+                    this.score += 10
+                    this.placeInMuseum(4)
+                    Resources.PutInTreasure.play()
+                }
+            
+                this.scene.engine.ui.updateScore()
+
+        }
+
 
         if (event.other.owner && event.other.owner.solid) {
                 console.log("Collision with solid object")
-                
-            }
+        }
 
         if (event.other.owner instanceof Bubble) {
-            // @ts-ignore
-            if (this.scene.engine.ui && typeof this.scene.engine.ui.timerValue === "number") {
-                // @ts-ignore
-                this.scene.engine.ui.timerValue += 10
-                // @ts-ignore
-                this.scene.engine.ui.labelTimer.text = `Oxygen: ${this.scene.engine.ui.timerValue}`
-            }
-            event.other.owner.bubbleLeft()
+            if (
+        this.scene.engine.ui &&
+        typeof this.scene.engine.ui.timerValue === "number"
+        ) {
+        const maxOxygen = this.scene.engine.ui.maxTime || 60;
+        this.scene.engine.ui.timerValue = Math.min(this.scene.engine.ui.timerValue + 10, maxOxygen);
+        if (this.scene.engine.ui.labelTimer) {
+            this.scene.engine.ui.labelTimer.text = `Oxygen: ${this.scene.engine.ui.timerValue}`;
         }
-    }
+        if (this.scene.engine.ui.oxygenBar) {
+            this.scene.engine.ui.oxygenBar.setValue(this.scene.engine.ui.timerValue);
+        }
+        }
+        event.other.owner.bubbleLeft();
+        }
+        }
 
     pickupItem(itemType){ 
         this.pickupItemType = itemType;
         if(this.pickupState === false){
             this.pickupState = true;
+
             if(this.pickupItemType === 0){
-                this.treasure = new Treasure(Player)
+                this.treasure = new Treasure(Player, Resources.Treasure.toSprite())
                 this.addChild(this.treasure)
                 this.playPickupSound()
+
             } else if (this.pickupItemType === 1){ 
                 this.pickupState = true;
                 this.trash = new Trash(Player);
                 this.trash.pos = new Vector(0, 0) 
                 this.trash.scale = new Vector(1, 1)
                 this.addChild(this.trash); 
-                console.log("Trash picked up")
-            } else{
+
+            } else if(this.pickupItemType === 2 || 3 || 4){
+                this.pickupState = true
+
+                //all this code is to check which relic and add the just image
+                if (this.pickupItemType === 2){this.relic = new Treasure(Player, Resources.RelicAmulet.toSprite())
+                    this.relic.scale = new Vector(1.5, 1.5)
+                }
+             else if(this.pickupItemType === 3){this.relic = new Treasure(Player, Resources.RelicMask.toSprite())
+                this.relic.scale = new Vector(1.5, 1.5)
+             }
+             else if(this.pickupItemType === 4){this.relic = new Treasure(Player, Resources.RelicStatue.toSprite())
+                this.relic.scale = new Vector(1.5, 1.5)
+             }
+             this.addChild(this.relic)
+            }
+            else{
                 console.log("not treasure or trash")
             }
             console.log(this.pickupState)
@@ -190,20 +237,38 @@ if (Math.abs(this.vel.x) > Math.abs(this.vel.y)) {
         Resources.pickup2.play()
     }
 
-    removePickedUpItem(type) {
-        if (type === 0){
+removePickedUpItem(type) {
+    if (type === 0) {
+        if (this.treasure) {
             this.treasure.kill()
             this.treasure = null
             this.pickupState = false
-            console.log("Treasure removed")
-        } else if (type === 1){
+        }
+    } else if (type === 1) {
+        if (this.trash) {
             this.trash.kill()
             this.trash = null
             this.pickupState = false
-            console.log("Trash dropped off")
         }
-        console.log(this.pickupState)
-
+    } else if (type === 2) {
+        if (this.relic) {
+            this.relic.kill()
+            this.relic = null
+            this.pickupState = false
+        }
     }
+    console.log(this.pickupState)
+}
 
+    placeInMuseum(type){
+        if(type ===2){
+            console.log("hello")
+            this.engine.scenes.museum.setAmulet()
+            console.log("hi")
+        }else if(type ===3){
+            this.engine.scenes.museum.setMask()
+        }else if(type ===4){
+            this.engine.scenes.museum.setStatue()
+        }
+    }
 }

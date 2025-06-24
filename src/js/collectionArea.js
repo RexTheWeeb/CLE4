@@ -1,4 +1,4 @@
-import { Actor, Color } from "excalibur"
+import { Actor, Color, Vector } from "excalibur"
 import { Resources } from "./resources.js"
 import { Player } from "./player.js"
 import { Treasure } from "./treasure.js"
@@ -8,13 +8,14 @@ export class CollectionArea extends Actor {
         super({
             pos: pos,
             width: 200,
-            height: 200,
+            height: 120,
             color: Color.Yellow
         })
     }
 
     onInitialize() {
         this.on("collisionstart", (event) => this.handleCollision(event))
+        this.graphics.use(Resources.Cage.toSprite()).scale = new Vector(2, 2)
     }
 
     handleCollision(event) {

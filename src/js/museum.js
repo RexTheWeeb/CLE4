@@ -6,7 +6,7 @@ import { Player } from "./player.js"
 import { PlayerGrounded } from "./player_grounded.js"
 import { Floor } from "./floor.js"
 import { DisplayCase } from "./display_case.js"
-import { UpgradeCase } from "./upgrade_case.js"
+import { OxygenUpgrade } from "./oxygen_upgrade.js"
 import { CatVendor } from "./cat_vendor.js"
 import { Item } from "./item.js"
 import { Shipteleport } from "./ship_teleport.js"
@@ -16,9 +16,19 @@ export class Museum extends Scene {
     player
     player2
     cameraTarget 
-    amulet = true
-    mask
-    statue
+    amulet = false
+    mask = false
+    statue = false
+
+    setAmulet(){
+        this.amulet = true
+    }
+    setMask(){
+        this.mask = true
+    }
+    setStatue(){
+        this.statue = true
+    }
 
     onInitialize(engine) {
         engine.backgroundColor = Color.LightGray
@@ -31,7 +41,7 @@ export class Museum extends Scene {
         player.score = 2;
         this.add(player2)
 
-        const returnTeleport = new Shipteleport(new Vector(100, 600), Color.Green, 'root')
+        const returnTeleport = new Shipteleport(new Vector(100, 600), Resources.Gate.toSprite(), new Vector(1.5, 1.5),'root')
         this.add(returnTeleport)
 
         const floor = new Floor(new Vector(640, 700), 1280, 100)
@@ -55,19 +65,22 @@ export class Museum extends Scene {
         // left out new item cuz it let the game crasg // Chaim
 
         //Display cases
-        const displayCaseAmulet = new DisplayCase(new Vector(300, 625), this.amulet, Resources.DisplayAmulet.toSprite())
+        const displayCaseAmulet = new DisplayCase(new Vector(400, 625), this.amulet, Resources.DisplayAmulet.toSprite())
         this.add(displayCaseAmulet)
 
-        const displayCaseMask = new DisplayCase(new Vector(640, 625), this.amulet, Resources.DisplayMask.toSprite())
+        const displayCaseMask = new DisplayCase(new Vector(640, 625), this.mask, Resources.DisplayMask.toSprite())
         this.add(displayCaseMask)
 
-        const upgradeCase = new UpgradeCase(new Vector(840, 590))
+        const displayCaseStatue = new DisplayCase(new Vector(880, 625), this.mask, Resources.DisplayStatue.toSprite())
+        this.add(displayCaseStatue)
+
+        const upgradeCase = new OxygenUpgrade(new Vector(1180, 590))
         this.add(upgradeCase)
 
-        const speedUpgrade = new SpeedUpgrade(new Vector(940, 590))
+        const speedUpgrade = new SpeedUpgrade(new Vector(1100, 590))
         this.add(speedUpgrade)
 
-        const catsuit = new CatVendor(new Vector(775, 620))
+        const catsuit = new CatVendor(new Vector(1030, 619))
         this.add(catsuit)
 
         

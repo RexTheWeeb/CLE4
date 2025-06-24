@@ -4,18 +4,20 @@ import { Player } from './player.js'
 import { PlayerGrounded } from "./player_grounded.js"
 
 export class Shipteleport extends Actor {
-    constructor(pos, color, location) {
+    sprite
+    constructor(pos, sprite, scale, location) {
         super({
             pos: pos,
-            width: 50,
-            height: 50,
-            color: color
-        })
+            width: sprite.width,
+            height: sprite.height,        })
         this.location = location
         this.playerOverlapping = false
+        this.sprite = sprite
+        this.scale = scale
     }
 
     onInitialize(engine) {
+        this.graphics.use(this.sprite).scale = this.scale
         this.engine = engine
         this.on("collisionstart", (event) => this.handleCollisionStart(event))
         this.on("collisionend", (event) => this.handleCollisionEnd(event))
@@ -24,12 +26,15 @@ export class Shipteleport extends Actor {
     handleCollisionStart(event) {
         if (event.other.owner instanceof Player || event.other.owner instanceof PlayerGrounded) {
             this.playerOverlapping = true
+            this.engine.dialog.makeVisible()
         }
     }
 
     handleCollisionEnd(event) {
         if (event.other.owner instanceof Player || event.other.owner instanceof PlayerGrounded) {
             this.playerOverlapping = false
+            this.engine.dialog.makeInvisible()
+
         }
     }
 
