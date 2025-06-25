@@ -75,9 +75,6 @@ export class Game extends Engine {
         const background = new Background()
         this.add(background)
 
-        this.dialog = new Dialog()
-        this.add(this.dialog)
-
         //Voeg de map toe.
         const player = new Player(new Vector(100, 200), ex.Keys.W, ex.Keys.S, ex.Keys.A, ex.Keys.D, 0, Resources.Diver1.toSprite(), 300, 150 )
         this.add(player)
@@ -143,6 +140,9 @@ export class Game extends Engine {
         Resources.BackgroundMusic.loop = true
         Resources.BackgroundMusic.volume = 0.5
         Resources.BackgroundMusic.play()
+
+        this.dialog = new Dialog('Do you want to enter the museum? (e)')
+        this.add(this.dialog)
     }
 
 
