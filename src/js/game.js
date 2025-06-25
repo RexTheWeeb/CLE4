@@ -128,13 +128,10 @@ export class Game extends Engine {
         this.ui = new UI(player, player2)
         this.add(this.ui)
 
-        this.bubbles = new Bubble()
-        this.add(this.bubbles)
-
-        this.fixedBubbles = new Bubble(true)
-        this.add(this.fixedBubbles)
-        console.log('Bubbles Spawned at coordinates:', this.fixedBubbles.x, this.fixedBubbles.y)
-
+        for (const spawnPoint of bubbleSpawnArray) {
+            const bubble = new Bubble(spawnPoint);
+            this.add(bubble);
+        }
         // Play background music after everything is set up
         Resources.BackgroundMusic.loop = true
         Resources.BackgroundMusic.volume = 0.5
