@@ -6,7 +6,7 @@ export class Floor extends Actor{
             pos: pos,
             width: width,
             height: height,
-            color: Color.Azure,
+            color: Color.DarkGray,
             collisionType: CollisionType.Fixed
         })
     }

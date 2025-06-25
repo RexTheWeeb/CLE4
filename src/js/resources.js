@@ -15,7 +15,6 @@ const Resources = {
    SpeedUpgrade: new ImageSource('images/speed_upgrade.png'),
 
    
-   SupplyBackground: new ImageSource('images/supplyship_background.jpg'),
    Bubbles: new ImageSource('images/bubble.webp'),
    Diver1: new ImageSource('images/diver1.png'),
    Diver2: new ImageSource('images/diver2.png'),
@@ -37,9 +36,13 @@ const Resources = {
    //paintings
    PaintingShark: new ImageSource('images/Painting_shark.png'),
     PaintingFish: new ImageSource('images/Painting_Fish.png'),
+   Pillar: new ImageSource('images/pillar.png'),
+    Door: new ImageSource('images/door.png'),
+
 
 
    // sound effecten 
+   trashputinsound: new Sound('sounds/trashputinsound.mp3'),
    trashpickup: new Sound('sounds/pickuptrash.mp3'),
    pickup2: new Sound('sounds/pickup2.mp3'),
    PutInTreasure: new Sound('sounds/put-in-treasure.mp3'),
