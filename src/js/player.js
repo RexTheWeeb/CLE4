@@ -138,6 +138,7 @@ if (Math.abs(this.vel.x) > Math.abs(this.vel.y)) {
                 } else if (this.pickupItemType === 1){
                     this.removePickedUpItem(1)
                     this.score += 1
+                    this.engine.spawnFish(this.pos.clone())
                     Resources.trashputinsound.play()
                     //Star: add audio here
                 }

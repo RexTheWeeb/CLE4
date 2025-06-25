@@ -6,6 +6,7 @@ import { Resources } from './resources.js'
 import { OxygenUpgrade } from './oxygen_upgrade.js'
 import { SpeedUpgrade } from './speed_upgrade.js'
 import { Trash } from './trash.js'
+import { TrashNet } from './trashnet.js'
 
 export class ResetLevel {
     static resetAll(engine) {
