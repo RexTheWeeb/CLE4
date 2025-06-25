@@ -61,9 +61,6 @@ export class Player extends Actor {
             if (pad.isButtonPressed(0)) {
                 const now = Date.now();
                 if (now - this.lastButtonPress > this.buttonCooldown) {
-                    let randX = Math.random() * (engine.drawWidth - this.width)
-                    let randY = Math.random() * (engine.drawHeight - this.height)
-                    this.vel = new Vector(randX, randY)
                     this.lastButtonPress = now
                 }
             }
@@ -208,8 +205,6 @@ if (Math.abs(this.vel.x) > Math.abs(this.vel.y)) {
             } else if (this.pickupItemType === 1){ 
                 this.pickupState = true;
                 this.trash = new Trash(Player);
-                this.trash.pos = new Vector(0, 0) 
-                this.trash.scale = new Vector(1, 1)
                 this.addChild(this.trash); 
                 Resources.trashpickup.play()
 
