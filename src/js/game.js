@@ -98,7 +98,7 @@ export class Game extends Engine {
         // Add a background
         const background = new Background()
         this.add(background)
-
+        
         //Voeg de map toe.
         const player = new Player(new Vector(100, 200), ex.Keys.W, ex.Keys.S, ex.Keys.A, ex.Keys.D, 0, Resources.Diver1.toSprite(), 300, 150 )
         this.add(player)
@@ -156,6 +156,8 @@ export class Game extends Engine {
 
         this.bubbles = new Bubble()
         this.add(this.bubbles)
+        
+
 
         this.fixedBubbles = new Bubble(true)
         this.add(this.fixedBubbles)

@@ -189,6 +189,7 @@ if (Math.abs(this.vel.x) > Math.abs(this.vel.y)) {
         }
         }
         event.other.owner.bubbleLeft();
+        Resources.bubblerefill.play();
         }
         }
 
