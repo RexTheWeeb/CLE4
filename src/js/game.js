@@ -64,7 +64,6 @@ export class Game extends Engine {
             }
              this.start(ResourceLoader).then(() => this.startGame())
          });
-        this.showDebug(true);
     }
 
     gameOver() {
@@ -98,7 +97,7 @@ export class Game extends Engine {
         // Add a background
         const background = new Background()
         this.add(background)
-
+        
         //Voeg de map toe.
         const player = new Player(new Vector(100, 200), ex.Keys.W, ex.Keys.S, ex.Keys.A, ex.Keys.D, 0, Resources.Diver1.toSprite(), 300, 150 )
         this.add(player)
@@ -154,13 +153,10 @@ export class Game extends Engine {
         this.ui = new UI(player, player2)
         this.add(this.ui)
 
-        this.bubbles = new Bubble()
-        this.add(this.bubbles)
-
-        this.fixedBubbles = new Bubble(true)
-        this.add(this.fixedBubbles)
-        console.log('Bubbles Spawned at coordinates:', this.fixedBubbles.x, this.fixedBubbles.y)
-
+        for (const spawnPoint of bubbleSpawnArray) {
+            const bubble = new Bubble(spawnPoint);
+            this.add(bubble);
+        }
         // Play background music after everything is set up
         Resources.BackgroundMusic.loop = true
         Resources.BackgroundMusic.volume = 0.5

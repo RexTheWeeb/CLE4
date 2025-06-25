@@ -191,7 +191,8 @@ if (Math.abs(this.vel.x) > Math.abs(this.vel.y)) {
             this.scene.engine.ui.oxygenBar.setValue(this.scene.engine.ui.timerValue);
         }
         }
-        event.other.owner.bubbleLeft();
+        event.other.owner.despawn(this.engine);
+        Resources.bubblerefill.play();
         }
         }
 
