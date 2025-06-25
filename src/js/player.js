@@ -141,6 +141,7 @@ if (Math.abs(this.vel.x) > Math.abs(this.vel.y)) {
                 } else if (this.pickupItemType === 1){
                     this.removePickedUpItem(1)
                     this.score += 1
+                    Resources.trashputinsound.play()
                     //Star: add audio here
                 }
                 
@@ -210,6 +211,7 @@ if (Math.abs(this.vel.x) > Math.abs(this.vel.y)) {
                 this.trash.pos = new Vector(0, 0) 
                 this.trash.scale = new Vector(1, 1)
                 this.addChild(this.trash); 
+                Resources.trashpickup.play()
 
             } else if(this.pickupItemType === 2 || 3 || 4){
                 this.pickupState = true

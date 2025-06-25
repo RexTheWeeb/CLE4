@@ -7,7 +7,7 @@ export class PlayerGrounded extends Actor {
     sprite
     keyleft
     keyright
-    constructor(pos, keyleft, keyright, sprite) {
+    constructor(pos, keyleft, keyright, sprite, gamepadIndex) {
         super({
             pos: pos,
             width: Resources.Diver1.width,
@@ -17,6 +17,7 @@ export class PlayerGrounded extends Actor {
         this.sprite = sprite
         this.keyleft = keyleft
         this.keyright = keyright
+        this.gamepadIndex = gamepadIndex
     }
         onInitialize(engine) {
             this.graphics.use(this.sprite)    
@@ -38,6 +39,13 @@ export class PlayerGrounded extends Actor {
             if (engine.input.keyboard.isHeld(this.keyright)) {
                 xspeed = this.#speed;
             } 
+
+        const pad = engine.input.gamepads.at(this.gamepadIndex);
+        if (pad && pad.connected) {
+            const axisX = pad.getAxes(0) ?? 0;
+            // Optionally, you can use up/down with axisY if needed
+            xspeed = axisX * this.#speed;
+        }
     
             this.vel = new Vector(xspeed, yspeed);
         }
