@@ -2,16 +2,14 @@ import { Actor, Vector, CollisionType } from "excalibur"
 import { Resources, } from "./resources.js"
 
 export const bubbleSpawnArray = [
-    new Vector(100, 100),
-    new Vector(200, 200),
-    new Vector(300, 300),
-    new Vector(400, 400),
-    new Vector(500, 500),
-    new Vector(600, 600),
-    new Vector(700, 700),
-    new Vector(800, 800),
-    new Vector(900, 900),
-    new Vector(1000, 1000)
+    new Vector(928, 1024),
+    new Vector(1232, 1696),
+    new Vector(624, 2096),
+    new Vector(400, 2768),
+    new Vector(1120, 3328),
+    new Vector(624, 4352),
+    new Vector(1120, 5312),
+    new Vector(128, 5008)
 ]
 
 export class Bubble extends Actor {
