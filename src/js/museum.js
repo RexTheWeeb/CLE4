@@ -1,6 +1,5 @@
 import { Color, Scene, Vector, DisplayMode, SolverStrategy, Keys, Actor } from "excalibur"
 import { Resources } from './resources'
-import { SupplyBackground } from "./ship_background"
 import { ReturnTeleport } from "./return_from_ship.js"
 import { Player } from "./player.js"
 import { PlayerGrounded } from "./player_grounded.js"
