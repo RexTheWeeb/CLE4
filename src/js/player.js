@@ -222,6 +222,7 @@ if (Math.abs(this.vel.x) > Math.abs(this.vel.y)) {
                 this.relic.scale = new Vector(1.5, 1.5)
              }
              this.addChild(this.relic)
+             Resources.relicsound.play()
             }
             else{
                 console.log("not treasure or trash")
