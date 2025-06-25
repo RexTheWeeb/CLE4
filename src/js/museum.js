@@ -11,6 +11,7 @@ import { Item } from "./item.js"
 import { Shipteleport } from "./ship_teleport.js"
 import { SpeedUpgrade } from "./speed_upgrade.js"
 import { Pillar } from "./pillar.js"
+import { Dialog } from "./dialog.js"
 
 export class Museum extends Scene {
     player
@@ -42,10 +43,10 @@ export class Museum extends Scene {
         if (this.displayCaseStatue) this.displayCaseStatue.kill()
 
         // Add new display cases with updated booleans
-        this.displayCaseAmulet = new DisplayCase(new Vector(400, 625), this.amulet, Resources.DisplayAmulet.toSprite())
+        this.displayCaseAmulet = new DisplayCase(new Vector(500, 625), this.amulet, Resources.DisplayAmulet.toSprite())
         this.add(this.displayCaseAmulet)
 
-        this.displayCaseMask = new DisplayCase(new Vector(640, 625), this.mask, Resources.DisplayMask.toSprite())
+        this.displayCaseMask = new DisplayCase(new Vector(690, 625), this.mask, Resources.DisplayMask.toSprite())
         this.add(this.displayCaseMask)
 
         this.displayCaseStatue = new DisplayCase(new Vector(880, 625), this.statue, Resources.DisplayStatue.toSprite())
@@ -103,7 +104,6 @@ export class Museum extends Scene {
 
         const catsuit = new CatVendor(new Vector(1030, 619))
         this.add(catsuit)
-
         
         //camera settings
         const cameraTarget = new Actor()

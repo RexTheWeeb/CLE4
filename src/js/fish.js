@@ -68,6 +68,16 @@ export class Fish extends Actor {
         this.#fishId = calc;
         this.#getInfo();
         this.#roam();
+        this.on("collisionstart", (event) => this.hitSomething(event))
+
+    }
+
+        hitSomething(event) {
+        // Check if the fish hit a wall (for example, Pillar)
+        if (event.other.owner && event.other.owner.name === "level1") {
+            this.graphics.flipHorizontal = !this.graphics.flipHorizontal
+            this.vel = new Vector(-this.vel.x, this.vel.y)
+        }
     }
    
     #roam(){
