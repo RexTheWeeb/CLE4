@@ -1,4 +1,4 @@
-import { Color, Scene, Vector, DisplayMode, SolverStrategy, Keys, Actor } from "excalibur"
+import { Color, Scene, Vector, Keys, Actor, Label, Font } from "excalibur"
 import { Resources } from './resources'
 import { ReturnTeleport } from "./return_from_ship.js"
 import { Player } from "./player.js"
@@ -9,7 +9,6 @@ import { OxygenUpgrade } from "./oxygen_upgrade.js"
 import { CatVendor } from "./cat_vendor.js"
 import { Item } from "./item.js"
 import { Shipteleport } from "./ship_teleport.js"
-import { SpeedUpgrade } from "./speed_upgrade.js"
 import { Pillar } from "./pillar.js"
 import { Dialog } from "./dialog.js"
 
@@ -20,11 +19,14 @@ export class Museum extends Scene {
     amulet = false
     mask = false
     statue = false
+    labelP1
+    labelP2
+    _pendingScore1 = 0
+    _pendingScore2 = 0
 
     setAmulet(){
         this.amulet = true
         this.refreshDisplayCases()
-
     }
     setMask(){
         this.mask = true
@@ -33,16 +35,13 @@ export class Museum extends Scene {
     setStatue(){
         this.statue = true
         this.refreshDisplayCases()
-
     }
 
-        refreshDisplayCases() {
-        // Remove old display cases if they exist
+    refreshDisplayCases() {
         if (this.displayCaseAmulet) this.displayCaseAmulet.kill()
         if (this.displayCaseMask) this.displayCaseMask.kill()
         if (this.displayCaseStatue) this.displayCaseStatue.kill()
 
-        // Add new display cases with updated booleans
         this.displayCaseAmulet = new DisplayCase(new Vector(500, 625), this.amulet, Resources.DisplayAmulet.toSprite())
         this.add(this.displayCaseAmulet)
 
@@ -53,16 +52,36 @@ export class Museum extends Scene {
         this.add(this.displayCaseStatue)
     }
 
+    enterWithScores(score1, score2) {
+        console.log('[Museum] enterWithScores called:', score1, score2)
+        this._pendingScore1 = score1;
+        this._pendingScore2 = score2;
+        if (this.player) {
+            this.player.score = score1;
+            console.log('[Museum] player.score set in enterWithScores:', this.player.score)
+        }
+        if (this.player2) {
+            this.player2.score = score2;
+            console.log('[Museum] player2.score set in enterWithScores:', this.player2.score)
+        }
+        if (this.labelP1) this.labelP1.text = `Score P1: ${score1}`;
+        if (this.labelP2) this.labelP2.text = `Score P2: ${score2}`;
+    }
+
     onInitialize(engine) {
         engine.backgroundColor = Color.LightGray
 
         const player = new PlayerGrounded(new Vector(350, 620), Keys.A, Keys.D, Resources.Diver1.toSprite(), 0)
-        player.score = 2;
         this.add(player)
 
         const player2 = new PlayerGrounded(new Vector(400, 620), Keys.Left, Keys.Right, Resources.Diver2.toSprite(), 1)
-        player.score = 2;
         this.add(player2)
+
+        // Set scores from pending values if available
+        player.score = this._pendingScore1;
+        player2.score = this._pendingScore2;
+        console.log('[Museum] onInitialize: player.score', player.score, 'player2.score', player2.score);
+
 
         const returnTeleport = new Shipteleport(new Vector(200, 600), Resources.Door.toSprite(), new Vector(0.6, 0.6),'root')
         this.add(returnTeleport)
@@ -93,14 +112,11 @@ export class Museum extends Scene {
         const displayCaseMask = new DisplayCase(new Vector(690, 625), this.mask, Resources.DisplayMask.toSprite())
         this.add(displayCaseMask)
 
-        const displayCaseStatue = new DisplayCase(new Vector(880, 625), this.mask, Resources.DisplayStatue.toSprite())
+        const displayCaseStatue = new DisplayCase(new Vector(880, 625), this.statue, Resources.DisplayStatue.toSprite())
         this.add(displayCaseStatue)
 
-        const upgradeCase = new OxygenUpgrade(new Vector(1180, 590))
+        const upgradeCase = new OxygenUpgrade(new Vector(1100, 590))
         this.add(upgradeCase)
-
-        const speedUpgrade = new SpeedUpgrade(new Vector(1100, 590))
-        this.add(speedUpgrade)
 
         const catsuit = new CatVendor(new Vector(1030, 619))
         this.add(catsuit)
@@ -112,24 +128,65 @@ export class Museum extends Scene {
         this.camera.strategy.lockToActor(cameraTarget)
 
         this.player = player
-        this.cameraTarget = cameraTarget
         this.player2 = player2
+        this.cameraTarget = cameraTarget
+
+        // Add a score label for player 1
+        this.labelP1 = new Label({
+            text: `Score P1: ${this.player.score}`,
+            pos: new Vector(100, 50),
+            font: new Font({
+                family: 'Arial',
+                size: 24,
+                color: Color.White
+            }),
+        })
+        this.add(this.labelP1)
+
+        // Add a score label for player 2
+        this.labelP2 = new Label({
+            text: `Score P2: ${this.player2.score}`,
+            pos: new Vector(100, 100),
+            font: new Font({
+                family: 'Arial',
+                size: 24,
+                color: Color.White
+            }),
+        })
+        this.add(this.labelP2)
     }
 
-onPostUpdate() {
-    // Calculate midpoint between players
-    let posX = (this.player.pos.x + this.player2.pos.x) / 2
-
-    // Define camera limits (adjust these to match your level size and wall positions)
-    const minX = 640 
-    // left edge (half viewport width)
-    const maxX = 1280 - 640 
-    // right edge (map width - half viewport width)
-
-    // Clamp the camera X position so it doesn't go past the walls
-    posX = Math.max(minX, Math.min(maxX, posX))
-
-    // Set camera target position
-    this.cameraTarget.pos = new Vector(posX, 350)
+    onActivate(ctx) {
+    const engine = ctx.engine
+    if (this.player && typeof engine.player1Score === "number") {
+        this.player.score = engine.player1Score
+        if (this.labelP1) this.labelP1.text = `Score P1: ${this.player.score}`
+    }
+    if (this.player2 && typeof engine.player2Score === "number") {
+        this.player2.score = engine.player2Score
+        if (this.labelP2) this.labelP2.text = `Score P2: ${this.player2.score}`
+    }
 }
+
+    onPostUpdate() {
+        // Calculate midpoint between players
+        let posX = (this.player.pos.x + this.player2.pos.x) / 2
+
+        // Clamp the camera X position so it doesn't go past the walls
+        const minX = 640 
+        const maxX = 1280 - 640 
+        posX = Math.max(minX, Math.min(maxX, posX))
+
+        // Set camera target position
+        this.cameraTarget.pos = new Vector(posX, 350)
+
+        if (this.labelP1 && this.player) {
+            this.labelP1.text = `Score P1: ${this.player.score}`;
+            console.log('[Museum] onPostUpdate: labelP1', this.labelP1.text);
+        }
+        if (this.labelP2 && this.player2) {
+            this.labelP2.text = `Score P2: ${this.player2.score}`;
+            console.log('[Museum] onPostUpdate: labelP2', this.labelP2.text);
+        }
+    }
 }

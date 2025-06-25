@@ -4,7 +4,6 @@ import { Relic } from './relic.js'
 import { Bubble } from './oxygen_bubble.js'
 import { Resources } from './resources.js'
 import { OxygenUpgrade } from './oxygen_upgrade.js'
-import { SpeedUpgrade } from './speed_upgrade.js'
 import { Trash } from './trash.js'
 import { TrashNet } from './trashnet.js'
 
@@ -126,13 +125,11 @@ export class ResetLevel {
 
     static resetMuseumUpgrades(museumScene) {
         museumScene.actors.forEach(actor => {
-            if (actor instanceof OxygenUpgrade || actor instanceof SpeedUpgrade) {
+            if (actor instanceof OxygenUpgrade) {
                 actor.kill()
             }
         })
-        const oxygenUpgrade = new OxygenUpgrade(new Vector(840, 590))
+        const oxygenUpgrade = new OxygenUpgrade(new Vector(1100, 590))
         museumScene.add(oxygenUpgrade)
-        const speedUpgrade = new SpeedUpgrade(new Vector(940, 590))
-        museumScene.add(speedUpgrade)
     }
 }
