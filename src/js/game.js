@@ -9,7 +9,6 @@ import  testMapUrl from '/maps/level1.tmx?url'
 import { CollectionArea } from './collectionArea.js'
 import { Background } from './background.js'
 import { UI } from './ui.js'
-import { Supplyship } from './supplyship.js'
 import { Shipteleport } from './ship_teleport.js'
 import { Bubble, bubbleSpawnArray} from './oxygen_bubble.js'
 import { Museum } from './museum.js'
@@ -123,7 +122,7 @@ export class Game extends Engine {
         this.player2 = player2
         this.cameraTarget = cameraTarget
 
-        this.spawnFish(new Vector(400, 300)) //testing fish
+        this.spawnFish(new Vector(400, 300), 400, 300) //testing fish
 
          // this.currentScene.camera.strategy.lockToActor(player)
         this.ui = new UI(player, player2)
@@ -134,7 +133,7 @@ export class Game extends Engine {
 
         this.fixedBubbles = new Bubble(true)
         this.add(this.fixedBubbles)
-        console.log('Bubbles spawned at fixed positions:', bubbleSpawnArray.length);
+        console.log('Bubbles Spawned at coordinates:', this.fixedBubbles.x, this.fixedBubbles.y)
 
         // Play background music after everything is set up
         Resources.BackgroundMusic.loop = true
