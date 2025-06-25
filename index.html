@@ -11,7 +11,7 @@
   </head>
   <body>
     <script type="module">
-     // const resourcesModule = await import('/src/js/resources.js');
+     const resourcesModule = await import('/src/js/resources.js');
       await import('/src/js/game.js');
       resourcesModule.Resources.BackgroundMusic.loop = true;
       resourcesModule.Resources.BackgroundMusic.volume = 0.5;
