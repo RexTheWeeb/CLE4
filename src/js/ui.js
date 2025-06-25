@@ -6,9 +6,9 @@ export class UI extends ScreenElement {
     labelP2
     labelTimer
     oxygenBar
-    timerValue = 60; 
+    timerValue = 20; // change after testing
     //Timer in seconds
-    maxTime = 60; 
+    maxTime = 20; // change after testing 
     //Maximum seconds
 
     player1
