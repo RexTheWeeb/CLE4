@@ -34,12 +34,12 @@ export class Pickup extends Actor {
 
         pickUpType
 
-        constructor(sprite, type) {
+        constructor(sprite, type ,scale) {
         super({
             width: Resources.Diver1.width,
             height: Resources.Diver1.height,
         })
-        this.graphics.use(sprite)
+        this.graphics.use(sprite).scale = scale
         let spawnList
             if (type === 0) {
                 spawnList = treasureSpawnArray
