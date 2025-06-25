@@ -138,6 +138,7 @@ if (Math.abs(this.vel.x) > Math.abs(this.vel.y)) {
                 } else if (this.pickupItemType === 1){
                     this.removePickedUpItem(1)
                     this.score += 1
+                    this.engine.spawnFish(this.pos.clone())
                     Resources.trashputinsound.play()
                     //Star: add audio here
                 }
@@ -189,6 +190,7 @@ if (Math.abs(this.vel.x) > Math.abs(this.vel.y)) {
         }
         }
         event.other.owner.despawn(this.engine);
+        Resources.bubblerefill.play();
         }
         }
 
@@ -224,6 +226,7 @@ if (Math.abs(this.vel.x) > Math.abs(this.vel.y)) {
                 this.relic.scale = new Vector(1.5, 1.5)
              }
              this.addChild(this.relic)
+             Resources.relicsound.play()
             }
             else{
                 console.log("not treasure or trash")

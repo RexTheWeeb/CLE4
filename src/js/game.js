@@ -67,13 +67,38 @@ export class Game extends Engine {
         this.showDebug(true);
     }
 
+    gameOver() {
+    // Remove all actors from the scene
+    this.currentScene.actors.forEach(actor => actor.kill())
+
+    // Add a background for the Game Over screen
+    const gameOverBackground = new Background()
+    this.add(gameOverBackground)
+
+    // Add the Game Over label
+    const gameOverLabel = new Label({
+        text: "GAME OVER",
+        pos: new Vector(this.drawWidth / 2, this.drawHeight / 2),
+        color: Color.Red,
+        font: { size: 120, family: "Arial" }, // Use font property for Excalibur Label
+        anchor: new Vector(0.5, 0.5)
+    })
+    this.add(gameOverLabel)
+
+    // After 2 seconds, reset and restart the game
+    setTimeout(() => {
+        ResetLevel.resetAll(this) // Reset all game state and actors
+        this.startGame()          // Re-initialize the game
+    }, 2000)
+    }
+
     startGame() {
 
         this.tiledMap.addToScene(this.currentScene) // collision alleen bij bovenste laag tiles om lag te voorkomen
         // Add a background
         const background = new Background()
         this.add(background)
-
+        
         //Voeg de map toe.
         const player = new Player(new Vector(100, 200), ex.Keys.W, ex.Keys.S, ex.Keys.A, ex.Keys.D, 0, Resources.Diver1.toSprite(), 300, 150 )
         this.add(player)
@@ -117,6 +142,7 @@ export class Game extends Engine {
 
         const net = new TrashNet(new Vector(300, 100))
         this.add(net)
+        
 
         this.player1 = player
         this.player2 = player2
@@ -140,8 +166,6 @@ export class Game extends Engine {
         this.dialog = new Dialog('Do you want to enter the museum? (e)')
         this.add(this.dialog)
     }
-
-
 
     onPostUpdate() {
         if (this.player1 && this.player2 && this.cameraTarget){

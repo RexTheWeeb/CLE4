@@ -38,9 +38,14 @@ export class Shipteleport extends Actor {
         }
     }
 
-    onPreUpdate() {
-        if (this.playerOverlapping && this.engine.input.keyboard.wasPressed(Keys.E)) {
-            // @ts-ignore
+    onPreUpdate(engine) {
+        // Check for keyboard E
+        const ePressed = engine.input.keyboard.wasPressed(Keys.E)
+        // Check for gamepad button 1 (B/Circle)
+        const pad = engine.input.gamepads.at(0)
+        const gamepadPressed = pad && pad.wasButtonPressed(0)
+
+        if (this.playerOverlapping && (ePressed || gamepadPressed)) {
             this.scene.engine.goToScene(this.location)
         }
     }
