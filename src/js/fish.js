@@ -44,22 +44,20 @@ export class Fish extends Actor {
     name
     #gamePlaying
 
-    randomx
-    randomy
+    startingxPos;
+    startingyPos;
 
-    constructor(position) {
+    constructor(position, xpos, ypos) {
         super({
-            collisionType: CollisionType.Active
-            //make a set collision for all fish
+            collisionType: CollisionType.Active,
         })
         //position is set depending on where the trash was
         this.pos = position
-        this.actions.rotateTo(Math.PI / 4, Math.PI, RotationType.Clockwise)
-        //to prevent it form 'sinking' for the time being
+        // this.actions.rotateTo(Math.PI / 4, Math.PI, RotationType.Clockwise) //this is to make the fish look forward
         this.body.useGravity = false;
 
-        this.randomx = Math.floor(Math.random() * 100)
-        this.randomy = Math.floor(Math.random() * 100)
+        this.startingxPos = xpos;
+        this.startingyPos = ypos;
 
         this.#gamePlaying = true;
     }
@@ -73,38 +71,73 @@ export class Fish extends Actor {
     }
    
     #roam(){
+        let randomx1 = Math.floor(Math.random() * 500 - Math.floor(Math.random() * 500));
+        let randomx2 = Math.floor(Math.random() * 500 - Math.floor(Math.random() * 500));
+        let randomx3 = Math.floor(Math.random() * 500 - Math.floor(Math.random() * 500));
+
+        let randomy1 = Math.floor(Math.random() * 300 - Math.floor(Math.random() * 300));
+        let randomy2 = Math.floor(Math.random() * 300 - Math.floor(Math.random() * 300));
+        let randomy3 = Math.floor(Math.random() * 300 - Math.floor(Math.random() * 300));
+
+        let randomDelay = Math.floor(Math.random() * 3000);
+
+        let movementspeed;
+
+
+        //x and y positions need to be random
+        //flipping sprite doesn't work yet
         //start point + or - random vector
         setTimeout(()=>{
+            for(let i = 0; i < 40; i++){
+            movementspeed =  Math.floor(Math.random() * 40 + 20)
+            if(randomx1 > this.startingxPos){
+                // console.log(`right: ${randomx1} vs ${this.startingxPos}`)
+                this.graphics.flipHorizontal = false;
+            } else if (randomx1 < this.startingxPos){
+                // console.log(`left ${randomx1} vs ${this.startingxPos}`)
+                this.graphics.flipHorizontal = true;
+            }
             this.actions
-            .moveTo(new Vector(500, 600), 2000)
-            .delay(2000)
-            .moveTo(new Vector(200, 100), 2000)
-            .delay(2000)
-            .moveTo(new Vector(700, 340), 2000)
-            console.log("moved")
+            .moveTo(new Vector(randomx1, randomy1), movementspeed)
+            .delay(randomDelay)
+
+            randomDelay = Math.floor(Math.random() * 3000);
+
+            movementspeed =  Math.floor(Math.random() * 40 + 20)
+            if(randomx2 > randomx1){
+                // console.log(`right ${randomx2} vs ${randomx1}`)
+                this.graphics.flipHorizontal = false;
+            } else if (randomx2 < randomx1){
+                // console.log(`left ${randomx2} vs ${randomx1}`)
+                this.graphics.flipHorizontal = true;
+            }
+            this.actions
+            .moveTo(new Vector(randomx2, randomy2), movementspeed)
+            .delay(randomDelay)
+
+            randomDelay = Math.floor(Math.random() * 3000);
+
+            movementspeed =  Math.floor(Math.random() * 40 + 20)
+            if(randomx3 > randomx2){
+                // console.log(`right ${randomx3} vs ${randomx2}`)
+                this.graphics.flipHorizontal = false;
+            } else if (randomx3 < randomx2){
+                // console.log(`left ${randomx3} vs ${randomx2}`)
+                this.graphics.flipHorizontal = true;
+            }
+            this.actions
+            .moveTo(new Vector(randomx3, randomy3), movementspeed)
+            .delay(randomDelay)
+
+            randomx1 = Math.floor(Math.random() * 400 + 50);
+            randomx2 = Math.floor(Math.random() * 400 + 50);
+            randomx3 = Math.floor(Math.random() * 400 + 50);
+
+            randomy1 = Math.floor(Math.random() * 400 + 50);
+            randomy2 = Math.floor(Math.random() * 400 + 50);
+            randomy3 = Math.floor(Math.random() * 400 + 50);
+            }
         }, 1000)
-
-        // if(this.randomx > 0){
-        //     this.graphics.flipHorizontal = false;
-        // } else if (this.randomy < 0) {
-        //     this.graphics.flipHorizontal = true;
-        // }
-
-            // setTimeout(()=>{
-            //     for(let i = 0; i < 40; i++){
-            //         if(this.#gamePlaying === true)
-            //         {
-            //             console.log("start roaming.")
-            //             this.actions
-            //             .delay(10000)
-            //             // this.actions
-            //             // .moveTo(vec(this.pos.x + this.randomx, this.pos.y + this.randomy), 500)
-            //             // .delay(1000)
-            //             // .moveTo(vec(this.pos.x - this.randomx, this.pos.y - this.randomy), 500)
-            //             // .delay(1000)
-            //         }
-            //     }
-            // }, 5000)
     }
 
     #getInfo(){
