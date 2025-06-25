@@ -33,11 +33,11 @@ export class Museum extends Scene {
     onInitialize(engine) {
         engine.backgroundColor = Color.LightGray
 
-        const player = new PlayerGrounded(new Vector(200, 620), Keys.A, Keys.D, Resources.Diver1.toSprite())
+        const player = new PlayerGrounded(new Vector(200, 620), Keys.A, Keys.D, Resources.Diver1.toSprite(), 0)
         player.score = 2;
         this.add(player)
 
-        const player2 = new PlayerGrounded(new Vector(250, 620), Keys.Left, Keys.Right, Resources.Diver2.toSprite())
+        const player2 = new PlayerGrounded(new Vector(250, 620), Keys.Left, Keys.Right, Resources.Diver2.toSprite(), 1)
         player.score = 2;
         this.add(player2)
 

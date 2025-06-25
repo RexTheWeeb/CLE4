@@ -207,6 +207,8 @@ if (Math.abs(this.vel.x) > Math.abs(this.vel.y)) {
             } else if (this.pickupItemType === 1){ 
                 this.pickupState = true;
                 this.trash = new Trash(Player);
+                this.trash.pos = new Vector(0, 0) 
+                this.trash.scale = new Vector(1, 1)
                 this.addChild(this.trash); 
 
             } else if(this.pickupItemType === 2 || 3 || 4){

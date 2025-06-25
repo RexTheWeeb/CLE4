@@ -11,7 +11,7 @@ import { Background } from './background.js'
 import { UI } from './ui.js'
 import { Supplyship } from './supplyship.js'
 import { Shipteleport } from './ship_teleport.js'
-import { Bubble } from './oxygen_bubble.js'
+import { Bubble, bubbleSpawnArray} from './oxygen_bubble.js'
 import { Museum } from './museum.js'
 import {Trash} from './trash.js'
 import { TrashNet } from './trashnet.js'
@@ -75,9 +75,6 @@ export class Game extends Engine {
         const background = new Background()
         this.add(background)
 
-        this.dialog = new Dialog()
-        this.add(this.dialog)
-
         //Voeg de map toe.
         const player = new Player(new Vector(100, 200), ex.Keys.W, ex.Keys.S, ex.Keys.A, ex.Keys.D, 0, Resources.Diver1.toSprite(), 300, 150 )
         this.add(player)
@@ -135,10 +132,17 @@ export class Game extends Engine {
         this.bubbles = new Bubble()
         this.add(this.bubbles)
 
+        this.fixedBubbles = new Bubble(true)
+        this.add(this.fixedBubbles)
+        console.log('Bubbles spawned at fixed positions:', bubbleSpawnArray.length);
+
         // Play background music after everything is set up
         Resources.BackgroundMusic.loop = true
         Resources.BackgroundMusic.volume = 0.5
         Resources.BackgroundMusic.play()
+
+        this.dialog = new Dialog('Do you want to enter the museum? (e)')
+        this.add(this.dialog)
     }
 
 
