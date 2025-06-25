@@ -4,8 +4,8 @@ import { Resources } from './resources'
 export class Background extends Actor {
     onInitialize(engine) {
         const sprite = Resources.Background.toSprite()
-        sprite.width = engine.drawWidth + 100
-        sprite.height = engine.drawHeight + 100
+        sprite.width = engine.drawWidth + 550
+        sprite.height = engine.drawHeight + 550
         this.graphics.use(sprite)
         this.z = -100
         this.pos = new Vector(engine.drawWidth / 2, engine.drawHeight / 2)
