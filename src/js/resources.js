@@ -12,7 +12,6 @@ const Resources = {
    Background: new ImageSource('images/ocean_background_temp.jpg'),
    oxygenTank: new ImageSource('images/oxygenTank.png'),
    up1: new ImageSource('images/up1.png'),     
-   SpeedUpgrade: new ImageSource('images/speed_upgrade.png'),
 
    
    Bubbles: new ImageSource('images/bubble.webp'),
