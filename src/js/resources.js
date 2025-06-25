@@ -40,6 +40,7 @@ const Resources = {
 
 
    // sound effecten 
+   trashpickup: new Sound('sounds/pickuptrash.mp3'),
    pickup2: new Sound('sounds/pickup2.mp3'),
    PutInTreasure: new Sound('sounds/put-in-treasure.mp3'),
    BackgroundMusic: new Sound('sounds/backgroundmusic.wav'),
