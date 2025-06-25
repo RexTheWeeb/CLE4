@@ -11,13 +11,13 @@
   </head>
   <body>
     <script type="module">
-      const resourcesModule = await import('/src/js/resources.js');
+     // const resourcesModule = await import('/src/js/resources.js');
       await import('/src/js/game.js');
-      resourcesModule.Resources.BackgroundMusic.loop = true;
-      resourcesModule.Resources.BackgroundMusic.volume = 0.5;
-      resourcesModule.Resources.BackgroundMusic.play()
-        .then(() => console.log('Background music started!'))
-        .catch(e => console.error('Background music error:', e));
+     // resourcesModule.Resources.BackgroundMusic.loop = true;
+     // resourcesModule.Resources.BackgroundMusic.volume = 0.5;
+     // resourcesModule.Resources.BackgroundMusic.play()
+      //  .then(() => console.log('Background music started!'))
+      //  .catch(e => console.error('Background music error:', e));
     </script>
   </body>
 </html>
