@@ -138,7 +138,9 @@ if (Math.abs(this.vel.x) > Math.abs(this.vel.y)) {
                 } else if (this.pickupItemType === 1){
                     this.removePickedUpItem(1)
                     this.score += 1
-                    this.engine.spawnFish(this.pos.clone())
+                    this.engine.spawnFish(new Vector(
+                    Math.random() * 1280,
+                    Math.random() * 720))
                     Resources.trashputinsound.play()
                     //Star: add audio here
                 }
@@ -159,7 +161,7 @@ if (Math.abs(this.vel.x) > Math.abs(this.vel.y)) {
                     this.score += 10
                     this.placeInMuseum(3)
                     Resources.PutInTreasure.play()
-                }else if(this.pickupItemType === 3 ){ 
+                }else if(this.pickupItemType === 4 ){ 
                     this.removePickedUpItem(2)
                     this.score += 10
                     this.placeInMuseum(4)
