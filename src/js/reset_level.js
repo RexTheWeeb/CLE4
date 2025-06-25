@@ -54,8 +54,8 @@ export class ResetLevel {
 
         // Reset UI
         if (engine.ui) {
-            engine.ui.timerValue = 10
-            engine.ui.maxTime = 10
+            engine.ui.timerValue = 60
+            engine.ui.maxTime = 60
             if (engine.ui.oxygenBar) {
                 engine.ui.oxygenBar.maxValue = 60
                 engine.ui.oxygenBar.setValue(60)
