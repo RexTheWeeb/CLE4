@@ -1,5 +1,6 @@
-import { Actor, Vector, CollisionType } from "excalibur"
+import { Actor, Vector, CollisionType, Timer } from "excalibur"
 import { Resources, } from "./resources.js"
+import { Player } from "./player.js"
 
 export const bubbleSpawnArray = [
     new Vector(928, 1024),
@@ -13,35 +14,58 @@ export const bubbleSpawnArray = [
 ]
 
 export class Bubble extends Actor {
-    constructor(fixed = false) {
-        super({ width: 100, height: 100, collisionType: CollisionType.Active })
-        this.graphics.use(Resources.Bubbles.toSprite())
-        this.scale = new Vector(0.2, 0.2)
-        if (fixed && bubbleSpawnArray.length > 0) {
-           
-            const index = Math.floor(Math.random() * bubbleSpawnArray.length)
-            this.pos = bubbleSpawnArray[index].clone()
-            bubbleSpawnArray.splice(index, 1)
-            this.vel = new Vector(0, 0) 
-        } else {
-            const x = Math.random() * 1280
-            const y = 720
-            this.pos = new Vector(x, y)
-            this.vel = new Vector(0, -50)
-        }
+    spawnPoint;
+
+    constructor(spawnPoint) {
+        super({ width: 100, height: 100, collisionType: CollisionType.Active });
+        this.graphics.use(Resources.Bubbles.toSprite());
+        this.scale = new Vector(0.2, 0.2);
+        this.spawnPoint = spawnPoint.clone(); 
+        this.respawn();
     }
 
-    onPreUpdate() {
+    onInitialize(engine) {
+        this.on("collisionstart", (event) => this.hitSomething(event));
+    }
+
+    respawn() {
+        this.pos = this.spawnPoint.clone();
+        this.vel = Vector.Zero;
+        this.visible = true;
+    }
+
+    onPreUpdate(engine, delta) {
+        if (!this.visible) return;
         if (this.pos.y < -20) {
-            this.bubbleLeft()
+            this.despawn(engine, "left");
         }
     }
 
-    bubbleLeft() {
-        const x = Math.random() * 1280
-        const y = 720
-        this.pos = new Vector(x, y)
-        this.vel = new Vector(0, -50)
-        this.scale = new Vector(0.2, 0.2)
+    hitSomething(event) {
+        if (event.other instanceof Player) {
+            this.despawn(this.scene?.engine, "collected");
+        }
+    }
+
+    despawn(engine, reason = "unknown") {
+        const currentScene = this.scene;
+        this.kill();
+
+        console.log(`Oxygen bubble ${reason}! Respawning in 3 seconds...`);
+
+        const timer = new Timer({
+            fcn: () => {
+                console.log("Oxygen bubble respawned!");
+                this.respawn();
+                if (currentScene) currentScene.add(this);
+            },
+            repeats: false,
+            interval: 15000
+        });
+
+        if (engine) {
+            engine.add(timer);
+            timer.start();
+        }
     }
 }

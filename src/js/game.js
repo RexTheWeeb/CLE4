@@ -55,9 +55,8 @@ export class Game extends Engine {
             } catch (e) {
                 console.warn('Kon minimum gamepad config niet zetten:', e);
             }
-            this.startGame()
+            this.start(ResourceLoader).then(() => this.startGame())
         });
-        this.showDebug(true);
     }
 
     gameOver() {
@@ -90,8 +89,8 @@ export class Game extends Engine {
         const background = new Background()
         this.add(background)
 
-        // Create players
-        const player = new Player(new Vector(100, 200), ex.Keys.W, ex.Keys.S, ex.Keys.A, ex.Keys.D, 0, Resources.Diver1.toSprite(), 300, 150)
+        //Voeg de map toe.
+        const player = new Player(new Vector(100, 200), ex.Keys.W, ex.Keys.S, ex.Keys.A, ex.Keys.D, 0, Resources.Diver1.toSprite(), 300, 150 )
         this.add(player)
         const player2 = new Player(new Vector(200, 200), ex.Keys.Up, ex.Keys.Down, ex.Keys.Left, ex.Keys.Right, 1, Resources.Diver2.toSprite(), 250, 200)
         this.add(player2)
@@ -148,13 +147,11 @@ export class Game extends Engine {
         this.ui = new UI(player, player2)
         this.add(this.ui)
 
-        this.bubbles = new Bubble()
-        this.add(this.bubbles)
-
-        this.fixedBubbles = new Bubble(true)
-        this.add(this.fixedBubbles)
-        console.log('Bubbles Spawned at coordinates:', this.fixedBubbles.x, this.fixedBubbles.y)
-
+        for (const spawnPoint of bubbleSpawnArray) {
+            const bubble = new Bubble(spawnPoint);
+            this.add(bubble);
+        }
+        // Play background music after everything is set up
         Resources.BackgroundMusic.loop = true
         Resources.BackgroundMusic.volume = 0.5
         Resources.BackgroundMusic.play()

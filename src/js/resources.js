@@ -47,6 +47,7 @@ const Resources = {
    pickup2: new Sound('sounds/pickup2.mp3'),
    PutInTreasure: new Sound('sounds/put-in-treasure.mp3'),
    relicsound: new Sound('sounds/relicsound.mp3'),
+   bubblerefill: new Sound('sounds/bubblerefil.mp3'),
   
 
    //fish sprites
