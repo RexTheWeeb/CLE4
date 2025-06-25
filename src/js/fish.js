@@ -101,10 +101,10 @@ export class Fish extends Actor {
             for(let i = 0; i < 40; i++){
             movementspeed =  Math.floor(Math.random() * 40 + 20)
             if(randomx1 > this.startingxPos){
-                console.log(`right: ${randomx1} vs ${this.startingxPos}`)
+                // console.log(`right: ${randomx1} vs ${this.startingxPos}`)
                 this.graphics.flipHorizontal = false;
             } else if (randomx1 < this.startingxPos){
-                console.log(`left ${randomx1} vs ${this.startingxPos}`)
+                // console.log(`left ${randomx1} vs ${this.startingxPos}`)
                 this.graphics.flipHorizontal = true;
             }
             this.actions
@@ -115,10 +115,10 @@ export class Fish extends Actor {
 
             movementspeed =  Math.floor(Math.random() * 40 + 20)
             if(randomx2 > randomx1){
-                console.log(`right ${randomx2} vs ${randomx1}`)
+                // console.log(`right ${randomx2} vs ${randomx1}`)
                 this.graphics.flipHorizontal = false;
             } else if (randomx2 < randomx1){
-                console.log(`left ${randomx2} vs ${randomx1}`)
+                // console.log(`left ${randomx2} vs ${randomx1}`)
                 this.graphics.flipHorizontal = true;
             }
             this.actions
@@ -129,18 +129,15 @@ export class Fish extends Actor {
 
             movementspeed =  Math.floor(Math.random() * 40 + 20)
             if(randomx3 > randomx2){
-                console.log(`right ${randomx3} vs ${randomx2}`)
+                // console.log(`right ${randomx3} vs ${randomx2}`)
                 this.graphics.flipHorizontal = false;
             } else if (randomx3 < randomx2){
-                console.log(`left ${randomx3} vs ${randomx2}`)
+                // console.log(`left ${randomx3} vs ${randomx2}`)
                 this.graphics.flipHorizontal = true;
             }
             this.actions
             .moveTo(new Vector(randomx3, randomy3), movementspeed)
             .delay(randomDelay)
-
-            console.log("moved")
-            console.log(randomx1, randomx2, randomx3, randomy1, randomy2, randomy3)
 
             randomx1 = Math.floor(Math.random() * 400 + 50);
             randomx2 = Math.floor(Math.random() * 400 + 50);

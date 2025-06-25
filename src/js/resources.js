@@ -42,11 +42,13 @@ const Resources = {
 
 
    // sound effecten 
+   BackgroundMusic: new Sound('sounds/backgroundmusic.wav'),
    trashputinsound: new Sound('sounds/trashputinsound.mp3'),
    trashpickup: new Sound('sounds/pickuptrash.mp3'),
    pickup2: new Sound('sounds/pickup2.mp3'),
    PutInTreasure: new Sound('sounds/put-in-treasure.mp3'),
-   BackgroundMusic: new Sound('sounds/backgroundmusic.wav'),
+   relicsound: new Sound('sounds/relicsound.mp3'),
+  
 
    //fish sprites
    Fish1: new ImageSource('images/Beowulf_Fishes_Assets_Pack_size_64x64/spr_fish_73_xx.png'),
