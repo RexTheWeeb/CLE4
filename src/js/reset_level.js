@@ -1,11 +1,11 @@
 import { Vector } from "excalibur"
 import { Pickup, treasureSpawnArray, trashSpawnArray } from './pickup.js'
 import { Relic } from './relic.js'
-import { Bubble } from './oxygen_bubble.js'
 import { Resources } from './resources.js'
 import { OxygenUpgrade } from './oxygen_upgrade.js'
 import { Trash } from './trash.js'
 import { TrashNet } from './trashnet.js'
+import { Bubble, bubbleSpawnArray } from './oxygen_bubble.js'
 
 export class ResetLevel {
     static resetAll(engine) {
@@ -110,6 +110,26 @@ export class ResetLevel {
             engine.add(pickup)
         }
 
+        // Reset bubbleSpawnArray with all original spawn points
+        bubbleSpawnArray.splice(0, bubbleSpawnArray.length,
+            new Vector(928, 1024),
+            new Vector(1232, 1696),
+            new Vector(624, 2096),
+            new Vector(400, 2768),
+            new Vector(1120, 3328),
+            new Vector(624, 4352),
+            new Vector(1120, 5312),
+            new Vector(128, 5008)
+        );
+
+        // Re-add bubbles
+        for (const spawnPoint of bubbleSpawnArray) {
+            if (spawnPoint) {
+                const bubble = new Bubble(spawnPoint)
+                engine.add(bubble)
+            }
+        }
+
         // Re-add relics
         const relic1 = new Relic(new Vector(192, 2064), Resources.RelicAmulet.toSprite(), 'amulet')
         const relic2 = new Relic(new Vector(192, 4224), Resources.RelicMask.toSprite(), 'mask')
@@ -118,9 +138,6 @@ export class ResetLevel {
         engine.add(relic2)
         engine.add(relic3)
 
-        // Re-add bubbles
-        engine.bubbles = new Bubble()
-        engine.add(engine.bubbles)
     }
 
     static resetMuseumUpgrades(museumScene) {
