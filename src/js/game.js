@@ -157,7 +157,7 @@ export class Game extends Engine {
         Resources.BackgroundMusic.volume = 0.5
         Resources.BackgroundMusic.play()
 
-        this.dialog = new Dialog('Do you want to enter the museum? (e)')
+        this.dialog = new Dialog('Do you want to enter the museum?')
         this.add(this.dialog)
     }
 

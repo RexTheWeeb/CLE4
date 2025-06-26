@@ -9,8 +9,7 @@ export class Shipteleport extends Actor {
         super({
             pos: pos,
             width: sprite.width,
-            height: sprite.height,
-        })
+            height: sprite.height,        })
         this.location = location
         this.playerOverlapping = false
         this.sprite = sprite
@@ -35,6 +34,7 @@ export class Shipteleport extends Actor {
         if (event.other.owner instanceof Player || event.other.owner instanceof PlayerGrounded) {
             this.playerOverlapping = false
             this.engine.dialog.makeInvisible()
+
         }
     }
 
@@ -42,16 +42,20 @@ export class Shipteleport extends Actor {
         // Check for keyboard E
         const ePressed = engine.input.keyboard.wasPressed(Keys.E)
         // Check for gamepad button 1 (B/Circle)
-        const pad = engine.input.gamepads.at(0)
+        const pad = engine.input.gamepads.at(0 || 1)
         const gamepadPressed = pad && pad.wasButtonPressed(0)
 
         if (this.playerOverlapping && (ePressed || gamepadPressed)) {
-            // --- Store scores on the engine before switching scenes ---
-            if (engine.player1 && engine.player2) {
-                engine.player1Score = engine.player1.score
-                engine.player2Score = engine.player2.score
-            }
-            engine.goToScene(this.location)
+            this.scene.engine.goToScene(this.location)
+        }
+    }
+
+    leaveTeleport(event) {
+        if (event.other.owner instanceof Player) {
+            this.player1In = false
+        }
+        if (event.other.owner instanceof Player2) {
+            this.player2In = false
         }
     }
 }
