@@ -23,13 +23,22 @@ export class OxygenUpgrade extends Actor {
         this.on("collisionend", (evt) => this.onPlayerExit(evt))
     }
 
-        onPreUpdate(engine) {
+    onPreUpdate(engine) {
         for (const actor of this.playersInRange) {
-            // Keyboard: E key
-            const ePressed = engine.input.keyboard.wasPressed(Keys.E)
-            // Gamepad: button 0 (A)
-            const pad = engine.input.gamepads.at(actor.gamepadIndex || 0)
-            const gamepadPressed = pad && pad.wasButtonPressed(0)
+            // Player 1: E key or gamepad 0 button 0
+            let ePressed = false
+            let gamepadPressed = false
+            if (actor.gamepadIndex === 0) {
+                ePressed = engine.input.keyboard.wasPressed(Keys.E)
+                const pad = engine.input.gamepads.at(0)
+                gamepadPressed = pad && pad.wasButtonPressed(0)
+            }
+            // Player 2: O key or gamepad 1 button 0
+            if (actor.gamepadIndex === 1) {
+                ePressed = engine.input.keyboard.wasPressed(Keys.O)
+                const pad = engine.input.gamepads.at(1)
+                gamepadPressed = pad && pad.wasButtonPressed(0)
+            }
             if (ePressed || gamepadPressed) {
                 this.onClick(actor, engine)
                 break
@@ -52,7 +61,7 @@ export class OxygenUpgrade extends Actor {
     onClick(evt, engine) {
         // Check all players in range
         for (const actor of this.playersInRange) {
-            if (actor.score === 2) { 
+            if (actor.score === 15) { 
                 if (engine.ui && typeof engine.ui.timerValue === "number") {
                     engine.ui.timerValue = Math.min(engine.ui.timerValue, 60)
                     engine.ui.oxygenBar.setValue(engine.ui.timerValue)

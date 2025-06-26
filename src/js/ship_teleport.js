@@ -5,6 +5,7 @@ import { PlayerGrounded } from "./player_grounded.js"
 
 export class Shipteleport extends Actor {
     sprite
+    playersOverlapping = []
     constructor(pos, sprite, scale, location) {
         super({
             pos: pos,
@@ -39,19 +40,27 @@ export class Shipteleport extends Actor {
     }
 
     onPreUpdate(engine) {
-        // Check for keyboard E
-        const ePressed = engine.input.keyboard.wasPressed(Keys.E)
-        // Check for gamepad button 1 (B/Circle)
-        const pad = engine.input.gamepads.at(0)
-        const gamepadPressed = pad && pad.wasButtonPressed(0)
-
-        if (this.playerOverlapping && (ePressed || gamepadPressed)) {
-            // --- Store scores on the engine before switching scenes ---
-            if (engine.player1 && engine.player2) {
-                engine.player1Score = engine.player1.score
-                engine.player2Score = engine.player2.score
+        for (const player of this.playersOverlapping) {
+            let keyPressed = false
+            let gamepadPressed = false
+            if (player.gamepadIndex === 0) {
+                keyPressed = engine.input.keyboard.wasPressed(Keys.E)
+                const pad = engine.input.gamepads.at(0)
+                gamepadPressed = pad && pad.wasButtonPressed(1)
             }
-            engine.goToScene(this.location)
+            if (player.gamepadIndex === 1) {
+                keyPressed = engine.input.keyboard.wasPressed(Keys.O)
+                const pad = engine.input.gamepads.at(1)
+                gamepadPressed = pad && pad.wasButtonPressed(1)
+            }
+            if (keyPressed || gamepadPressed) {
+                if (engine.player1 && engine.player2) {
+                    engine.player1Score = engine.player1.score
+                    engine.player2Score = engine.player2.score
+                }
+                engine.goToScene(this.location)
+                break
+            }
         }
     }
 }
