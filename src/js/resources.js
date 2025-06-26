@@ -3,7 +3,7 @@ import { Relic } from './relic'
 
 // voeg hier jouw eigen resources toe
 const Resources = {
-   Treasure: new ImageSource('images/treasure_placeholder.webp'),
+   Treasure: new ImageSource('images/Treasure.png'),
    DisplayEmpty: new ImageSource('images/DisplayCase.png'),
    DisplayAmulet: new ImageSource('images/DisplayCaseAmulet.png'),
    DisplayMask: new ImageSource('images/DisplayCaseMask.png'),
