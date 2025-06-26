@@ -29,7 +29,7 @@ export class OxygenUpgrade extends Actor {
             // Keyboard: E key
             const ePressed = engine.input.keyboard.wasPressed(Keys.E)
             // Gamepad: button 0 (A)
-            const pad = engine.input.gamepads.at(0 || 1)
+            const pad = engine.input.gamepads.at(actor.gamepadIndex || 0)
             const gamepadPressed = pad && pad.wasButtonPressed(0)
             if (ePressed || gamepadPressed) {
                 this.onClick(actor, engine)
