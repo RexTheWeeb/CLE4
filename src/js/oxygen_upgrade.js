@@ -3,6 +3,7 @@ import { Resources } from './resources.js'
 import { Player } from './player.js'
 import { PlayerGrounded } from './player_grounded.js'
 
+// OxygenUpgrade can be picked up by both Player and PlayerGrounded if score === 15
 export class OxygenUpgrade extends Actor {
     playersInRange = []
 
@@ -26,6 +27,7 @@ export class OxygenUpgrade extends Actor {
 
     onPlayerEnter(evt) {
         const actor = evt.other.owner
+        // Add both Player and PlayerGrounded to the range array if not already present
         if ((actor instanceof Player || actor instanceof PlayerGrounded) && !this.playersInRange.includes(actor)) {
             this.playersInRange.push(actor)
         }
@@ -37,9 +39,9 @@ export class OxygenUpgrade extends Actor {
     }
 
     onClick(evt, engine) {
-        // Check all players in range
+        // Allow any player in range with score === 15 to pick up the upgrade
         for (const actor of this.playersInRange) {
-            if (actor.score === 2) { 
+            if (actor.score >= 10) {
                 if (engine.ui && typeof engine.ui.timerValue === "number") {
                     engine.ui.timerValue = Math.min(engine.ui.timerValue, 60)
                     engine.ui.oxygenBar.setValue(engine.ui.timerValue)
