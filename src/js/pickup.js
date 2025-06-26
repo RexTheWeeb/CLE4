@@ -17,17 +17,17 @@ export const treasureSpawnArray = [
 ]
 
 export const trashSpawnArray = [
-    new Vector(1370, 1136),
-    new Vector(508, 1200),
-    new Vector(760, 1808),
-    new Vector(825, 4016),
-    new Vector(1544, 2400),
-    new Vector(1560, 1424),
-    new Vector(220, 2784),
-    new Vector(106, 2256),
-    new Vector(361, 3568),
-    new Vector(1240, 3936),
-    new Vector(1305, 4576),
+    new Vector(1312, 1072),
+    new Vector(544, 1152),
+    new Vector(688, 1808),
+    new Vector(880, 3936),
+    new Vector(1488, 2320),
+    new Vector(1472, 1408),
+    new Vector(176, 2688),
+    new Vector(256, 2256),
+    new Vector(464, 3504),
+    new Vector(1408, 3936),
+    new Vector(1232, 4480),
 ]
 
 export class Pickup extends Actor {
