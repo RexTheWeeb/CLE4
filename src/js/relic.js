@@ -8,7 +8,7 @@ export class Relic extends Actor {
             width: sprite.width,
             height: sprite.height,
         });
-        this.graphics.use(sprite);
+        this.graphics.use(sprite).scale = new Vector(2, 2);
         this.pos = pos;
         this.scale = new Vector(1, 1);
         this.type = type

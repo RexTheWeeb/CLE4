@@ -107,13 +107,13 @@ export class Game extends Engine {
 
         // Spawn treasure
         for (let i = 0; i < treasureSpawnArray.length; i++) {
-            const pickup = new Pickup(Resources.Treasure.toSprite(), 0)
+            const pickup = new Pickup(Resources.Treasure.toSprite(), 0, new Vector(1, 1))
             this.add(pickup)
         }
 
         // Spawn trash
         for (let i = 0; i < trashSpawnArray.length; i++) {
-            const pickup = new Pickup(Resources.Packet.toSprite(), 1)
+            const pickup = new Pickup(Resources.Packet.toSprite(), 1, new Vector(3, 3))
             this.add(pickup)
         }
 
