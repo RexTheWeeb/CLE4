@@ -127,11 +127,14 @@ export class Game extends Engine {
         this.add(relic3)
 
         // Museum teleport
-        const museum_teleport = new Shipteleport(new Vector(1000, 550), Resources.Anchor.toSprite(), new Vector(2, 2), 'museum')
-        // Pass scores to museum before switching scenes
-        const museum = this.scenes.museum
-        museum.enterWithScores(this.player1.score, this.player2.score)
-        this.add(museum_teleport)
+        const museum_teleport = new Shipteleport(
+        new Vector(1000, 550),
+        Resources.Anchor.toSprite(),
+        new Vector(2, 2),
+        'museum'
+);
+// No need to call enterWithScores here!
+this.add(museum_teleport);
 
         // Collection area
         const collectionArea = new CollectionArea(new Vector(500, 100))

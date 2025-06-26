@@ -21,8 +21,6 @@ export class Museum extends Scene {
     statue = false
     labelP1
     labelP2
-    _pendingScore1 = 0
-    _pendingScore2 = 0
 
     setAmulet(){
         this.amulet = true
@@ -52,22 +50,6 @@ export class Museum extends Scene {
         this.add(this.displayCaseStatue)
     }
 
-    enterWithScores(score1, score2) {
-        // console.log('[Museum] enterWithScores called:', score1, score2)
-        this._pendingScore1 = score1;
-        this._pendingScore2 = score2;
-        if (this.player) {
-            this.player.score = score1;
-            // console.log('[Museum] player.score set in enterWithScores:', this.player.score)
-        }
-        if (this.player2) {
-            this.player2.score = score2;
-            // console.log('[Museum] player2.score set in enterWithScores:', this.player2.score)
-        }
-        if (this.labelP1) this.labelP1.text = `Score P1: ${score1}`;
-        if (this.labelP2) this.labelP2.text = `Score P2: ${score2}`;
-    }
-
     onInitialize(engine) {
         engine.backgroundColor = Color.LightGray
 
@@ -77,11 +59,13 @@ export class Museum extends Scene {
         const player2 = new PlayerGrounded(new Vector(400, 620), Keys.Left, Keys.Right, Resources.Diver2.toSprite(), 1)
         this.add(player2)
 
-        // Set scores from pending values if available
-        player.score = this._pendingScore1;
-        player2.score = this._pendingScore2;
-        // console.log('[Museum] onInitialize: player.score', player.score, 'player2.score', player2.score);
-
+        // Set scores from engine if available
+        if (typeof engine.player1Score === "number") {
+            player.score = engine.player1Score
+        }
+        if (typeof engine.player2Score === "number") {
+            player2.score = engine.player2Score
+        }
 
         const returnTeleport = new Shipteleport(new Vector(200, 600), Resources.Door.toSprite(), new Vector(0.6, 0.6),'root')
         this.add(returnTeleport)
@@ -157,16 +141,16 @@ export class Museum extends Scene {
     }
 
     onActivate(ctx) {
-    const engine = ctx.engine
-    if (this.player && typeof engine.player1Score === "number") {
-        this.player.score = engine.player1Score
-        if (this.labelP1) this.labelP1.text = `Score P1: ${this.player.score}`
+        const engine = ctx.engine
+        if (this.player && typeof engine.player1Score === "number") {
+            this.player.score = engine.player1Score
+            if (this.labelP1) this.labelP1.text = `Score P1: ${this.player.score}`
+        }
+        if (this.player2 && typeof engine.player2Score === "number") {
+            this.player2.score = engine.player2Score
+            if (this.labelP2) this.labelP2.text = `Score P2: ${this.player2.score}`
+        }
     }
-    if (this.player2 && typeof engine.player2Score === "number") {
-        this.player2.score = engine.player2Score
-        if (this.labelP2) this.labelP2.text = `Score P2: ${this.player2.score}`
-    }
-}
 
     onPostUpdate() {
         // Calculate midpoint between players
@@ -182,11 +166,9 @@ export class Museum extends Scene {
 
         if (this.labelP1 && this.player) {
             this.labelP1.text = `Score P1: ${this.player.score}`;
-            // console.log('[Museum] onPostUpdate: labelP1', this.labelP1.text);
         }
         if (this.labelP2 && this.player2) {
             this.labelP2.text = `Score P2: ${this.player2.score}`;
-            // console.log('[Museum] onPostUpdate: labelP2', this.labelP2.text);
         }
     }
 }

@@ -39,16 +39,21 @@ export class Shipteleport extends Actor {
     }
 
     onPreUpdate(engine) {
-        // Check for keyboard E
-        const ePressed = engine.input.keyboard.wasPressed(Keys.E)
-        // Check for gamepad button 1 (B/Circle)
-        const pad = engine.input.gamepads.at(0 || 1)
-        const gamepadPressed = pad && pad.wasButtonPressed(0)
+    // Check for keyboard E
+    const ePressed = engine.input.keyboard.wasPressed(Keys.E)
+    // Check for gamepad button 1 (B/Circle)
+    const pad = engine.input.gamepads.at(0 || 1)
+    const gamepadPressed = pad && pad.wasButtonPressed(0)
 
-        if (this.playerOverlapping && (ePressed || gamepadPressed)) {
-            this.scene.engine.goToScene(this.location)
+    if (this.playerOverlapping && (ePressed || gamepadPressed)) {
+        // Store scores on the engine before switching scenes
+        if (engine.player1 && engine.player2) {
+            engine.player1Score = engine.player1.score
+            engine.player2Score = engine.player2.score
         }
+        this.scene.engine.goToScene(this.location)
     }
+}
 
     leaveTeleport(event) {
         if (event.other.owner instanceof Player) {
