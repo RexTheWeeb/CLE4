@@ -1,4 +1,4 @@
-import { Actor, Vector } from "excalibur"
+import { Actor, Keys, Vector } from "excalibur"
 import { Resources } from './resources.js'
 import { Player } from './player.js'
 import { PlayerGrounded } from './player_grounded.js'
@@ -19,9 +19,22 @@ export class OxygenUpgrade extends Actor {
         sprite.width = 64
         sprite.height = 64
         this.graphics.use(sprite)
-        this.on("pointerdown", (evt) => this.onClick(evt, engine))
         this.on("collisionstart", (evt) => this.onPlayerEnter(evt))
         this.on("collisionend", (evt) => this.onPlayerExit(evt))
+    }
+
+        onPreUpdate(engine) {
+        for (const actor of this.playersInRange) {
+            // Keyboard: E key
+            const ePressed = engine.input.keyboard.wasPressed(Keys.E)
+            // Gamepad: button 0 (A)
+            const pad = engine.input.gamepads.at(actor.gamepadIndex || 0)
+            const gamepadPressed = pad && pad.wasButtonPressed(0)
+            if (ePressed || gamepadPressed) {
+                this.onClick(actor, engine)
+                break
+            }
+        }
     }
 
     onPlayerEnter(evt) {
