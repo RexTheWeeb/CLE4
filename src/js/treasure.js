@@ -9,7 +9,6 @@ export class Treasure extends Actor {
         super()
         this.graphics.use(sprite)
         this.pos = new Vector(0, 0)
-        this.scale = new Vector(0.3, 0.3)
     }
 
 
