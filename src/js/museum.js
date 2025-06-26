@@ -53,16 +53,16 @@ export class Museum extends Scene {
     }
 
     enterWithScores(score1, score2) {
-        console.log('[Museum] enterWithScores called:', score1, score2)
+        // console.log('[Museum] enterWithScores called:', score1, score2)
         this._pendingScore1 = score1;
         this._pendingScore2 = score2;
         if (this.player) {
             this.player.score = score1;
-            console.log('[Museum] player.score set in enterWithScores:', this.player.score)
+            // console.log('[Museum] player.score set in enterWithScores:', this.player.score)
         }
         if (this.player2) {
             this.player2.score = score2;
-            console.log('[Museum] player2.score set in enterWithScores:', this.player2.score)
+            // console.log('[Museum] player2.score set in enterWithScores:', this.player2.score)
         }
         if (this.labelP1) this.labelP1.text = `Score P1: ${score1}`;
         if (this.labelP2) this.labelP2.text = `Score P2: ${score2}`;
@@ -80,7 +80,7 @@ export class Museum extends Scene {
         // Set scores from pending values if available
         player.score = this._pendingScore1;
         player2.score = this._pendingScore2;
-        console.log('[Museum] onInitialize: player.score', player.score, 'player2.score', player2.score);
+        // console.log('[Museum] onInitialize: player.score', player.score, 'player2.score', player2.score);
 
 
         const returnTeleport = new Shipteleport(new Vector(200, 600), Resources.Door.toSprite(), new Vector(0.6, 0.6),'root')
@@ -182,11 +182,11 @@ export class Museum extends Scene {
 
         if (this.labelP1 && this.player) {
             this.labelP1.text = `Score P1: ${this.player.score}`;
-            console.log('[Museum] onPostUpdate: labelP1', this.labelP1.text);
+            // console.log('[Museum] onPostUpdate: labelP1', this.labelP1.text);
         }
         if (this.labelP2 && this.player2) {
             this.labelP2.text = `Score P2: ${this.player2.score}`;
-            console.log('[Museum] onPostUpdate: labelP2', this.labelP2.text);
+            // console.log('[Museum] onPostUpdate: labelP2', this.labelP2.text);
         }
     }
 }
